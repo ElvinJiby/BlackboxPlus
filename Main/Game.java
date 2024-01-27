@@ -8,6 +8,20 @@ public class Game implements Runnable {
     private final int FPS_LIMIT = 60;
     private final int UPS_LIMIT = 200;
 
+    public Game() {
+        gameScreen = new GameScreen(this);
+        gameWindow = new GameWindow(gameScreen);
+        gameScreen.setFocusable(true);
+        gameScreen.requestFocus();
+
+        startGameLoop();
+    }
+
+    private void startGameLoop() {
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+
     @Override
     public void run() {
         double timePerFrame = 1000000000.0 / FPS_LIMIT;
