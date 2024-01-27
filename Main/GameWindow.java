@@ -13,6 +13,7 @@ public class GameWindow {
         gameWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         gameWindow.setLocationRelativeTo(null);
         gameWindow.setResizable(false);
+        gameWindow.add(gameScreen);
         gameWindow.setSize(1280,720);
         gameWindow.setTitle("Blackbox+ - By Group 50");
         gameWindow.setVisible(true);
