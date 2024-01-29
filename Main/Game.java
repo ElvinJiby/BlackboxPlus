@@ -5,16 +5,16 @@ public class Game implements Runnable {
     private GameScreen gameScreen;
     private Thread gameThread;
 
-    private final int FPS_LIMIT = 60;
-    private final int UPS_LIMIT = 200;
+    private final int FPS_LIMIT = 60; // setting the max fps for the game
+    private final int UPS_LIMIT = 200; // setting the max ups (frame updates per second)
 
     public Game() {
-        gameScreen = new GameScreen(this);
-        gameWindow = new GameWindow(gameScreen);
-        gameScreen.setFocusable(true);
+        gameScreen = new GameScreen(this); // creates a new screen
+        gameWindow = new GameWindow(gameScreen); // creates a new window
+        gameScreen.setFocusable(true); // used if we have input, so if we accidentally minimise, we can just click the window again to refocus
         gameScreen.requestFocus();
 
-        startGameLoop();
+        startGameLoop(); // starts rendering the screen
     }
 
     private void startGameLoop() {
@@ -24,6 +24,10 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
+        /*
+        Basically this whole section updates the game every 1/60th of a second
+        Keeps the game running at the preferred FPS limit and updates aren't done irregularly within that second
+         */
         double timePerFrame = 1000000000.0 / FPS_LIMIT;
         double timePerUpdate = 1000000000.0 / UPS_LIMIT;
 
