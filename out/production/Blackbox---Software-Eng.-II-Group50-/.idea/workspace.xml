@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8881d6db-af12-4c6f-be27-8c3da2ccc864" name="Changes" comment="added comments to the code to explain (simply) what's going on">
-      <change beforePath="$PROJECT_DIR$/.idea/Blackbox---Software-Eng.-II-Group50-.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Blackbox---Software-Eng.-II-Group50-.iml" afterDir="false" />
+    <list default="true" id="8881d6db-af12-4c6f-be27-8c3da2ccc864" name="Changes" comment="sample background for the game + increased resolution to 1280x720">
+      <change afterPath="$PROJECT_DIR$/res/blackboxbgimagesmallver.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/GameScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/GameWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/GameWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Blackbox---Software-Eng.-II-Group50-/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Blackbox---Software-Eng.-II-Group50-/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +87,11 @@
       <workItem from="1706274946390" duration="5000" />
       <workItem from="1706397825563" duration="1480000" />
       <workItem from="1706530932732" duration="775000" />
+      <workItem from="1706605731058" duration="2139000" />
+      <workItem from="1706609155579" duration="677000" />
+      <workItem from="1706609925353" duration="620000" />
+      <workItem from="1706614675049" duration="12000" />
+      <workItem from="1706621229553" duration="69000" />
     </task>
     <task id="LOCAL-00001" summary="test2">
       <option name="closed" value="true" />
@@ -180,7 +189,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706531546333</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="sample background for the game + increased resolution to 1280x720">
+      <option name="closed" value="true" />
+      <created>1706607163982</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1706607163982</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,6 +223,7 @@
     <MESSAGE value="." />
     <MESSAGE value="Window opens (with title and yellow box on screen)" />
     <MESSAGE value="added comments to the code to explain (simply) what's going on" />
-    <option name="LAST_COMMIT_MESSAGE" value="added comments to the code to explain (simply) what's going on" />
+    <MESSAGE value="sample background for the game + increased resolution to 1280x720" />
+    <option name="LAST_COMMIT_MESSAGE" value="sample background for the game + increased resolution to 1280x720" />
   </component>
 </project>
