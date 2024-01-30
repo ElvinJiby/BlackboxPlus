@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8881d6db-af12-4c6f-be27-8c3da2ccc864" name="Changes" comment="testing gameWindow / gameScreen logic">
-      <change beforePath="$PROJECT_DIR$/Main/GameWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/GameWindow.java" afterDir="false" />
+    <list default="true" id="8881d6db-af12-4c6f-be27-8c3da2ccc864" name="Changes" comment="added comments to the code to explain (simply) what's going on">
+      <change beforePath="$PROJECT_DIR$/.idea/Blackbox---Software-Eng.-II-Group50-.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Blackbox---Software-Eng.-II-Group50-.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,23 +47,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -81,7 +81,8 @@
       <updated>1706260742117</updated>
       <workItem from="1706260744044" duration="2341000" />
       <workItem from="1706274946390" duration="5000" />
-      <workItem from="1706397825563" duration="927000" />
+      <workItem from="1706397825563" duration="1480000" />
+      <workItem from="1706530932732" duration="775000" />
     </task>
     <task id="LOCAL-00001" summary="test2">
       <option name="closed" value="true" />
@@ -123,7 +124,63 @@
       <option name="project" value="LOCAL" />
       <updated>1706398694696</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary=".">
+      <option name="closed" value="true" />
+      <created>1706398769122</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1706398769122</updated>
+    </task>
+    <task id="LOCAL-00007" summary=".">
+      <option name="closed" value="true" />
+      <created>1706398780360</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1706398780360</updated>
+    </task>
+    <task id="LOCAL-00008" summary=".">
+      <option name="closed" value="true" />
+      <created>1706398927993</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1706398927993</updated>
+    </task>
+    <task id="LOCAL-00009" summary=".">
+      <option name="closed" value="true" />
+      <created>1706399139919</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1706399139919</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Window opens (with title and yellow box on screen)">
+      <option name="closed" value="true" />
+      <created>1706399301921</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1706399301921</updated>
+    </task>
+    <task id="LOCAL-00011" summary="added comments to the code to explain (simply) what's going on">
+      <option name="closed" value="true" />
+      <created>1706531376713</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1706531376713</updated>
+    </task>
+    <task id="LOCAL-00012" summary="added comments to the code to explain (simply) what's going on">
+      <option name="closed" value="true" />
+      <created>1706531546333</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1706531546333</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,6 +203,9 @@
     <MESSAGE value="test2" />
     <MESSAGE value="test3" />
     <MESSAGE value="testing gameWindow / gameScreen logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="testing gameWindow / gameScreen logic" />
+    <MESSAGE value="." />
+    <MESSAGE value="Window opens (with title and yellow box on screen)" />
+    <MESSAGE value="added comments to the code to explain (simply) what's going on" />
+    <option name="LAST_COMMIT_MESSAGE" value="added comments to the code to explain (simply) what's going on" />
   </component>
 </project>
