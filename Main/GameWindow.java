@@ -15,6 +15,7 @@ public class GameWindow {
         gameWindow.pack(); // creates the window according to a specific resolution
         gameWindow.setTitle("Blackbox+ - By Group 50"); // title of the window
         gameWindow.setVisible(true); // visibility option to actually see the window
+        gameWindow.setLayout(null);
 
         gameWindow.setIconImage((new ImageIcon("./res/icon.png")).getImage()); // changes the window icon to a custom image
     }
