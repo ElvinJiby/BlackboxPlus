@@ -10,6 +10,7 @@ public class GameScreen extends JPanel {
     private Image bgImage = null;
 
     public GameScreen(Game game) {
+        System.out.println("test");
         this.game = game;
         setPreferredSize(new Dimension(1280,720)); // setting the resolution of the game
         bgImage = (new ImageIcon("./res/blackboxbgimagesmallver.jpg")).getImage(); // loads the bg image for the game
