@@ -4,6 +4,7 @@ import Inputs.MouseInputs;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -11,6 +12,7 @@ public class GameScreen extends JPanel {
     private Game game;
     private Image bgImage = null;
     private MouseInputs mouseInputs;
+    private ArrayList<JButton> buttonsList;
 
     public GameScreen(Game game) {
         mouseInputs = new MouseInputs(this);
@@ -22,7 +24,11 @@ public class GameScreen extends JPanel {
 
 
         this.setLayout(null);
+        buttonsList = new ArrayList<JButton>();
         addSpotButtons(this);
+        for (JButton button : buttonsList) {
+            this.add(button);
+        }
 
 //        JButton button = new JButton(); // creates a new button
 //        button.setBounds(640, 360, 50,50); // sets location and size of the button
@@ -46,14 +52,19 @@ public class GameScreen extends JPanel {
         for (int i = 0; i < buttonPosArray.length; i++) {
             int xPos = buttonPosArray[i][0];
             int yPos = buttonPosArray[i][1];
+            int buttonNo = i+1;
 
-            JButton button = new JButton();
+            JButton button = new JButton(String.valueOf(buttonNo));
             button.setBounds(xPos, yPos, 50, 20);
             button.setFocusable(false);
+            button.addActionListener(e -> {
+                System.out.println("Button "+buttonNo+" pressed");
+            });
 
-            int buttonNo = i+1;
-            button.setText(String.valueOf(buttonNo));
-            gameScreen.add(button);
+
+           // button.setText();
+            buttonsList.add(button);
+//            gameScreen.add(button);
         }
     }
 
