@@ -20,6 +20,6 @@ public class GameWindow {
         gameWindow.setLayout(null);
         gameWindow.setIconImage((new ImageIcon("./res/icon.png")).getImage()); // changes the window icon to a custom image
 
-        System.out.println("test");
+        System.out.println("test2");
     }
 }
