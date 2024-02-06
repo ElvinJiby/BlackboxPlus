@@ -12,22 +12,11 @@ public class GameScreen extends JPanel {
     public GameScreen(Game game) {
         this.game = game;
         setPreferredSize(new Dimension(1280,720)); // setting the resolution of the game
-        bgImage = (new ImageIcon("./res/new_board.jpg")).getImage(); // loads the bg image for the game
-        bgImage.getScaledInstance(1280,720, 0);
-        this.setLayout(null);
-        addSpotButtons(this);
+        bgImage = (new ImageIcon("./res/33DEA9BC-1C14-4366-A4E3-852B3FEF0E72.jpeg")).getImage(); // loads the bg image for the game
+//        bgImage.getScaledInstance(1280,720, 0);
 
-//        JButton button = new JButton(); // creates a new button
-//        button.setBounds(640, 360, 50,50); // sets location and size of the button
-//        button.setText("1"); // sets the text to be displayed on the button
-//        button.setFocusable(false); // removes weird outline around text on button
-//        button.setFont(new Font("Comic Sans", 0, 14)); // changes font
-//        button.addActionListener(e -> { // the action to be performed once the button is clicked
-//            System.out.println("Button was clicked");
-//            button.setText("Button clicked.");
-//            button.setEnabled(false); // disables the button once pressed
-//        });
-//        this.add(button); // adding the button to the screen
+//        this.setLayout(null);
+//        addSpotButtons(this);
     }
 
     private void addSpotButtons(GameScreen gameScreen) {
@@ -53,7 +42,7 @@ public class GameScreen extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(bgImage, 1280, 720, null);
+        g.drawImage(bgImage, 0, 0,1280,720, null);
     }
 
     public Game getGame() { return game; } // accessor
