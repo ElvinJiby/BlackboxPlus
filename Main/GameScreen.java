@@ -2,8 +2,6 @@ package Main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class GameScreen extends JPanel {
     private Game game;
@@ -13,7 +11,6 @@ public class GameScreen extends JPanel {
         this.game = game;
         setPreferredSize(new Dimension(1280,720)); // setting the resolution of the game
         bgImage = (new ImageIcon("./res/33DEA9BC-1C14-4366-A4E3-852B3FEF0E72.jpeg")).getImage(); // loads the bg image for the game
-//        bgImage.getScaledInstance(1280,720, 0);
 
 //        this.setLayout(null);
 //        addSpotButtons(this);

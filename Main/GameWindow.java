@@ -1,8 +1,6 @@
 package Main;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.Objects;
 
 public class GameWindow {
     private JFrame gameWindow;
@@ -10,9 +8,6 @@ public class GameWindow {
 
     public GameWindow(GameScreen gameScreen) {
         gameWindow = new JFrame(); // creates a new window
-
-//        gameWindow.setSize(900, 600);
-//        gameWindow.setBackground(Color.BLACK);
 
         gameWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // when you click the X to close to program, the program actually closes (by default it just hides the window)
         gameWindow.add(gameScreen); // adding the screen to the window (the screen pretty much contains the game/visuals)
