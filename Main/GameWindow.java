@@ -1,8 +1,6 @@
 package Main;
 
 import javax.swing.*;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowFocusListener;
 
 public class GameWindow {
     private JFrame gameWindow;
@@ -19,7 +17,5 @@ public class GameWindow {
         gameWindow.setVisible(true); // visibility option to actually see the window
         gameWindow.setLayout(null);
         gameWindow.setIconImage((new ImageIcon("./res/icon.png")).getImage()); // changes the window icon to a custom image
-
-        System.out.println("test2");
     }
 }
