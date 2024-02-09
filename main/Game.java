@@ -1,4 +1,4 @@
-package Main;
+package main;
 
 public class Game implements Runnable {
     private GameWindow gameWindow;
@@ -52,6 +52,9 @@ public class Game implements Runnable {
 
             if (deltaFrame >= 1) {
                 gameScreen.repaint();
+                // drawRays();
+                // drawAtoms();
+                // drawAtomBorders();
                 frames++;
                 deltaFrame--;
             }
