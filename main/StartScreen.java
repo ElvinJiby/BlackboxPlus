@@ -17,20 +17,23 @@ public class StartScreen {
 
         window = new JFrame("Background Image Example");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setSize(1920, 1080);
+        window.setSize(1280, 720);
         window.setLocationRelativeTo(null);
 
-        introScreen = new ImageIcon("./res/IMG_1914.JPG");
+        introScreen = new ImageIcon("./res/new-start-screen.JPG");
         System.out.println("image width:" + introScreen.getIconWidth());
         System.out.println("image height:" + introScreen.getIconHeight());
         introLabel = new JLabel(introScreen);
 
 
 
-        introLabel.setSize(1920, 1080);
+        introLabel.setSize(1280, 720);
 
-        newGame = new JButton("test");
-        newGame.setBounds(220,850,630,150);
+        newGame = new JButton();
+        newGame.setBounds(130,550,230,60);
+        newGame.setOpaque(false);
+        newGame.setContentAreaFilled(false);
+        newGame.setBorderPainted(false);
         introLabel.add(newGame);
 
         window.add(introLabel);
