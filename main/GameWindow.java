@@ -1,9 +1,10 @@
-package Main;
+package main;
 
 import javax.swing.*;
 
 public class GameWindow {
     private JFrame gameWindow;
+    private ImageIcon imageIcon;
 
     public GameWindow(GameScreen gameScreen) {
         gameWindow = new JFrame(); // creates a new window
@@ -16,6 +17,6 @@ public class GameWindow {
         gameWindow.setTitle("Blackbox+ - By Group 50"); // title of the window
         gameWindow.setVisible(true); // visibility option to actually see the window
         gameWindow.setLayout(null);
-        gameWindow.setIconImage((new ImageIcon("./res/icon.png")).getImage()); // changes the window icon to a custom image
+        gameWindow.setIconImage(new ImageIcon(".//res//icon.png").getImage()); // changes the window icon to a custom image
     }
 }
