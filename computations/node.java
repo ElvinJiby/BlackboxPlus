@@ -1,4 +1,4 @@
-package Main;
+package computations;
 
 public class node {
     private int value;

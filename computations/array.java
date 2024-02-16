@@ -1,4 +1,4 @@
-package Main;
+package computations;
 
 public class array {
     private node[][] bord=new node [3][3];
