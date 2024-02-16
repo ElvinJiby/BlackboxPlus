@@ -17,18 +17,20 @@ public class StartScreen {
 
         window = new JFrame("Background Image Example");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setSize(3840, 2160);
+        window.setSize(1920, 1080);
         window.setLocationRelativeTo(null);
 
-        introScreen = new ImageIcon(this.getClass().getResource("intro-screen.JPG"));
+        introScreen = new ImageIcon("./res/IMG_1914.JPG");
+        System.out.println("image width:" + introScreen.getIconWidth());
+        System.out.println("image height:" + introScreen.getIconHeight());
         introLabel = new JLabel(introScreen);
-        introLabel.setPreferredSize(new Dimension(introScreen.getIconWidth(), introScreen.getIconHeight()));
-        introLabel.setSize(3840,2160);
 
 
+
+        introLabel.setSize(1920, 1080);
 
         newGame = new JButton("test");
-        newGame.setBounds(440,1700,630,150);
+        newGame.setBounds(220,850,630,150);
         introLabel.add(newGame);
 
         window.add(introLabel);
@@ -37,6 +39,8 @@ public class StartScreen {
     }
 
     public static void main(String[] args) {
-        new StartScreen();
+        SwingUtilities.invokeLater(() ->{
+            StartScreen startScreen = new StartScreen();
+        });
     }
 }
