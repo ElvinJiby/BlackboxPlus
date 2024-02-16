@@ -19,6 +19,7 @@ public class StartScreen {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(1280, 720);
         window.setLocationRelativeTo(null);
+        window.setIconImage(new ImageIcon("./res/icon-transparent-background.PNG").getImage());
 
         introScreen = new ImageIcon("./res/new-start-screen.JPG");
         System.out.println("image width:" + introScreen.getIconWidth());
@@ -34,6 +35,10 @@ public class StartScreen {
         newGame.setOpaque(false);
         newGame.setContentAreaFilled(false);
         newGame.setBorderPainted(false);
+        newGame.setFocusable(false);
+        newGame.addActionListener(e -> {
+            System.out.println("Button clicked");
+        });
         introLabel.add(newGame);
 
         window.add(introLabel);
