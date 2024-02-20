@@ -10,7 +10,8 @@ public class GameScreen extends JPanel {
     public GameScreen(Game game) {
         this.game = game;
         setPreferredSize(new Dimension(1280,720)); // setting the resolution of the game
-        bgImage = (new ImageIcon("./res/33DEA9BC-1C14-4366-A4E3-852B3FEF0E72.jpeg")).getImage(); // loads the bg image for the game
+        setBackground(Color.BLUE);
+        bgImage = (new ImageIcon("./res/transparent-hex-board.PNG")).getImage(); // loads the bg image for the game
 
 //        this.setLayout(null);
 //        addSpotButtons(this);
