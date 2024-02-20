@@ -24,34 +24,34 @@ public class StartScreen {
         newGame.setBounds(130,550,230,60);
         newGame.setOpaque(false);
         newGame.setContentAreaFilled(false);
-        newGame.setBorderPainted(false);
+        newGame.setBorderPainted(true);
         newGame.setFocusable(true);
-        newGame.addActionListener(e -> System.out.println("Button clicked"));
+        newGame.addActionListener(e -> System.out.println("New Game clicked"));
         introLabel.add(newGame);
 
         JButton leaderboard = new JButton();
         leaderboard.setBounds(400,550,300,60);
         leaderboard.setOpaque(false);
         leaderboard.setContentAreaFilled(false);
-        leaderboard.setBorderPainted(false);
+        leaderboard.setBorderPainted(true);
         leaderboard.setFocusable(true);
-        leaderboard.addActionListener(e -> System.out.println("Button clicked"));
+        leaderboard.addActionListener(e -> System.out.println("Leaderboard clicked"));
         introLabel.add(leaderboard);
 
         JButton credits = new JButton();
         credits.setBounds(743,550,200,60);
         credits.setOpaque(false);
         credits.setContentAreaFilled(false);
-        credits.setBorderPainted(false);
+        credits.setBorderPainted(true);
         credits.setFocusable(true);
-        credits.addActionListener(e -> System.out.println("Button clicked"));
+        credits.addActionListener(e -> System.out.println("Credits clicked"));
         introLabel.add(credits);
 
         JButton exitGame = new JButton();
         exitGame.setBounds(991,550,110,60);
         exitGame.setOpaque(false);
         exitGame.setContentAreaFilled(false);
-        exitGame.setBorderPainted(false);
+        exitGame.setBorderPainted(true);
         exitGame.setFocusable(true);
         exitGame.addActionListener(e -> System.exit(0));
         introLabel.add(exitGame);
