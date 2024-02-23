@@ -18,7 +18,7 @@ public class Game implements Runnable {
 
     // Game Variables
     private static Image bgImage = null;
-    private Boolean seeAtomsandRays = true;
+    private Boolean seeAtomsandRays = false;
     private ArrayList<Atom> atomList = generateAtoms(); // function to generate the atoms (including their positions)
     private static Random rand = new Random();
 

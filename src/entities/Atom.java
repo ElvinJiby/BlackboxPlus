@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Atom {
-    private static final Image atomImage = (new ImageIcon("./res/atomImage.png").getImage());
+    private static final Image atomImage = (new ImageIcon("res/atomImage.png").getImage());
     private int xPosition = 0;
     private int yPosition = 0;
 

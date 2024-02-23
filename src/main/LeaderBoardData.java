@@ -8,19 +8,19 @@ public class LeaderBoardData {
     // String holds the name and Integer holds the score
     private static final LinkedHashMap<String, Integer> scoresLinkedHashMap = new LinkedHashMap<>();
 
-    public static void main(String[] args) throws IOException {
-        LeaderBoardData leaderBoardData = new LeaderBoardData();
-//        clearTheDamnTXTFile();
-        leaderBoardData.readTXTFile(scoresLinkedHashMap);
-        scoresLinkedHashMap.put("shane", 11);
-        scoresLinkedHashMap.put("elvin", 9);
-        scoresLinkedHashMap.put("ayush", 15);
-        scoresLinkedHashMap.put("alex",17);
-
-        List<Map.Entry<String, Integer>> sortedScores = leaderBoardData.sortScores();
-        System.out.println(sortedScores);
-        leaderBoardData.writeTXTFile(sortedScores);
-    }
+//    public static void main(String[] args) throws IOException {
+//        LeaderBoardData leaderBoardData = new LeaderBoardData();
+////        clearTheDamnTXTFile();
+//        leaderBoardData.readTXTFile(scoresLinkedHashMap);
+//        scoresLinkedHashMap.put("shane", 11);
+//        scoresLinkedHashMap.put("elvin", 9);
+//        scoresLinkedHashMap.put("ayush", 15);
+//        scoresLinkedHashMap.put("alex",17);
+//
+//        List<Map.Entry<String, Integer>> sortedScores = leaderBoardData.sortScores();
+//        System.out.println(sortedScores);
+//        leaderBoardData.writeTXTFile(sortedScores);
+//    }
 
     public void readTXTFile(LinkedHashMap<String, Integer> scoresLinkedHashMap) throws FileNotFoundException { // reads in txt file and saves it to the linked hash map
         Scanner scanner = new Scanner(new File("./scores.txt")); // scanner takes in file object
