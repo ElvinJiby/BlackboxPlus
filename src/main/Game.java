@@ -1,7 +1,3 @@
-package main;
-
-import entities.Atom;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -28,7 +24,8 @@ public class Game implements Runnable {
         gameScreen.setFocusable(true); // used if we have input, so if we accidentally minimise, we can just click the window again to refocus
         gameScreen.requestFocus();
 
-        bgImage = (new ImageIcon("./res/Board Layouts/transparent-hex-board.PNG")).getImage(); // loads the bg image for the game
+        bgImage = (new ImageIcon(getClass().getClassLoader().getResource("res/Board Layouts/transparent-hex-board.PNG")).getImage());
+//        bgImage = (new ImageIcon(getClass().getResource("./res/Board Layouts/transparent-hex-board.PNG"))).getImage(); // loads the bg image for the game
 
         startGameLoop(); // starts rendering the screen
     }

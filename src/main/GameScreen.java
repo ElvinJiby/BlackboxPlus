@@ -1,7 +1,3 @@
-package main;
-
-import inputs.MouseInputs;
-
 import javax.swing.*;
 import java.awt.*;
 

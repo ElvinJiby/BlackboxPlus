@@ -6,6 +6,13 @@
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/res" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/res/Board Layouts" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/res/Icons" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/res/Start Screen" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/computations" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/entities" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/inputs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/out" />
     <orderEntry type="inheritedJdk" />

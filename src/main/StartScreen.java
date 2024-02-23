@@ -1,5 +1,3 @@
-package main;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
@@ -10,11 +8,11 @@ public class StartScreen {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(1280, 720);
         window.setLocationRelativeTo(null);
-        window.setIconImage(new ImageIcon("./res/Icons/icon-transparent-background.PNG").getImage());
+        window.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("res/Icons/icon-transparent-background.PNG")).getImage());
+//        window.setIconImage(new ImageIcon("./res/Icons/icon-transparent-background.PNG").getImage());
 
-        ImageIcon introScreen = new ImageIcon("./res/Start Screen/new-start-screen.JPG");
-//        System.out.println("image width:" + introScreen.getIconWidth());
-//        System.out.println("image height:" + introScreen.getIconHeight());
+        ImageIcon introScreen = new ImageIcon(getClass().getClassLoader().getResource("res/Start Screen/new-start-screen.JPG"));
+//        ImageIcon introScreen = new ImageIcon("./res/Start Screen/new-start-screen.JPG");
         JLabel introLabel = new JLabel(introScreen);
         introLabel.setPreferredSize(new Dimension(1280,720));
 
@@ -74,8 +72,4 @@ public class StartScreen {
         window.pack();
         window.setVisible(true);
     }
-
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> new StartScreen());
-//    }
 }

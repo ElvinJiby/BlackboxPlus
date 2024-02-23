@@ -1,5 +1,3 @@
-package computations;
-
 public class board {
     private node[][] board=new node[9][9];
     private node[] exit=new node[53];

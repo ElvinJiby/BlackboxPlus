@@ -1,5 +1,3 @@
-package entities;
-
 public class Ray {
     private int x1 = 0;
     private int x2 = 0;

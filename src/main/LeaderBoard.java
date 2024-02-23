@@ -1,5 +1,3 @@
-package main;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -140,7 +138,7 @@ public class LeaderBoard {
             new StartScreen();
         });
         jPanel.add(goBackBruh);// add the button to the panel
-
+        jPanel.setVisible(true);
         jFrame.add(jPanel); // add the JPanel to the JFrame to display its contents
         jFrame.pack();
         jFrame.setVisible(true);

@@ -1,5 +1,3 @@
-package entities;
-
 public class AtomBorder {
     private int radius = 5; // 5 px radius
 
