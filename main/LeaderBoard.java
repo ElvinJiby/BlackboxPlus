@@ -47,10 +47,10 @@ public class LeaderBoard {
     public LeaderBoard() throws FileNotFoundException {
         LinkedHashMap<String, Integer> linkedHashMap = getScores();
         readTXTFile(linkedHashMap);
-        System.out.println(linkedHashMap);
+//        System.out.println(linkedHashMap);
         List<Map.Entry<String, Integer>> sortedScores = getSortedEntries();
         sortedScores = sortScores();
-        System.out.println(sortedScores);
+//        System.out.println(sortedScores);
         writeTXTFile(sortedScores);
 
         jFrame = new JFrame("Leaderboard"); // window title

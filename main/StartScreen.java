@@ -13,8 +13,8 @@ public class StartScreen {
         window.setIconImage(new ImageIcon("./res/Icons/icon-transparent-background.PNG").getImage());
 
         ImageIcon introScreen = new ImageIcon("./res/Start Screen/new-start-screen.JPG");
-        System.out.println("image width:" + introScreen.getIconWidth());
-        System.out.println("image height:" + introScreen.getIconHeight());
+//        System.out.println("image width:" + introScreen.getIconWidth());
+//        System.out.println("image height:" + introScreen.getIconHeight());
         JLabel introLabel = new JLabel(introScreen);
         introLabel.setPreferredSize(new Dimension(1280,720));
 
@@ -26,7 +26,7 @@ public class StartScreen {
         newGame.setBorderPainted(true);
         newGame.setFocusable(true);
         newGame.addActionListener(e -> {
-            System.out.println("New Game clicked");
+//            System.out.println("New Game clicked");
             window.dispose();
             new Game();
         });
@@ -40,7 +40,7 @@ public class StartScreen {
         leaderboard.setBorderPainted(true);
         leaderboard.setFocusable(true);
         leaderboard.addActionListener(e -> {
-            System.out.println("Leaderboard clicked");
+//            System.out.println("Leaderboard clicked");
             window.dispose();
             try {
                 new LeaderBoard();
