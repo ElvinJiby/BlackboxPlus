@@ -28,7 +28,7 @@ public class Game implements Runnable {
         gameScreen.setFocusable(true); // used if we have input, so if we accidentally minimise, we can just click the window again to refocus
         gameScreen.requestFocus();
 
-        bgImage = (new ImageIcon("./res/transparent-hex-board.PNG")).getImage(); // loads the bg image for the game
+        bgImage = (new ImageIcon("./res/Board Layouts/transparent-hex-board.PNG")).getImage(); // loads the bg image for the game
 
         startGameLoop(); // starts rendering the screen
     }

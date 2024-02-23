@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.*;
 import java.util.List;
 
-public class LeaderBoard implements Runnable {
+public class LeaderBoard {
     private static LinkedHashMap<String, Integer> scores = new LinkedHashMap<>();
     private static List<Map.Entry<String, Integer>> sortedEntries = new ArrayList<>();
 
@@ -27,7 +27,6 @@ public class LeaderBoard implements Runnable {
         return scores;
     }
 
-    @Override public void run() { jFrame.setVisible(true); }
 
     // my instance variables, which are later constructed
     // all variables are private to allow for class accessibility
@@ -46,9 +45,6 @@ public class LeaderBoard implements Runnable {
     private final JButton goBackBruh; // exits the window and goes back to main menu
 
     public LeaderBoard() throws FileNotFoundException {
-
-
-//        Leaderboard leaderboard = new Leaderboard();
         LinkedHashMap<String, Integer> linkedHashMap = getScores();
         readTXTFile(linkedHashMap);
         System.out.println(linkedHashMap);
@@ -61,10 +57,11 @@ public class LeaderBoard implements Runnable {
         jFrame.setSize(1280, 720); // has a fixed 720p 16:9 size
         jFrame.setResizable(false); // ensures the app window will always stay at 1280x720 resolution
         jFrame.setLocationRelativeTo(null); // when window is opened initially it is centred
+        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         jPanel = new JPanel(); // creates new JPanel object
         jPanel.setLayout(null); // setting null allows elements to be placed anywhere on the panel
-        jPanel.setSize(1280, 720); // sets max region to add elements to panel
+        jPanel.setPreferredSize(new Dimension(1280,720)); // sets max region to add elements to panel
 
         leaderboardLabel = new JLabel("Leaderboard");
         Font font = leaderboardLabel.getFont();
@@ -138,15 +135,19 @@ public class LeaderBoard implements Runnable {
         // this label is 100x50 with the top-left corner going across 377 and 290 down
         goBackBruh.setBounds(100, 600, 100, 50);
         // lambda expression to check when pressed, if-so, exit the program with status 0.
-        goBackBruh.addActionListener(e -> System.exit(0));
+        goBackBruh.addActionListener(e -> {
+            jFrame.dispose();
+            new StartScreen();
+        });
         jPanel.add(goBackBruh);// add the button to the panel
 
         jFrame.add(jPanel); // add the JPanel to the JFrame to display its contents
-
+        jFrame.pack();
+        jFrame.setVisible(true);
     }
 
     public void readTXTFile(LinkedHashMap<String, Integer> scoresLinkedHashMap) throws FileNotFoundException { // reads in txt file and saves it to the linked hash map
-        Scanner scanner = new Scanner(new File("scores.txt")); // scanner takes in file object
+        Scanner scanner = new Scanner(new File("./scores.txt")); // scanner takes in file object
         while (scanner.hasNextLine()) {// keep reading in each string line until the end of the file
             String line = scanner.nextLine(); // save each line in the line variable
             String[] column = line.split(","); // divide this line by comma to get name and score
@@ -168,7 +169,7 @@ public class LeaderBoard implements Runnable {
     // this sorted list is then over-written to the txt file
     public void writeTXTFile(List<Map.Entry<String, Integer>> sortedEntry) {// takes in the sorted list as a map
         // FileWriter opens the file and PrintWriter writes to the file
-        try (PrintWriter printWriter = new PrintWriter(new FileWriter("scores.txt"))) {
+        try (PrintWriter printWriter = new PrintWriter(new FileWriter("./scores.txt"))) {
             // the loop goes through each entry in the list
             // it accesses the name and score using entry.getKey and entry.getValue
             // using PrintWriter, it writes to the file, seperated by a comma, for formatting
@@ -177,11 +178,5 @@ public class LeaderBoard implements Runnable {
         catch (IOException e) {System.out.println("Error writing the file!");}
     }
 
-    public static void clearTheDamnTXTFile() throws IOException {new PrintWriter(new FileWriter("scores.txt"));}
-
-    public static void main(String[] args) throws FileNotFoundException {
-        LeaderBoard leaderboard = new LeaderBoard();
-
-        leaderboard.run();
-    }
+    public static void clearTheDamnTXTFile() throws IOException {new PrintWriter(new FileWriter("./scores.txt"));}
 }

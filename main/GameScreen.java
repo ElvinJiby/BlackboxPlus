@@ -13,7 +13,7 @@ public class GameScreen extends JPanel {
     public GameScreen(Game game) {
         this.game = game;
         setPreferredSize(new Dimension(1280,720)); // setting the resolution of the game
-        setBackground(Color.BLUE);
+        setBackground(Color.BLACK);
 
         mouseInputs = new MouseInputs(this); // add mouse input support
         addMouseListener(mouseInputs); // needed to perform mouse actions

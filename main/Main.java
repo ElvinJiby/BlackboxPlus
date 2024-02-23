@@ -2,6 +2,7 @@ package main;
 
 public class Main {
     public static void main(String[] args) {
-        Game game = new Game(); //runs the game
+//        Game game = new Game(); //runs the game
+        new StartScreen();
     }
 }

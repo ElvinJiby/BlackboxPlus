@@ -23,7 +23,7 @@ public class LeaderBoardData {
     }
 
     public void readTXTFile(LinkedHashMap<String, Integer> scoresLinkedHashMap) throws FileNotFoundException { // reads in txt file and saves it to the linked hash map
-        Scanner scanner = new Scanner(new File("scores.txt")); // scanner takes in file object
+        Scanner scanner = new Scanner(new File("./scores.txt")); // scanner takes in file object
         while (scanner.hasNextLine()) {// keep reading in each string line until the end of the file
             String line = scanner.nextLine(); // save each line in the line variable
             String[] column = line.split(","); // divide this line by comma to get name and score
@@ -45,7 +45,7 @@ public class LeaderBoardData {
     // this sorted list is then over-written to the txt file
     public void writeTXTFile(List<Map.Entry<String, Integer>> sortedEntry) {// takes in the sorted list as a map
         // FileWriter opens the file and PrintWriter writes to the file
-        try (PrintWriter printWriter = new PrintWriter(new FileWriter("scores.txt"))) {
+        try (PrintWriter printWriter = new PrintWriter(new FileWriter("./scores.txt"))) {
             // the loop goes through each entry in the list
             // it accesses the name and score using entry.getKey and entry.getValue
             // using PrintWriter, it writes to the file, seperated by a comma, for formatting
@@ -54,5 +54,5 @@ public class LeaderBoardData {
         catch (IOException e) {System.out.println("Error writing the file!");}
     }
 
-    public static void clearTheDamnTXTFile() throws IOException {new PrintWriter(new FileWriter("scores.txt"));}
+    public static void clearTheDamnTXTFile() throws IOException {new PrintWriter(new FileWriter("./scores.txt"));}
 }

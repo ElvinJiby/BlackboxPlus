@@ -1,7 +1,0 @@
-tom,100
-shane,100
-tim,34
-alex,17
-ayush,15
-joe,15
-elvin,9
