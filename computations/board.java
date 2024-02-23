@@ -69,6 +69,48 @@ public class board {
                     this.board[i][j].setSides(4,board[i+1][j]);
                     this.board[i][j].setSides(5,exit[1]);
 
+                }else if (i==4 && j==0) {
+                    this.board[i][j].setSides(0,exit[8]);
+                    this.board[i][j].setSides(1,board[i-1][j]);
+                    this.board[i][j].setSides(2,board[i][j+1]);
+                    this.board[i][j].setSides(3,board[i+1][j]);
+                    this.board[i][j].setSides(4,exit[10]);
+                    this.board[i][j].setSides(5,exit[9]);
+
+                }else if (i==8 && j==0) {
+                    this.board[i][j].setSides(0,board[i-1][j]);
+                    this.board[i][j].setSides(1,board[i-1][j+1]);
+                    this.board[i][j].setSides(2,board[i][j+1]);
+                    this.board[i][j].setSides(3,exit[19]);
+                    this.board[i][j].setSides(4,exit[18]);
+                    this.board[i][j].setSides(5,exit[17]);
+
+                }
+                else if (i==8 && j==a-1) {
+                    this.board[i][j].setSides(0,board[i-1][j]);
+                    this.board[i][j].setSides(1,board[i-1][j+1]);
+                    this.board[i][j].setSides(2,exit[28]);
+                    this.board[i][j].setSides(3,exit[27]);
+                    this.board[i][j].setSides(4,exit[26]);
+                    this.board[i][j].setSides(5,board[i][j-1]);
+
+                }else if (i==4 && j==a-1) {
+                    this.board[i][j].setSides(0,board[i-1][j-1]);
+                    this.board[i][j].setSides(1,exit[37]);
+                    this.board[i][j].setSides(2,exit[36]);
+                    this.board[i][j].setSides(3,exit[35]);
+                    this.board[i][j].setSides(4,board[i+1][j-1]);
+                    this.board[i][j].setSides(5,board[i][j-1]);
+
+                }
+                else if (i==0 && j==a-1) {
+                    this.board[i][j].setSides(0,exit[46]);
+                    this.board[i][j].setSides(1,exit[45]);
+                    this.board[i][j].setSides(2,exit[44]);
+                    this.board[i][j].setSides(3,board[i+1][j+1]);
+                    this.board[i][j].setSides(4,board[i+1][j]);
+                    this.board[i][j].setSides(5,board[i][j-1]);
+
                 }
             }
             if(a<9){
