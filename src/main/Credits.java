@@ -13,7 +13,7 @@ public class Credits implements Runnable{
         jFrame.setLocationRelativeTo(null);
         jFrame.setIconImage(new ImageIcon("./res/Icons/new_icon.png").getImage());
 
-        ImageIcon creditsGIF = new ImageIcon("./res/Icons/credits_720p.gif");
+        ImageIcon creditsGIF = new ImageIcon("./res/Miscellaneous/credits_720p.gif");
         JLabel creditsJLabel = new JLabel(creditsGIF);
         creditsJLabel.setSize(1280, 720);
 
