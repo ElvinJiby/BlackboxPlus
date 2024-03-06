@@ -1,7 +1,10 @@
-tom,100
-shane,100
-tim,34
-alex,17
-ayush,15
-joe,15
-elvin,9
+jordan,43
+shane,150
+tom,238
+elvin,351
+ayush,579
+user1,1000
+user2,1000
+user3,1000
+user4,1000
+user5,1000

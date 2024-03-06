@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Blackbox---Software-Eng.-II-Group50-:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Blackbox___Software_Eng__II_Group50__jar</output-path>
+    <root id="archive" name="Blackbox---Software-Eng.-II-Group50-.jar">
+      <element id="module-output" name="Blackbox---Software-Eng.-II-Group50-" />
+      <element id="library" level="project" name="Blackbox---Software-Eng" />
+    </root>
+  </artifact>
+</component>
