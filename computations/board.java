@@ -35,7 +35,12 @@ public class board {
     }
     public void linkboard(){
         int a=5;
-        int ass=0;
+        int ao=2;
+        int aon=11;
+        int atw=52;
+        int ath=43;
+        int afo=34;
+        int afi=20;
         for(int i=0;i<9;i++){
             for(int j=0;j<a;j++){
                 if(j!=0 && j!=a-1 &&i!=0 && i<4){
@@ -109,6 +114,71 @@ public class board {
                     this.board[i][j].setSides(4,board[i+1][j]);
                     this.board[i][j].setSides(5,board[i][j-1]);
 
+                }
+                else if(i<4 && j==0){
+                    this.board[i][j].setSides(0,exit[ao]);
+                    ao=ao+1;
+                    this.board[i][j].setSides(1,board[i-1][j]);
+                    this.board[i][j].setSides(2,board[i][j+1]);
+                    this.board[i][j].setSides(3,board[i+1][j+1]);
+                    this.board[i][j].setSides(4,board[i+1][j]);
+                    this.board[i][j].setSides(5,exit[ao]);
+                    ao=ao+1;
+                }
+                else if(i>4 && j==0){
+                    this.board[i][j].setSides(0,board[i-1][j]);
+
+                    this.board[i][j].setSides(1,board[i-1][j+1]);
+                    this.board[i][j].setSides(2,board[i][j+1]);
+                    this.board[i][j].setSides(3,board[i+1][j]);
+                    this.board[i][j].setSides(4,exit[aon]);
+                    aon++;
+                    this.board[i][j].setSides(5,exit[aon]);
+                    aon++;
+                } else if (i==0) {
+                    this.board[i][j].setSides(0,exit[atw]);
+                    atw=atw-1;
+                    this.board[i][j].setSides(1,exit[atw]);
+                    atw=atw-1;
+                    this.board[i][j].setSides(2,board[i][j+1]);
+                    this.board[i][j].setSides(3,board[i+1][j+1]);
+                    this.board[i][j].setSides(4,board[i+1][j]);
+                    this.board[i][j].setSides(5,board[i][j-1]);
+                }
+                else if(i<4 && j==a-1){
+                    this.board[i][j].setSides(0,board[i-1][j-1]);
+
+                    this.board[i][j].setSides(1,exit[ath]);
+                    ath=ath-1;
+                    this.board[i][j].setSides(2,exit[ath]);
+                    ath=ath-1;
+                    this.board[i][j].setSides(3,board[i+1][j+1]);
+                    this.board[i][j].setSides(4,board[i+1][j]);
+                    this.board[i][j].setSides(5,board[i][j-1]);
+                }
+                else if(i>4 && j==a-1){
+                    this.board[i][j].setSides(0,board[i-1][j]);
+
+                    this.board[i][j].setSides(2,exit[afo]);
+                    afo=afo-1;
+                    this.board[i][j].setSides(3,exit[afo]);
+                    afo=afo-1;
+                    this.board[i][j].setSides(1,board[i-1][j+1]);
+                    this.board[i][j].setSides(4,board[i+1][j-1]);
+                    this.board[i][j].setSides(5,board[i][j-1]);
+                }
+                else if(i==8){
+                    this.board[i][j].setSides(0,board[i-1][j]);
+
+                    this.board[i][j].setSides(1,board[i-1][j+1]);
+
+                    this.board[i][j].setSides(2,board[i][j+11]);
+
+                    this.board[i][j].setSides(4,exit[afi]);
+                    afi=afi-1;
+                    this.board[i][j].setSides(3,exit[afi]);
+                    afi=afi-1;
+                    this.board[i][j].setSides(5,board[i][j-1]);
                 }
             }
             if(a<9){
