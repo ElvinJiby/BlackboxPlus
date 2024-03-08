@@ -266,7 +266,20 @@ public class board {
         node next=head.getSides(0);
         int n=head.getnext();
         System.out.print(head.getValue()+"->");
-        while (next.isexit()!=true){
+        int l=0;
+        while (next.isexit()!=true && l==0){
+            for(int i = 0; i<6; i++){
+                if(next.hasatom()){
+                    System.out.print("Ray absorbed");
+                    l=1;
+                }else if(i!=n && next.getSides(i).isexit()==false){
+                    if(next.getSides(i).hasatom()==true){
+                        n=(n+1) % 6;
+                        System.out.print(next.getValue()+"mmmmm");
+                        System.out.print("mmmm"+i+next.getSides(i).hasatom());
+                    }
+                }
+            }
             System.out.print(next.getValue()+"->");
             next=next.getSides(n);
             //System.out.print(next.getValue()+"->");

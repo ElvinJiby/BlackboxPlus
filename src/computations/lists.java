@@ -30,8 +30,10 @@ public class lists {
         }
             boardp.setexit(e);
             System.out.println(boardp);
+       boardp.getnode(1,3).setatom(true);
         boardp.linkboard();
-        int u= boardp.iterate(42);
+
+        int u= boardp.iterate(44);
 
     }
 }
