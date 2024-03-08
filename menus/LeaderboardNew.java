@@ -66,7 +66,7 @@ public class LeaderboardNew implements Runnable {
         clearLeaderboard.setBounds(680, 627, 220, 30);
         // this lambda expression detects whether the clear button is pressed or not
         clearLeaderboard.addActionListener(e -> {
-            try { LeaderBoardData.clearTheDamnTXTFile(); }
+            try { LeaderBoardDataNew.clearTheDamnTXTFile(); }
             catch (IOException ex) { throw new RuntimeException(ex); }});
         jPanel.add(clearLeaderboard); // add the generate button to the JPanel
 
@@ -80,14 +80,22 @@ public class LeaderboardNew implements Runnable {
         goBackBruh.setBounds(765, 657, 140, 30);
         // lambda expression to check when pressed, if-so, exit the program with status 0.
         goBackBruh.addActionListener(e -> System.exit(0));
+
+        goBackBruh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                goBackBruh.setBackground(Color.GREEN);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                goBackBruh.setBackground(UIManager.getColor("control"));
+            }
+        });
+
         jPanel.add(goBackBruh);// add the button to the panel
 
         JButton button = new JButton("Test New Window");
         button.setBounds(150, 580, 150, 50);
-        button.addActionListener(e -> {
-            Credits leaderboard = new Credits();
-            leaderboard.run();
-        });
+        button.addActionListener(e -> { Credits leaderboard = new Credits(); leaderboard.run(); });
         jPanel.add(button);
 
         ImageIcon introScreen = new ImageIcon("./res/Miscellaneous/leaderboard_bg.png");
