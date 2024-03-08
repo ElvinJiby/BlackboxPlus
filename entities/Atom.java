@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Atom {
-    private static final Image atomImage = (new ImageIcon(Atom.class.getClassLoader().getResource("res/atomImage.png")).getImage());
+    private static Image atomImage = (new ImageIcon(Atom.class.getClassLoader().getResource("res/atomImage.png")).getImage());
     // (x,y) coordinate of an atom on a board
     private int x = 0;
     private int y = 0;

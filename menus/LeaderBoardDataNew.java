@@ -24,7 +24,17 @@ public class LeaderBoardDataNew {
     }
 
     public void readTXTFile() throws FileNotFoundException { // reads in txt file and saves it to the linked hash map
-        Scanner scanner = new Scanner(new File("scores.txt")); // scanner takes in file object
+        File scores = new File("scores.txt");
+        if (!scores.exists()) { // if file doesn't exist, create one
+            try {
+                scores.createNewFile();
+                clearTheDamnTXTFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        Scanner scanner = new Scanner(scores); // scanner takes in file object
         while (scanner.hasNextLine()) {// keep reading in each string line until the end of the file
             String line = scanner.nextLine(); // save each line in the line variable
             String[] column = line.split(","); // divide this line by comma to get name and score

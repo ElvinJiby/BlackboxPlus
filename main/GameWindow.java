@@ -1,8 +1,6 @@
 package main;
 
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class GameWindow {
     private JFrame gameWindow;

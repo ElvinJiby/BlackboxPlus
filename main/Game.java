@@ -15,10 +15,10 @@ public class Game implements Runnable {
     private final int FPS_LIMIT = 60; // setting the max fps for the game
     private final int UPS_LIMIT = 200; // setting the max ups (frame updates per second)
     private final Boolean performanceStatEnabled = false;
-    private final int NUM_OF_ATOMS = 6;
 
     // Game Variables
-    private static Image bgImage = null;
+    private final int NUM_OF_ATOMS = 6;
+    private static Image bgImage = (new ImageIcon(Game.class.getClassLoader().getResource("res/Board Layouts/transparent-hex-board.PNG")).getImage());
     private final Boolean seeAtomsandRays = true;
     private final ArrayList<HexagonalBox> hexagonalBoxes; // function to construct all the hexagonal boxes
     private final ArrayList<Atom> atomList; // function to generate the atoms (including their positions)
@@ -32,7 +32,6 @@ public class Game implements Runnable {
         gameScreen.setFocusable(true); // used if we have input, so if we accidentally minimise, we can just click the window again to refocus
         gameScreen.requestFocus();
 
-        bgImage = (new ImageIcon(getClass().getClassLoader().getResource("res/Board Layouts/numbered-transparent-hex-board.PNG")).getImage());
         hexagonalBoxes = loadHexagonalBoxes();
         atomList = generateAtoms();
         loadPresetRayPath();

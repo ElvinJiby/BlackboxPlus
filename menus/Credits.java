@@ -8,14 +8,14 @@ public class Credits {
     private static JFrame jFrame;
 
     public Credits() {
-        jFrame = new JFrame("menus.Credits");
+        jFrame = new JFrame("Credits");
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jFrame.setResizable(false);
         jFrame.setSize(1280, 720);
         jFrame.setLocationRelativeTo(null);
-        jFrame.setIconImage(new ImageIcon("./res/Icons/new_icon.png").getImage());
+        jFrame.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("./res/Icons/new_icon.png")).getImage());
 
-        ImageIcon creditsGIF = new ImageIcon("./res/Miscellaneous/credits_720p.gif");
+        ImageIcon creditsGIF = new ImageIcon(getClass().getClassLoader().getResource("./res/Miscellaneous/credits_720p.gif");
         JLabel creditsJLabel = new JLabel(creditsGIF);
         creditsJLabel.setSize(1280, 720);
 

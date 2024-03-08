@@ -4,7 +4,6 @@ import main.Game;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileNotFoundException;
 
 public class StartScreen {
     public StartScreen() {
@@ -14,8 +13,7 @@ public class StartScreen {
         window.setLocationRelativeTo(null);
         window.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("res/Icons/icon-transparent-background.PNG")).getImage());
 
-        ImageIcon introScreen = new ImageIcon(getClass().getClassLoader().getResource("res/Start Screen/new-start-screen.JPG"));
-        JLabel introLabel = new JLabel(introScreen);
+        JLabel introLabel = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("res/Start Screen/new-start-screen.JPG")));
         introLabel.setPreferredSize(new Dimension(1280,720));
 
         /* New Game Button */
@@ -26,9 +24,13 @@ public class StartScreen {
         newGame.setBorderPainted(true);
         newGame.setFocusable(true);
         newGame.addActionListener(e -> {
-//            System.out.println("New Game clicked");
             window.dispose();
-            new Game();
+            try {
+                new Game();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,"Failed to start a new game.", "Start New Game Open Error", JOptionPane.ERROR_MESSAGE);
+                System.exit(-1);
+            }
         });
         introLabel.add(newGame);
 
@@ -43,10 +45,10 @@ public class StartScreen {
 //            System.out.println("Leaderboard clicked");
             window.dispose();
             try {
-                new LeaderBoard();
-            } catch (FileNotFoundException ex) {
-                JOptionPane.showMessageDialog(null,"Error: Failed to open leaderboard.", "Leaderboard Open Error", JOptionPane.ERROR_MESSAGE);
-                throw new RuntimeException(ex);
+                new LeaderboardNew().run();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,"Failed to open leaderboard.", "Leaderboard Open Error", JOptionPane.ERROR_MESSAGE);
+                System.exit(-1);
             }
 
         });
@@ -60,9 +62,13 @@ public class StartScreen {
         credits.setBorderPainted(true);
         credits.setFocusable(true);
         credits.addActionListener(e -> {
-            System.out.println("Credits clicked");
             window.dispose();
-            new Credits();
+            try {
+                new Credits();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,"Failed to load credits.", "Credits Load Error", JOptionPane.ERROR_MESSAGE);
+                System.exit(-1);
+            }
         });
         introLabel.add(credits);
 

@@ -17,9 +17,6 @@ public class GameScreen extends JPanel {
 
         mouseInputs = new MouseInputs(this); // add mouse input support
         addMouseListener(mouseInputs); // needed to perform mouse actions
-
-//        this.setLayout(null);
-//        addSpotButtons(this);
     }
 
     private void addSpotButtons(GameScreen gameScreen) {

@@ -1,3 +1,5 @@
+package menus;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
@@ -58,47 +60,62 @@ public class LeaderboardNew implements Runnable {
         displayPlayer(4, font1, 460, 560, 350, 25);
 
         clearLeaderboard = new JButton();
+        clearLeaderboard.setText("Clear Leaderboard");
         // sets region where label should be placed **in pixels**
         clearLeaderboard.setOpaque(false);
-        clearLeaderboard.setBorderPainted(false);
+        clearLeaderboard.setFocusable(false);
+        clearLeaderboard.setBorderPainted(true);
 //        clearLeaderboard.setFocusable(false);
 //        clearLeaderboard.setFocusPainted(false);
         clearLeaderboard.setBounds(680, 627, 220, 30);
         // this lambda expression detects whether the clear button is pressed or not
         clearLeaderboard.addActionListener(e -> {
             try { LeaderBoardDataNew.clearTheDamnTXTFile(); }
-            catch (IOException ex) { throw new RuntimeException(ex); }});
+            catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,"Failed to clear leaderboard.", "Leaderboard Data Clear Error", JOptionPane.ERROR_MESSAGE);
+//                throw new RuntimeException(ex);
+            }});
         jPanel.add(clearLeaderboard); // add the generate button to the JPanel
 
         goBackBruh = new JButton(); // Exit button to terminate program
         // sets region where label should be placed **in pixels**
         // this label is 100x50 with the top-left corner going across 377 and 290 down
+        goBackBruh.setText("Main Menu");
         goBackBruh.setOpaque(false);
-        goBackBruh.setBorderPainted(false);
+        goBackBruh.setBorderPainted(true);
+        goBackBruh.setFocusable(false);
 //        goBackBruh.setFocusable(false);
 //        goBackBruh.setFocusPainted(false);
         goBackBruh.setBounds(765, 657, 140, 30);
-        // lambda expression to check when pressed, if-so, exit the program with status 0.
-        goBackBruh.addActionListener(e -> System.exit(0));
-
-        goBackBruh.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                goBackBruh.setBackground(Color.GREEN);
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                goBackBruh.setBackground(UIManager.getColor("control"));
+        // lambda expression to check when pressed, if-so, return to main menu.
+        goBackBruh.addActionListener(e -> {
+            jFrame.dispose();
+            try {
+                new StartScreen();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,"Error: Failed to open Start Screen.", "Start Screen Open Error", JOptionPane.ERROR_MESSAGE);
+                System.exit(-1);
             }
         });
 
+//        goBackBruh.addMouseListener(new java.awt.event.MouseAdapter() {
+//            public void mouseEntered(java.awt.event.MouseEvent evt) {
+//                goBackBruh.setBackground(Color.GREEN);
+//            }
+//
+//            public void mouseExited(java.awt.event.MouseEvent evt) {
+//                goBackBruh.setBackground(UIManager.getColor("control"));
+//            }
+//        });
+
         jPanel.add(goBackBruh);// add the button to the panel
 
-        JButton button = new JButton("Test New Window");
-        button.setBounds(150, 580, 150, 50);
-        button.addActionListener(e -> { Credits leaderboard = new Credits(); leaderboard.run(); });
-        jPanel.add(button);
+//        JButton button = new JButton("Test New Window");
+//        button.setBounds(150, 580, 150, 50);
+//        button.addActionListener(e -> { Credits leaderboard = new Credits(); leaderboard.run(); });
+//        jPanel.add(button);
 
-        ImageIcon introScreen = new ImageIcon("./res/Miscellaneous/leaderboard_bg.png");
+        ImageIcon introScreen = new ImageIcon(getClass().getClassLoader().getResource("./res/Miscellaneous/leaderboard_bg.png"));
         leaderboardBackground = new JLabel(introScreen);
         leaderboardBackground.setSize(1280, 720);
         jPanel.add(leaderboardBackground);
