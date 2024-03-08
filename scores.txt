@@ -1,10 +1,10 @@
+jordan,43
+shane,150
+tom,238
+elvin,351
+ayush,579
 user1,1000
 user2,1000
 user3,1000
 user4,1000
 user5,1000
-ayush,579
-elvin,351
-tom,238
-shane,150
-jordan,43

@@ -1,5 +1,7 @@
 package computations;
 
+import java.util.ArrayList;
+
 public class board {
     private node[][] board=new node[9][9];
     private node[] exit=new node[54];
@@ -263,30 +265,33 @@ public class board {
         }
 
     }
-    public int iterate(int a){
+    public ArrayList<Integer> iterate(int a){
+        ArrayList<Integer> ints=new ArrayList<>();
         node head=exit[a-1];
         node next=head.getSides(0);
         int n=head.getnext();
         System.out.print(head.getValue()+"->");
         int l=0;
         while (next.isexit()!=true && l==0){
-            for(int i = 0; i<6; i++){
-                if(next.hasatom()){
-                    System.out.print("Ray absorbed");
-                    l=1;
-                }else if(i!=n && next.getSides(i).isexit()==false){
-                    if(next.getSides(i).hasatom()==true){
-                        n=(n+1) % 6;
-                        System.out.print(next.getValue()+"mmmmm");
-                        System.out.print("mmmm"+i+next.getSides(i).hasatom());
-                    }
-                }
-            }
+//            for(int i = 0; i<6; i++){
+//                if(next.hasatom()){
+//                    System.out.print("Ray absorbed");
+//                    l=1;
+//                    break;
+//                }else if(i!=n && next.getSides(i).isexit()==false){
+//                    if(next.getSides(i).hasatom()==true){
+//                        n=(n+1) % 6;
+//
+//                    }
+//                }
+//            }
             System.out.print(next.getValue()+"->");
+            ints.add(next.getValue());
+
             next=next.getSides(n);
             //System.out.print(next.getValue()+"->");
         }
         System.out.print(next.getValue());
-    return 0;
+    return ints;
     }
 }
