@@ -1,3 +1,7 @@
+package menus;
+
+import main.Game;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
@@ -9,10 +13,8 @@ public class StartScreen {
         window.setSize(1280, 720);
         window.setLocationRelativeTo(null);
         window.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("res/Icons/icon-transparent-background.PNG")).getImage());
-//        window.setIconImage(new ImageIcon("./res/Icons/icon-transparent-background.PNG").getImage());
 
         ImageIcon introScreen = new ImageIcon(getClass().getClassLoader().getResource("res/Start Screen/new-start-screen.JPG"));
-//        ImageIcon introScreen = new ImageIcon("./res/Start Screen/new-start-screen.JPG");
         JLabel introLabel = new JLabel(introScreen);
         introLabel.setPreferredSize(new Dimension(1280,720));
 
@@ -43,8 +45,10 @@ public class StartScreen {
             try {
                 new LeaderBoard();
             } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(null,"Error: Failed to open leaderboard.", "Leaderboard Open Error", JOptionPane.ERROR_MESSAGE);
                 throw new RuntimeException(ex);
             }
+
         });
         introLabel.add(leaderboard);
 
@@ -55,7 +59,11 @@ public class StartScreen {
         credits.setContentAreaFilled(false);
         credits.setBorderPainted(true);
         credits.setFocusable(true);
-        credits.addActionListener(e -> System.out.println("Credits clicked"));
+        credits.addActionListener(e -> {
+            System.out.println("Credits clicked");
+            window.dispose();
+            new Credits();
+        });
         introLabel.add(credits);
 
         /* Exit Button */

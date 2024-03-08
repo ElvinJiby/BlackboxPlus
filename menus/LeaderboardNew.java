@@ -1,3 +1,5 @@
+package menus;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
@@ -175,7 +177,7 @@ public class LeaderboardNew implements Runnable {
 
         JButton button = new JButton("Test New Window");
         button.setBounds(150, 580, 150, 50);
-        button.addActionListener(e -> {Credits leaderboard = new Credits();leaderboard.run();});
+//        button.addActionListener(e -> {Credits leaderboard = new Credits(); new leaderboard();});
         jPanel.add(button);
 
         ImageIcon introScreen = new ImageIcon("./res/Miscellaneous/leaderboard_bg.png");

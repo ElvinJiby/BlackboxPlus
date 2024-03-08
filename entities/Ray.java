@@ -1,4 +1,7 @@
+package entities;
+
 public class Ray {
+    // (x,y) pair of coordinates for drawing line
     private int x1 = 0;
     private int x2 = 0;
     private int y1 = 0;

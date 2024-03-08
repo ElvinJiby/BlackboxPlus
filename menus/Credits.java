@@ -1,12 +1,14 @@
+package menus;
+
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Credits implements Runnable{
+public class Credits {
     private static JFrame jFrame;
 
     public Credits() {
-        jFrame = new JFrame("Credits");
+        jFrame = new JFrame("menus.Credits");
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jFrame.setResizable(false);
         jFrame.setSize(1280, 720);
@@ -25,16 +27,11 @@ public class Credits implements Runnable{
             @Override public void keyPressed(KeyEvent e) {
                 if (e.getKeyChar() == 'q' || e.getKeyChar() == 'Q') System.exit(0);
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) System.exit(0);
+                if (e.getKeyChar() == 'R' || e.getKeyChar() == 'r') {
+                    jFrame.dispose();
+                    new StartScreen();
+                }
             }});
-    }
-
-    public static void main(String[] args) {
-        Credits credits = new Credits();
-        credits.run();
-    }
-
-    @Override
-    public void run() {
         jFrame.setVisible(true);
     }
 }
