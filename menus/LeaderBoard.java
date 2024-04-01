@@ -41,7 +41,7 @@ public class LeaderBoard {
     private final JLabel score4;
     private final JLabel score5;
 
-    private final JButton clearLeaderboard; // when pressed clears the txt file
+    private final JButton resetLeaderboard; // when pressed clears the txt file
     private final JButton goBackBruh; // exits the window and goes back to main menu
 
     public LeaderBoard() throws FileNotFoundException {
@@ -120,15 +120,15 @@ public class LeaderBoard {
         jPanel.add(score5); // adds this label to the panel
 
 
-        clearLeaderboard = new JButton("Clear Leaderboard");
+        resetLeaderboard = new JButton("Reset Leaderboard");
         // sets region where label should be placed **in pixels**
-        clearLeaderboard.setBounds(1080, 600, 150, 50);
+        resetLeaderboard.setBounds(1080, 600, 150, 50);
         // this lambda expression detects whether the clear button is pressed or not
-        clearLeaderboard.addActionListener(e -> {
+        resetLeaderboard.addActionListener(e -> {
             try {LeaderBoardData.clearTheDamnTXTFile();} // if pressed, clear the txt file
             catch (IOException ex) {throw new RuntimeException(ex);}
         });
-        jPanel.add(clearLeaderboard); // add the generate button to the JPanel
+        jPanel.add(resetLeaderboard); // add the generate button to the JPanel
 
         goBackBruh = new JButton("Main Menu"); // Exit button to terminate program
         // sets region where label should be placed **in pixels**

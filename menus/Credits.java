@@ -15,7 +15,7 @@ public class Credits {
         jFrame.setLocationRelativeTo(null);
         jFrame.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("./res/Icons/new_icon.png")).getImage());
 
-        ImageIcon creditsGIF = new ImageIcon(getClass().getClassLoader().getResource("./res/Miscellaneous/credits_720p.gif");
+        ImageIcon creditsGIF = new ImageIcon(getClass().getClassLoader().getResource("./res/Miscellaneous/credits_720p.gif"));
         JLabel creditsJLabel = new JLabel(creditsGIF);
         creditsJLabel.setSize(1280, 720);
 
