@@ -17,6 +17,6 @@ public class GameWindow {
         gameWindow.setTitle("Blackbox+ - By Group 50"); // title of the window
         gameWindow.setVisible(true); // visibility option to actually see the window
         gameWindow.setLayout(null);
-        gameWindow.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("res/Icons/icon.png")).getImage());
+        gameWindow.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("./res/Icons/new_icon.png")).getImage());
     }
 }

@@ -41,6 +41,7 @@ public class Leaderboard implements Runnable {
         jFrame.setSize(1280, 720); // has a fixed 720p 16:9 size
         jFrame.setResizable(false); // ensures the app window will always stay at 1280x720 resolution
         jFrame.setLocationRelativeTo(null); // when window is opened initially it is centred
+        jFrame.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("./res/Icons/new_icon.png")).getImage());
 
         jPanel = new JPanel(); // creates new JPanel object
         jPanel.setLayout(null); // setting null allows elements to be placed anywhere on the panel

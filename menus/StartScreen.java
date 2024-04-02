@@ -11,6 +11,7 @@ public class StartScreen {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(1280, 720);
         window.setLocationRelativeTo(null);
+        window.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("./res/Icons/new_icon.png")).getImage());
         window.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("res/Icons/icon-transparent-background.PNG")).getImage());
 
         JLabel introLabel = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("res/Start Screen/new-start-screen.JPG")));
