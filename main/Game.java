@@ -22,8 +22,9 @@ public class Game implements Runnable {
     private final Boolean seeAtomsandRays = true;
     private final ArrayList<HexagonalBox> hexagonalBoxes; // function to construct all the hexagonal boxes
     private final ArrayList<Atom> atomList; // function to generate the atoms (including their positions)
+    private ArrayList<Color> markerColourList = new ArrayList<>();
+    private ArrayList<Ray> rayPathList = new ArrayList<>();
     private static final Random rand = new Random();
-    private final ArrayList<Ray> rayPathList = new ArrayList<>();
 
     // default constructor
     public Game() {
@@ -34,8 +35,33 @@ public class Game implements Runnable {
 
         hexagonalBoxes = loadHexagonalBoxes();
         atomList = generateAtoms();
+        markerColourList = generateMarkerColourList();
         loadPresetRayPath();
         startGameLoop(); // starts rendering the screen
+    }
+
+    private ArrayList<Color> generateMarkerColourList() {
+        ArrayList<Color> colourList = new ArrayList<>();
+
+        int rValue = rand.nextInt(255);
+        int gValue = rand.nextInt(255);
+        int bValue = rand.nextInt(255);
+
+
+        // 54 "exit" points
+        // assume each marker gets absorbed, so different colour each time
+        for (int i = 0; i < 54; i++) {
+            while (((rValue<100)&&(gValue<100)&&(bValue<100)) || ((rValue>100)&&(gValue>100)&&(bValue>100))) {
+                rValue = rand.nextInt(255);
+                gValue = rand.nextInt(255);
+                bValue = rand.nextInt(255);
+            } // this is done to make sure a colour close to white or black isn't generated (which are used for reflection/absorbed markers)
+            colourList.add(new Color(rValue,gValue,bValue));
+        }
+        if (colourList.size() != 54) {
+            JOptionPane.showMessageDialog(null,"Failed to initialise colourlist.", "ColourList Initialisation Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return colourList;
     }
 
     private void loadPresetRayPath() {
