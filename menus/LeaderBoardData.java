@@ -3,7 +3,7 @@ package menus;
 import java.io.*;
 import java.util.*;
 
-public class LeaderBoardDataNew {
+public class LeaderBoardData {
     // linked hash map ensures there is order when writing to the txt file
     // String holds the name and Integer holds the score
     private static final LinkedHashMap<String, Integer> scoresLinkedHashMap = new LinkedHashMap<>();
@@ -18,13 +18,13 @@ public class LeaderBoardDataNew {
     }
 
     public void readAndSort() throws FileNotFoundException {
-        LeaderBoardDataNew leaderBoardDataNew = new LeaderBoardDataNew();
-        leaderBoardDataNew.readTXTFile();
-        sortedScores = leaderBoardDataNew.sortScores();
+        LeaderBoardData leaderBoardData = new LeaderBoardData();
+        leaderBoardData.readTXTFile();
+        sortedScores = leaderBoardData.sortScores();
     }
 
     public void readTXTFile() throws FileNotFoundException { // reads in txt file and saves it to the linked hash map
-        File scores = new File("scores.txt");
+        File scores = new File("./res/Miscellaneous/scores.txt");
         if (!scores.exists()) { // if file doesn't exist, create one
             try {
                 scores.createNewFile();
@@ -56,7 +56,7 @@ public class LeaderBoardDataNew {
     // this sorted list is then over-written to the txt file
     public void writeTXTFile(List<Map.Entry<String, Integer>> sortedEntry) {// takes in the sorted list as a map
         // FileWriter opens the file and PrintWriter writes to the file
-        try (PrintWriter printWriter = new PrintWriter(new FileWriter("scores.txt"))) {
+        try (PrintWriter printWriter = new PrintWriter(new FileWriter("./res/Miscellaneous/scores.txt"))) {
             // the loop goes through each entry in the list
             // it accesses the name and score using entry.getKey and entry.getValue
             // using PrintWriter, it writes to the file, seperated by a comma, for formatting
@@ -68,7 +68,7 @@ public class LeaderBoardDataNew {
     }
 
     public static void clearTheDamnTXTFile() throws IOException {
-        FileWriter fileWriter = new FileWriter("scores.txt");
+        FileWriter fileWriter = new FileWriter("./res/Miscellaneous/scores.txt");
         fileWriter.write("user1,0\nuser2,0\nuser3,0\nuser4,0\nuser5,0\n");
         fileWriter.close();
     }

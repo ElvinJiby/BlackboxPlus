@@ -45,7 +45,7 @@ public class StartScreen {
 //            System.out.println("Leaderboard clicked");
             window.dispose();
             try {
-                new LeaderboardNew().run();
+                new Leaderboard().run();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,"Failed to open leaderboard.", "Leaderboard Open Error", JOptionPane.ERROR_MESSAGE);
                 System.exit(-1);

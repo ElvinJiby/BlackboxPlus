@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.*;
 import java.util.List;
 
-public class LeaderboardNew implements Runnable {
+public class Leaderboard implements Runnable {
     private static List<Map.Entry<String, Integer>> sortedScores = new ArrayList<>();
 
     @Override
@@ -27,15 +27,15 @@ public class LeaderboardNew implements Runnable {
     private final JButton goBackBruh; // exits the window and goes back to main menu
 
     public static void main(String[] args) throws FileNotFoundException {
-        LeaderboardNew leaderboardNew = new LeaderboardNew();
-        leaderboardNew.run();
+        Leaderboard leaderboard = new Leaderboard();
+        leaderboard.run();
     }
 
-    public LeaderboardNew() throws FileNotFoundException {
-        LeaderBoardDataNew leaderBoardDataNew = new LeaderBoardDataNew();
-        leaderBoardDataNew.readAndSort();
-        sortedScores = leaderBoardDataNew.getSortedScores();
-        leaderBoardDataNew.writeTXTFile(sortedScores);
+    public Leaderboard() throws FileNotFoundException {
+        LeaderBoardData leaderBoardData = new LeaderBoardData();
+        leaderBoardData.readAndSort();
+        sortedScores = leaderBoardData.getSortedScores();
+        leaderBoardData.writeTXTFile(sortedScores);
 
         jFrame = new JFrame("Leaderboard"); // window title
         jFrame.setSize(1280, 720); // has a fixed 720p 16:9 size
@@ -70,7 +70,7 @@ public class LeaderboardNew implements Runnable {
         clearLeaderboard.setBounds(680, 627, 220, 30);
         // this lambda expression detects whether the clear button is pressed or not
         clearLeaderboard.addActionListener(e -> {
-            try { LeaderBoardDataNew.clearTheDamnTXTFile(); }
+            try { LeaderBoardData.clearTheDamnTXTFile(); }
             catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,"Failed to clear leaderboard.", "Leaderboard Data Clear Error", JOptionPane.ERROR_MESSAGE);
 //                throw new RuntimeException(ex);
