@@ -30,7 +30,10 @@ public class GameScreen extends JPanel {
         resultLabel = new JLabel("Valid Integer: " + value);
         resultLabel.setForeground(Color.WHITE);
 
-        add(new JLabel("Enter an integer between 1 and 59: "));
+        JLabel label = new JLabel("Enter an integer between 1 and 59: ");
+        label.setForeground(Color.WHITE);
+
+        add(label);
         add(textField);
         add(resultLabel);
 
