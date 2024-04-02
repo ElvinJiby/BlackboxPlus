@@ -37,6 +37,25 @@ public class GameScreen extends JPanel {
         add(textField);
         add(resultLabel);
 
+        JLabel colorWindow = new JLabel();
+        colorWindow.setBackground(Color.WHITE);
+        colorWindow.setText("Sample Text");
+        colorWindow.setFont(new Font("Comic Sans", Font.BOLD, 20));
+        colorWindow.setOpaque(true);
+
+        JButton button = new JButton("Pick a colour");
+        button.addActionListener(e -> {
+            if (e.getSource() == button) {
+                JColorChooser colorChooser = new JColorChooser();
+
+                Color color = JColorChooser.showDialog(null, "Choose a colour!", Color.BLACK);
+                colorWindow.setForeground(color);
+            }
+        });
+
+        add(button);
+        add(colorWindow);
+
         setVisible(true);
     }
 
