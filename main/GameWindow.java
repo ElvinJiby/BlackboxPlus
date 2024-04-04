@@ -2,6 +2,8 @@ package main;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class GameWindow {
     private JFrame gameWindow;
@@ -45,7 +47,7 @@ public class GameWindow {
         buttonPanel.setBackground(Color.BLACK);
         createLabels(buttonPanel); // creates all the buttons/clickable elements and adds it to buttonPanel
         try {
-            gameWindow.add(buttonPanel, BorderLayout.SOUTH);
+            gameWindow.add(buttonPanel, BorderLayout.NORTH);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -60,7 +62,7 @@ public class GameWindow {
         scoreLabel.setForeground(Color.WHITE);
 //        scoreLabel.setBounds(1100, 650, 150, 30);
 
-        arrowNumberInputField = new JTextField(10);
+        arrowNumberInputField = new JTextField(2);
         arrowNumberInputField.setText("1");
 //        textField.setBounds(50, 50, 250, 250);
         arrowNumberInputField.addActionListener(e -> {
@@ -71,8 +73,8 @@ public class GameWindow {
         resultLabel = new JLabel("| Shoot ray from: " + value);
         resultLabel.setForeground(Color.WHITE);
 
-        playerNameInputField = new JTextField(20);
-        playerNameInputField.setText("Enter your name here (Max 30 char)");
+        playerNameInputField = new JTextField(15);
+        playerNameInputField.setText("Enter player name (Limit: 30)");
 //        textField.setBounds(50, 50, 250, 250);
         playerNameInputField.addActionListener(e -> {
             updateUsername();
@@ -91,9 +93,9 @@ public class GameWindow {
         colorWindow.setFont(new Font("Comic Sans", Font.BOLD, 20));
         colorWindow.setOpaque(true);
 
-        JButton colourPicker = new JButton("Pick a colour");
-        colourPicker.addActionListener(e -> {
-            if (e.getSource() == colourPicker) {
+        JButton button = new JButton("Pick a colour");
+        button.addActionListener(e -> {
+            if (e.getSource() == button) {
                 JColorChooser colorChooser = new JColorChooser();
                 Color color = JColorChooser.showDialog(null, "Choose a colour!", Color.WHITE);
                 colorWindow.setForeground(color);
@@ -109,24 +111,20 @@ public class GameWindow {
             }
         });
 
-        JButton testButton = new JButton("Test Button");
-        testButton.setForeground(Color.WHITE);
-        testButton.setBounds(101,626,200,200);
-        testButton.addActionListener(e -> {
-            game.toggleInternalBoardSetting();
-            gameScreen.repaint();
-        });
+        JButton howToPlayButton = new JButton("How To Play");
+        howToPlayButton.setBounds(50,50,100,30);
+        howToPlayButton.addActionListener(e -> howToPlayWindow());
 
+        buttonPanel.add(howToPlayButton);
         buttonPanel.add(playerNameInputField);
         buttonPanel.add(playerNameLabel);
         buttonPanel.add(arrowNumberInputPrompt);
         buttonPanel.add(arrowNumberInputField);
         buttonPanel.add(resultLabel);
         buttonPanel.add(scoreLabel);
-//        buttonPanel.add(colourPicker);
-//        buttonPanel.add(testButton);
-//        buttonPanel.add(colorWindow);
+        buttonPanel.add(button);
         buttonPanel.add(loadPresetRay);
+        buttonPanel.add(colorWindow);
     }
 
     private void validateInput() {
@@ -154,5 +152,14 @@ public class GameWindow {
             playerNameInputField.setVisible(false);
             gameScreen.repaint();
         }
+    }
+
+    public static void howToPlayWindow() {
+        JFrame jFrame = new JFrame("New Window");
+        jFrame.setSize(854, 480);
+        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        jFrame.setLocationRelativeTo(null);
+        jFrame.addWindowListener(new WindowAdapter() { @Override public void windowClosed(WindowEvent e) { super.windowClosed(e); }});
+        jFrame.setVisible(true);
     }
 }
