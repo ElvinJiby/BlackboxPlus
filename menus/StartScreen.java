@@ -8,11 +8,10 @@ import java.awt.*;
 public class StartScreen {
     public StartScreen() {
         JFrame window = new JFrame("Black Box+ By Group 50");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         window.setSize(1280, 720);
         window.setLocationRelativeTo(null);
         window.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("./res/Icons/new_icon.png")).getImage());
-        window.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("res/Icons/icon-transparent-background.PNG")).getImage());
 
         JLabel introLabel = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("res/Start Screen/new-start-screen.JPG")));
         introLabel.setPreferredSize(new Dimension(1280,720));
