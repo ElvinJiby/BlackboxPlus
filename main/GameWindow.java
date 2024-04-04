@@ -2,6 +2,8 @@ package main;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class GameWindow {
     private JFrame gameWindow;
@@ -109,6 +111,11 @@ public class GameWindow {
             }
         });
 
+        JButton howToPlayButton = new JButton("How To Play");
+        howToPlayButton.setBounds(50,50,100,30);
+        howToPlayButton.addActionListener(e -> howToPlayWindow());
+
+        buttonPanel.add(howToPlayButton);
         buttonPanel.add(playerNameInputField);
         buttonPanel.add(playerNameLabel);
         buttonPanel.add(arrowNumberInputPrompt);
@@ -145,5 +152,14 @@ public class GameWindow {
             playerNameInputField.setVisible(false);
             gameScreen.repaint();
         }
+    }
+
+    public static void howToPlayWindow() {
+        JFrame jFrame = new JFrame("New Window");
+        jFrame.setSize(854, 480);
+        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        jFrame.setLocationRelativeTo(null);
+        jFrame.addWindowListener(new WindowAdapter() { @Override public void windowClosed(WindowEvent e) { super.windowClosed(e); }});
+        jFrame.setVisible(true);
     }
 }
