@@ -143,7 +143,6 @@ public class GameWindow {
         } else {
             playerNameLabel.setText(playerName);
             playerNameInputField.setVisible(false);
-//            buttonPanel.remove(playerNameInputField);
             gameScreen.repaint();
         }
     }
