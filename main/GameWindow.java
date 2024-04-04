@@ -2,8 +2,6 @@ package main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class GameWindow {
     private JFrame gameWindow;
@@ -62,7 +60,7 @@ public class GameWindow {
         scoreLabel.setForeground(Color.WHITE);
 //        scoreLabel.setBounds(1100, 650, 150, 30);
 
-        arrowNumberInputField = new JTextField(2);
+        arrowNumberInputField = new JTextField(10);
         arrowNumberInputField.setText("1");
 //        textField.setBounds(50, 50, 250, 250);
         arrowNumberInputField.addActionListener(e -> {
@@ -73,8 +71,8 @@ public class GameWindow {
         resultLabel = new JLabel("| Shoot ray from: " + value);
         resultLabel.setForeground(Color.WHITE);
 
-        playerNameInputField = new JTextField(15);
-        playerNameInputField.setText("Enter player name (Limit: 30)");
+        playerNameInputField = new JTextField(20);
+        playerNameInputField.setText("Enter your name here (Max 30 char)");
 //        textField.setBounds(50, 50, 250, 250);
         playerNameInputField.addActionListener(e -> {
             updateUsername();
@@ -111,14 +109,6 @@ public class GameWindow {
             }
         });
 
-        JButton howToPlayButton = new JButton("How To Play");
-        howToPlayButton.setBounds(50,50,100,30);
-        gameWindow.setSize(1000, 1000);
-        gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Exit application when main frame is closed
-
-        howToPlayButton.addActionListener(e -> howToPlayWindow());
-
-        buttonPanel.add(howToPlayButton);
         buttonPanel.add(playerNameInputField);
         buttonPanel.add(playerNameLabel);
         buttonPanel.add(arrowNumberInputPrompt);
@@ -155,14 +145,5 @@ public class GameWindow {
             playerNameInputField.setVisible(false);
             gameScreen.repaint();
         }
-    }
-
-    public static void howToPlayWindow() {
-        JFrame jFrame = new JFrame("New Window");
-        jFrame.setSize(854, 480);
-        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        jFrame.setLocationRelativeTo(null);
-        jFrame.addWindowListener(new WindowAdapter() { @Override public void windowClosed(WindowEvent e) { super.windowClosed(e); }});
-        jFrame.setVisible(true);
     }
 }
