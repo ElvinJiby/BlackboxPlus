@@ -62,7 +62,7 @@ public class GameWindow {
         scoreLabel.setForeground(Color.WHITE);
 //        scoreLabel.setBounds(1100, 650, 150, 30);
 
-        arrowNumberInputField = new JTextField(10);
+        arrowNumberInputField = new JTextField(2);
         arrowNumberInputField.setText("1");
 //        textField.setBounds(50, 50, 250, 250);
         arrowNumberInputField.addActionListener(e -> {
@@ -73,8 +73,8 @@ public class GameWindow {
         resultLabel = new JLabel("| Shoot ray from: " + value);
         resultLabel.setForeground(Color.WHITE);
 
-        playerNameInputField = new JTextField(20);
-        playerNameInputField.setText("Enter your name here (Max 30 char)");
+        playerNameInputField = new JTextField(15);
+        playerNameInputField.setText("Enter player name (Limit: 30)");
 //        textField.setBounds(50, 50, 250, 250);
         playerNameInputField.addActionListener(e -> {
             updateUsername();
