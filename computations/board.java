@@ -288,9 +288,17 @@ public class board {
                 return ints;
             } else if (atomp.size()==1) {
                 if((atomp.getFirst()==(n+1)%6) || (atomp.getFirst()==(n+2)%6)){
-                    n=(n-1)%6;
+                    n=(n-1+6)%6;
                 } else if ((atomp.getFirst()==(n-1+6)%6) || (atomp.getFirst()==(n-2+6)%6)) {
                     n=(n+1)%6;
+                }
+            } else if (atomp.size()==2) {
+                if((((n + 1) % 6) == atomp.get(0) || ((n + 1) % 6) ==atomp.get(1)) && (((n ) % 6) == atomp.get(0) || ((n ) % 6) ==atomp.get(1))){
+                    n=(n-2+6)%6;
+                } else if ((((n - 1+6) % 6) == atomp.get(0) || ((n - 1+6) % 6) ==atomp.get(1)) && (((n ) % 6) == atomp.get(0) || ((n ) % 6) ==atomp.get(1))) {
+                    n=(n+2)%6;
+                }else if ((((n - 1+6) % 6) == atomp.get(0) || ((n - 1+6) % 6) ==atomp.get(1)) && (((n + 1) % 6) == atomp.get(0) || ((n + 1) % 6) ==atomp.get(1))) {
+                    n=(n+3)%6;
                 }
             }
             System.out.print(next.getValue()+"->");
