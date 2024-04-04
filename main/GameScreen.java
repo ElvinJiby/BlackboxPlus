@@ -7,19 +7,24 @@ import java.awt.*;
 
 public class GameScreen extends JPanel {
     // Application Variables
-    private Game game;
-    private MouseInputs mouseInputs;
-    private JTextField arrowNumberInputField;
-    private JTextField playerNameInputField;
-    private JLabel resultLabel;
-    private JLabel playerNameLabel;
-    private JLabel scoreLabel;
-    private int score = 100;
+    private final Game game;
+    private final MouseInputs mouseInputs;
+    private final JTextField arrowNumberInputField;
+    private final JTextField playerNameInputField;
+    private final JLabel resultLabel;
+    private final JLabel playerNameLabel;
+    private final JLabel scoreLabel;
+    private final JLabel arrowNumberInputPrompt;
+    private final int score = 100;
     private int value = 1;
     private String playerName = "user34567";
 
     public GameScreen(Game game) {
         this.game = game;
+
+        mouseInputs = new MouseInputs(this); // add mouse input support
+        addMouseListener(mouseInputs); // needed to perform mouse actions
+
         setPreferredSize(new Dimension(1280, 720)); // setting the resolution of the game
         setBackground(Color.BLACK);
 
@@ -27,14 +32,12 @@ public class GameScreen extends JPanel {
         scoreLabel.setForeground(Color.WHITE);
 //        scoreLabel.setBounds(1100, 650, 150, 30);
 
-        mouseInputs = new MouseInputs(this); // add mouse input support
-        addMouseListener(mouseInputs); // needed to perform mouse actions
-
         arrowNumberInputField = new JTextField(10);
         arrowNumberInputField.setText("1");
 //        textField.setBounds(50, 50, 250, 250);
         arrowNumberInputField.addActionListener(e -> validateInput());
-        resultLabel = new JLabel("Valid Integer: " + value);
+
+        resultLabel = new JLabel("Shoot ray from: " + value);
         resultLabel.setForeground(Color.WHITE);
 
         playerNameInputField = new JTextField(20);
@@ -45,16 +48,8 @@ public class GameScreen extends JPanel {
         playerNameLabel = new JLabel("Player Name: " + playerName);
         playerNameLabel.setForeground(Color.WHITE);
 
-        JLabel label = new JLabel("Enter an integer between 1 and 59: ");
-        label.setForeground(Color.WHITE);
-
-        add(playerNameInputField);
-        add(playerNameLabel);
-        add(label);
-        add(arrowNumberInputField);
-        add(resultLabel);
-        add(scoreLabel);
-
+        arrowNumberInputPrompt = new JLabel("Enter an integer 1-59: ");
+        arrowNumberInputPrompt.setForeground(Color.WHITE);
 
         JLabel colorWindow = new JLabel();
         colorWindow.setBackground(Color.WHITE);
@@ -71,6 +66,13 @@ public class GameScreen extends JPanel {
                 colorWindow.setForeground(color);
             }
         });
+
+        add(playerNameInputField);
+        add(playerNameLabel);
+        add(arrowNumberInputPrompt);
+        add(arrowNumberInputField);
+        add(resultLabel);
+        add(scoreLabel);
 
         add(button);
         add(colorWindow);
@@ -111,12 +113,12 @@ public class GameScreen extends JPanel {
                 JOptionPane.showMessageDialog(this, "Enter a number between 1 and 59", "Invalid Input", JOptionPane.ERROR_MESSAGE);
                 arrowNumberInputField.setText("1"); // Reset to default value
                 value = 1;
-                resultLabel.setText("Valid Integer: " + value);
-            } else resultLabel.setText("Valid Integer: " + value);
+                resultLabel.setText("Shoot ray from: " + value);
+            } else resultLabel.setText("Shoot ray from: " + value);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Please enter a valid integer.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
             arrowNumberInputField.setText("1"); // Reset to default value
-            resultLabel.setText("Valid Integer: ");
+            resultLabel.setText("Shoot ray from: " + value);
         }
     }
 
