@@ -36,10 +36,13 @@ public class lists {
         }
             boardp.setexit(e);
             System.out.println(boardp);
-       boardp.getnode(1,3).setatom(true);
+       boardp.getnode(3,4).setatom(true);
+
         boardp.linkboard();
 
-        ints= boardp.iterate(4);
+        ints= boardp.iterate(32);
+
+
 
     }
 }
