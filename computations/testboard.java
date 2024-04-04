@@ -186,5 +186,54 @@ public class testboard {
         assertEquals(41, u);
 
     }
+    @Test
+    void testfig4(){
+        board boardp=new board();
+        node [] e=new node[54];
+        ArrayList<Integer> ints=new ArrayList<>();
+        int a=5;
+        int t=0;
+        for(int i=0;i<9;i++){
+            for(int j=0;j<a;j++){
+
+                node n=new node(i+j+1,6);
+                n.setexit(false);
+                n.setnext(7);
+                boardp.setBoardindex(i,j,n);
+
+
+            }
+            if(a<9 && t==0){
+                a++;
+
+            }
+            else{
+                a--;
+                t=1;
+            }
+        }
+        for(int i=0;i<54;i++){
+            e[i]=new node(i+1,1);
+            e[i].setValue(i+1);
+            e[i].setexit(true);
+        }
+        boardp.setexit(e);
+        boardp.getnode(2,2).setatom(true);
+        boardp.getnode(2,4).setatom(true);
+        boardp.getnode(4,5).setatom(true);
+        boardp.getnode(4,6).setatom(true);
+        boardp.getnode(7,1).setatom(true);
+        boardp.getnode(8,3).setatom(true);
+        boardp.linkboard();
+        ints= boardp.iterate(14);
+        int u=ints.get(ints.size()-1);
+        assertEquals(14, u);
+
+        ints= boardp.iterate(53);
+        u=ints.get(ints.size()-1);
+        assertEquals(48, u);
+
+       // ints= boardp.iterate(30);
+    }
 }
 
