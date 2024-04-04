@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Game implements Runnable {
+public class Game {
     // Application Variables
     private GameWindow gameWindow;
     private GameScreen gameScreen;
@@ -29,15 +29,13 @@ public class Game implements Runnable {
     // default constructor
     public Game() {
         gameScreen = new GameScreen(this); // creates a new screen
-        gameWindow = new GameWindow(gameScreen); // creates a new window
+        gameWindow = new GameWindow(gameScreen, this); // creates a new window
         gameScreen.setFocusable(true); // used if we have input, so if we accidentally minimise, we can just click the window again to refocus
         gameScreen.requestFocus();
 
         hexagonalBoxes = loadHexagonalBoxes();
         atomList = generateAtoms();
         markerColourList = generateMarkerColourList();
-        loadPresetRayPath();
-//        startGameLoop(); // starts rendering the screen
     }
 
     private ArrayList<Color> generateMarkerColourList() {
@@ -64,7 +62,7 @@ public class Game implements Runnable {
         return colourList;
     }
 
-    private void loadPresetRayPath() {
+    public void loadPresetRayPath() {
         // 6 - 30 - 16 - 9 - 10 - 34 - 46 - 61
 
         // starting
@@ -156,10 +154,6 @@ public class Game implements Runnable {
         return hexagonalBoxArrayList;
     }
 
-    private void startGameLoop() {
-        gameThread = new Thread(this);
-        gameThread.start();
-    }
 
     public void render(Graphics g) {
         g.drawImage(bgImage, 0, 0,1280,720, null);
@@ -176,49 +170,49 @@ public class Game implements Runnable {
             }
         }
     }
-
-    @Override
-    public void run() {
-        /*
-        Basically this whole section updates the game every 1/60th of a second
-        Keeps the game running at the preferred FPS limit and updates aren't done irregularly within that second
-         */
-        double timePerFrame = 1000000000.0 / FPS_LIMIT;
-        double timePerUpdate = 1000000000.0 / UPS_LIMIT;
-
-        long previousTime = System.nanoTime();
-        long lastCheck = System.currentTimeMillis();
-
-        int frames = 0;
-        int updates = 0;
-        double deltaTime = 0;
-        double deltaFrame = 0;
-
-        while(true) {
-            long currentTime = System.nanoTime();
-            deltaTime += (currentTime - previousTime) / timePerUpdate;
-            deltaFrame += (currentTime - previousTime) / timePerFrame;
-            previousTime = currentTime;
-
-            if (deltaTime >= 1) { // condition to check when it's time to update (accounts for lost time)
-                updates++;
-                deltaTime--;
-            }
-
-            if (deltaFrame >= 1) {
-                gameScreen.repaint();
-                frames++;
-                deltaFrame--;
-            }
-
-            if (System.currentTimeMillis() - lastCheck >= 1000) {
-                lastCheck = System.currentTimeMillis();
-                if (performanceStatEnabled) System.out.println("FPS: " + frames + " | UPS: " + updates);
-                frames = 0;
-                updates = 0;
-            }
-        }
-    }
+//
+//    @Override
+//    public void run() {
+//        /*
+//        Basically this whole section updates the game every 1/60th of a second
+//        Keeps the game running at the preferred FPS limit and updates aren't done irregularly within that second
+//         */
+//        double timePerFrame = 1000000000.0 / FPS_LIMIT;
+//        double timePerUpdate = 1000000000.0 / UPS_LIMIT;
+//
+//        long previousTime = System.nanoTime();
+//        long lastCheck = System.currentTimeMillis();
+//
+//        int frames = 0;
+//        int updates = 0;
+//        double deltaTime = 0;
+//        double deltaFrame = 0;
+//
+//        while(true) {
+//            long currentTime = System.nanoTime();
+//            deltaTime += (currentTime - previousTime) / timePerUpdate;
+//            deltaFrame += (currentTime - previousTime) / timePerFrame;
+//            previousTime = currentTime;
+//
+//            if (deltaTime >= 1) { // condition to check when it's time to update (accounts for lost time)
+//                updates++;
+//                deltaTime--;
+//            }
+//
+//            if (deltaFrame >= 1) {
+//                gameScreen.repaint();
+//                frames++;
+//                deltaFrame--;
+//            }
+//
+//            if (System.currentTimeMillis() - lastCheck >= 1000) {
+//                lastCheck = System.currentTimeMillis();
+//                if (performanceStatEnabled) System.out.println("FPS: " + frames + " | UPS: " + updates);
+//                frames = 0;
+//                updates = 0;
+//            }
+//        }
+//    }
 
     private void addforRow1and9(ArrayList<HexagonalBox> hexagonalBoxArrayList, int y) {
         hexagonalBoxArrayList.add(new HexagonalBox(491, y));

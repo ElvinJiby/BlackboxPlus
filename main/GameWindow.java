@@ -5,6 +5,9 @@ import java.awt.*;
 
 public class GameWindow {
     private JFrame gameWindow;
+    private GameScreen gameScreen;
+    private Game game;
+
     private JPanel buttonPanel;
     private JTextField arrowNumberInputField;
     private JTextField playerNameInputField;
@@ -17,8 +20,9 @@ public class GameWindow {
     private String playerName = "user34567";
     private ImageIcon imageIcon;
 
-    public GameWindow(GameScreen gameScreen) {
+    public GameWindow(GameScreen gameScreen, Game game) {
         // Window Construction
+        this.game = game;
         gameWindow = new JFrame(); // creates a new window
         gameWindow.setSize(1280,720); // sets the window dimensions
         gameWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // when you click the X to close to program, the program actually closes (by default it just hides the window)
@@ -29,6 +33,7 @@ public class GameWindow {
         gameWindow.setLayout(new BorderLayout());
 
         // Game Panel (manages the rendering of images/rays/assets/etc.)
+        this.gameScreen = gameScreen;
         try {
             gameWindow.add(gameScreen, BorderLayout.CENTER); // adding the screen to the window (the screen pretty much contains the game/visuals)
         } catch (Exception ex) {
@@ -37,6 +42,7 @@ public class GameWindow {
 
         // Button Panel (manages all the button/text input guis)
         buttonPanel = new JPanel();
+        buttonPanel.setBackground(Color.BLACK);
         createLabels(buttonPanel); // creates all the buttons/clickable elements and adds it to buttonPanel
         try {
             gameWindow.add(buttonPanel, BorderLayout.NORTH);
@@ -50,27 +56,33 @@ public class GameWindow {
     }
 
     private void createLabels(JPanel buttonPanel) {
-        scoreLabel = new JLabel("Score: " + score);
+        scoreLabel = new JLabel("| Score: " + score);
         scoreLabel.setForeground(Color.WHITE);
 //        scoreLabel.setBounds(1100, 650, 150, 30);
 
         arrowNumberInputField = new JTextField(10);
         arrowNumberInputField.setText("1");
 //        textField.setBounds(50, 50, 250, 250);
-        arrowNumberInputField.addActionListener(e -> validateInput());
+        arrowNumberInputField.addActionListener(e -> {
+            validateInput();
+            gameScreen.repaint();
+        });
 
-        resultLabel = new JLabel("Shoot ray from: " + value);
+        resultLabel = new JLabel("| Shoot ray from: " + value);
         resultLabel.setForeground(Color.WHITE);
 
         playerNameInputField = new JTextField(20);
-        playerNameInputField.setText("user34567");
+        playerNameInputField.setText("Enter your name here (Max 30 char)");
 //        textField.setBounds(50, 50, 250, 250);
-        playerNameInputField.addActionListener(e -> updateUsername());
+        playerNameInputField.addActionListener(e -> {
+            updateUsername();
+            gameScreen.repaint();
+        });
 
-        playerNameLabel = new JLabel("Player Name: " + playerName);
+        playerNameLabel = new JLabel("| Player Name: " + playerName);
         playerNameLabel.setForeground(Color.WHITE);
 
-        arrowNumberInputPrompt = new JLabel("Enter an integer 1-59: ");
+        arrowNumberInputPrompt = new JLabel("| Enter an integer 1-59: ");
         arrowNumberInputPrompt.setForeground(Color.WHITE);
 
         JLabel colorWindow = new JLabel();
@@ -83,9 +95,17 @@ public class GameWindow {
         button.addActionListener(e -> {
             if (e.getSource() == button) {
                 JColorChooser colorChooser = new JColorChooser();
-
-                Color color = JColorChooser.showDialog(null, "Choose a colour!", Color.BLACK);
+                Color color = JColorChooser.showDialog(null, "Choose a colour!", Color.WHITE);
                 colorWindow.setForeground(color);
+                gameScreen.repaint();
+            }
+        });
+
+        JButton loadPresetRay = new JButton("Load Preset Ray");
+        loadPresetRay.addActionListener(e -> {
+            if (e.getSource() == loadPresetRay) {
+                game.loadPresetRayPath();
+                gameScreen.repaint();
             }
         });
 
@@ -96,6 +116,7 @@ public class GameWindow {
         buttonPanel.add(resultLabel);
         buttonPanel.add(scoreLabel);
         buttonPanel.add(button);
+        buttonPanel.add(loadPresetRay);
         buttonPanel.add(colorWindow);
     }
 
@@ -117,6 +138,13 @@ public class GameWindow {
 
     private void updateUsername() {
         playerName = playerNameInputField.getText();
-        playerNameLabel.setText(playerName);
+        if (playerName.length() > 30) {
+            JOptionPane.showMessageDialog(null, "Username must be 30 characters or less.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+        } else {
+            playerNameLabel.setText(playerName);
+            playerNameInputField.setVisible(false);
+//            buttonPanel.remove(playerNameInputField);
+            gameScreen.repaint();
+        }
     }
 }
