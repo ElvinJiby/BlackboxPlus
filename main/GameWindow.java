@@ -45,7 +45,7 @@ public class GameWindow {
         buttonPanel.setBackground(Color.BLACK);
         createLabels(buttonPanel); // creates all the buttons/clickable elements and adds it to buttonPanel
         try {
-            gameWindow.add(buttonPanel, BorderLayout.NORTH);
+            gameWindow.add(buttonPanel, BorderLayout.SOUTH);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -91,9 +91,9 @@ public class GameWindow {
         colorWindow.setFont(new Font("Comic Sans", Font.BOLD, 20));
         colorWindow.setOpaque(true);
 
-        JButton button = new JButton("Pick a colour");
-        button.addActionListener(e -> {
-            if (e.getSource() == button) {
+        JButton colourPicker = new JButton("Pick a colour");
+        colourPicker.addActionListener(e -> {
+            if (e.getSource() == colourPicker) {
                 JColorChooser colorChooser = new JColorChooser();
                 Color color = JColorChooser.showDialog(null, "Choose a colour!", Color.WHITE);
                 colorWindow.setForeground(color);
@@ -109,15 +109,24 @@ public class GameWindow {
             }
         });
 
+        JButton testButton = new JButton("Test Button");
+        testButton.setForeground(Color.WHITE);
+        testButton.setBounds(101,626,200,200);
+        testButton.addActionListener(e -> {
+            game.toggleInternalBoardSetting();
+            gameScreen.repaint();
+        });
+
         buttonPanel.add(playerNameInputField);
         buttonPanel.add(playerNameLabel);
         buttonPanel.add(arrowNumberInputPrompt);
         buttonPanel.add(arrowNumberInputField);
         buttonPanel.add(resultLabel);
         buttonPanel.add(scoreLabel);
-        buttonPanel.add(button);
+//        buttonPanel.add(colourPicker);
+//        buttonPanel.add(testButton);
+//        buttonPanel.add(colorWindow);
         buttonPanel.add(loadPresetRay);
-        buttonPanel.add(colorWindow);
     }
 
     private void validateInput() {

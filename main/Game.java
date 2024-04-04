@@ -16,7 +16,7 @@ public class Game {
     private final int NUM_OF_ATOMS = 6;
     private static Image bgImage = (new ImageIcon(Game.class.getClassLoader().getResource("res/Board Layouts/transparent-numbered-all.PNG")).getImage());
     private static Image boardCover = (new ImageIcon(Game.class.getClassLoader().getResource("res/Board Layouts/transparent-numbered-background.PNG")).getImage());
-    private final Boolean seeAtomsandRays = false; // debug setting to show internal atoms
+    private Boolean seeAtomsandRays = false; // debug setting to show internal atoms (default: false)
     private final ArrayList<HexagonalBox> hexagonalBoxes; // Arraylist that contains all the hexagonal boxes
     private final ArrayList<Atom> atomList; // Arraylist that contains all the atoms
     private ArrayList<Color> markerColourList = new ArrayList<>();
@@ -229,5 +229,9 @@ public class Game {
         hexagonalBoxArrayList.add(new HexagonalBox(785, y));
         hexagonalBoxArrayList.add(new HexagonalBox(860, y));
         hexagonalBoxArrayList.add(new HexagonalBox(933, y));
+    }
+
+    public void toggleInternalBoardSetting() {
+        seeAtomsandRays = !seeAtomsandRays;
     }
 }
