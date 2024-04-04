@@ -26,7 +26,7 @@ public class StartScreen {
         newGame.addActionListener(e -> {
             window.dispose();
             try {
-                new Game();
+                Game game = new Game();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,"Failed to start a new game.", "Start New Game Open Error", JOptionPane.ERROR_MESSAGE);
                 System.exit(-1);

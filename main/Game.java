@@ -37,7 +37,7 @@ public class Game implements Runnable {
         atomList = generateAtoms();
         markerColourList = generateMarkerColourList();
         loadPresetRayPath();
-        startGameLoop(); // starts rendering the screen
+//        startGameLoop(); // starts rendering the screen
     }
 
     private ArrayList<Color> generateMarkerColourList() {
