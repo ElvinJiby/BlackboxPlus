@@ -270,6 +270,7 @@ public class board {
         node head=exit[a-1];
         node next=head.getSides(0);
         int n=head.getnext();
+        ints.add(head.getValue());
         System.out.print(head.getValue()+"->");
         if(next.hasatom()){
             System.out.print("Ray absorbed");
