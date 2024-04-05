@@ -1,5 +1,8 @@
 package main;
 
+import menus.LeaderBoardData;
+import menus.StartScreen;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -27,7 +30,7 @@ public class GameWindow {
         // Window Construction
         this.game = game;
         gameWindow = new JFrame(); // creates a new window
-        gameWindow.setSize(1280,720); // sets the window dimensions
+        gameWindow.setSize(1280, 720); // sets the window dimensions
         gameWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // when you click the X to close to program, the program actually closes (by default it just hides the window)
         gameWindow.setLocationRelativeTo(null); // when opened, the window will open in the middle of the screen, instead of the top left
         gameWindow.setResizable(false); // disables the ability to resize the window
@@ -113,11 +116,13 @@ public class GameWindow {
         });
 
         howToPlayButton = new JButton("How To Play");
-        howToPlayButton.setBounds(50,50,100,30);
+        howToPlayButton.setBounds(50, 50, 100, 30);
         howToPlayButton.addActionListener(e -> howToPlayWindow());
 
         endGameButton = new JButton("End Game");
+        endGameButton.addActionListener(e -> endGameWindow());
 
+        buttonPanel.add(endGameButton);
         buttonPanel.add(howToPlayButton);
         buttonPanel.add(playerNameInputField);
         buttonPanel.add(playerNameLabel);
@@ -128,6 +133,21 @@ public class GameWindow {
         buttonPanel.add(button);
         buttonPanel.add(loadPresetRay);
         buttonPanel.add(colorWindow);
+    }
+
+    private void endGameWindow() {
+        JFrame jFrame = new JFrame("End Game");
+        jFrame.setSize(854, 480);
+        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        jFrame.setLocationRelativeTo(null);
+        jFrame.addWindowListener(new WindowAdapter() { @Override public void windowClosing(WindowEvent e) { new StartScreen(); } });
+
+        JLabel finalScore = new JLabel("User " + playerName + " has scored: " + score + " points");
+
+        jFrame.add(finalScore);
+        jFrame.setVisible(true);
+
+        LeaderBoardData.storeScore(playerName, score);
     }
 
     private void validateInput() {
@@ -162,7 +182,12 @@ public class GameWindow {
         jFrame.setSize(854, 480);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jFrame.setLocationRelativeTo(null);
-        jFrame.addWindowListener(new WindowAdapter() { @Override public void windowClosed(WindowEvent e) { super.windowClosed(e); }});
+        jFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                super.windowClosed(e);
+            }
+        });
         jFrame.setVisible(true);
     }
 }
