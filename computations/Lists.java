@@ -2,18 +2,18 @@ package computations;
 
 import java.util.ArrayList;
 
-public class lists {
-    public board createboard(){
-        board boardp=new board();
+public class Lists {
+    public Board createboard(){
+        Board boardp=new Board();
         ArrayList<Integer> ints=new ArrayList<>();
-        node [] e=new node[54];
+        Node[] e=new Node[54];
         int a=5;
         int t=0;
         int c=0;
         for(int i=0;i<9;i++){
             for(int j=0;j<a;j++){
                 c++;
-                node n=new node(c,6);
+                Node n=new Node(c,6);
                 n.setexit(false);
                 n.setnext(7);
                 boardp.setBoardindex(i,j,n);
@@ -30,7 +30,7 @@ public class lists {
             }
         }
         for(int i=0;i<54;i++){
-            e[i]=new node(i+1,1);
+            e[i]=new Node(i+1,1);
             e[i].setValue(i+1);
             e[i].setexit(true);
         }
@@ -42,9 +42,9 @@ public class lists {
         return boardp;
     }
    public static void main(String[] args) {
-       board boardp=new board();
+       Board boardp=new Board();
        ArrayList<Integer> ints=new ArrayList<>();
-       lists c=new lists();
+       Lists c=new Lists();
        boardp=c.createboard();
        boardp.getnode(4,3).setatom(true);
        boardp.getnode(4,2).setatom(true);

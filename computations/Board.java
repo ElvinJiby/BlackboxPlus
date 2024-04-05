@@ -2,20 +2,20 @@ package computations;
 
 import java.util.ArrayList;
 
-public class board {
-    private node[][] board=new node[9][9];
-    private node[] exit=new node[54];
-    public node[][]getboard(){
+public class Board {
+    private Node[][] board=new Node[9][9];
+    private Node[] exit=new Node[54];
+    public Node[][]getboard(){
         return board;
     }
 
-    public void setboard(node[][] board) {
+    public void setboard(Node[][] board) {
         this.board = board;
     }
-    public void setBoardindex(int i,int j,node k){
+    public void setBoardindex(int i, int j, Node k){
         board[i][j]=k;
     }
-    public void setexit(node[] a) {
+    public void setexit(Node[] a) {
         this.exit = a;
     }
 
@@ -39,7 +39,7 @@ public class board {
         }
         return c;
     }
-    public node getnode(int i,int j){
+    public Node getnode(int i, int j){
         return this.board[i][j];
     }
     public void linkboard(){
@@ -267,8 +267,8 @@ public class board {
     }
     public ArrayList<Integer> iterate(int a){
         ArrayList<Integer> ints=new ArrayList<>();
-        node head=exit[a-1];
-        node next=head.getSides(0);
+        Node head=exit[a-1];
+        Node next=head.getSides(0);
         int n=head.getnext();
         ints.add(head.getValue());
         System.out.print(head.getValue()+"->");

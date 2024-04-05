@@ -6,18 +6,18 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class testboard {
+public class TestBoard {
     @Test
     void testpath(){
-        board boardp=new board();
-        node [] e=new node[54];
+        Board boardp=new Board();
+        Node[] e=new Node[54];
         ArrayList<Integer> ints=new ArrayList<>();
         int a=5;
         int t=0;
         for(int i=0;i<9;i++){
             for(int j=0;j<a;j++){
 
-                node n=new node(i+j+1,6);
+                Node n=new Node(i+j+1,6);
                 n.setexit(false);
                 n.setnext(7);
                 boardp.setBoardindex(i,j,n);
@@ -34,7 +34,7 @@ public class testboard {
             }
         }
         for(int i=0;i<54;i++){
-            e[i]=new node(i+1,1);
+            e[i]=new Node(i+1,1);
             e[i].setValue(i+1);
             e[i].setexit(true);
         }
@@ -48,15 +48,15 @@ public class testboard {
     }
     @Test
     void testoneatomdeflection(){
-        board boardp=new board();
-        node [] e=new node[54];
+        Board boardp=new Board();
+        Node[] e=new Node[54];
         ArrayList<Integer> ints=new ArrayList<>();
         int a=5;
         int t=0;
         for(int i=0;i<9;i++){
             for(int j=0;j<a;j++){
 
-                node n=new node(i+j+1,6);
+                Node n=new Node(i+j+1,6);
                 n.setexit(false);
                 n.setnext(7);
                 boardp.setBoardindex(i,j,n);
@@ -73,7 +73,7 @@ public class testboard {
             }
         }
         for(int i=0;i<54;i++){
-            e[i]=new node(i+1,1);
+            e[i]=new Node(i+1,1);
             e[i].setValue(i+1);
             e[i].setexit(true);
         }
@@ -88,15 +88,15 @@ public class testboard {
     }
     @Test
     void testtwoatomdeflection(){
-        board boardp=new board();
-        node [] e=new node[54];
+        Board boardp=new Board();
+        Node[] e=new Node[54];
         ArrayList<Integer> ints=new ArrayList<>();
         int a=5;
         int t=0;
         for(int i=0;i<9;i++){
             for(int j=0;j<a;j++){
 
-                node n=new node(i+j+1,6);
+                Node n=new Node(i+j+1,6);
                 n.setexit(false);
                 n.setnext(7);
                 boardp.setBoardindex(i,j,n);
@@ -113,7 +113,7 @@ public class testboard {
             }
         }
         for(int i=0;i<54;i++){
-            e[i]=new node(i+1,1);
+            e[i]=new Node(i+1,1);
             e[i].setValue(i+1);
             e[i].setexit(true);
         }
@@ -128,15 +128,15 @@ public class testboard {
     }
     @Test
     void testfig3(){
-        board boardp=new board();
-        node [] e=new node[54];
+        Board boardp=new Board();
+        Node[] e=new Node[54];
         ArrayList<Integer> ints=new ArrayList<>();
         int a=5;
         int t=0;
         for(int i=0;i<9;i++){
             for(int j=0;j<a;j++){
 
-                node n=new node(i+j+1,6);
+                Node n=new Node(i+j+1,6);
                 n.setexit(false);
                 n.setnext(7);
                 boardp.setBoardindex(i,j,n);
@@ -153,7 +153,7 @@ public class testboard {
             }
         }
         for(int i=0;i<54;i++){
-            e[i]=new node(i+1,1);
+            e[i]=new Node(i+1,1);
             e[i].setValue(i+1);
             e[i].setexit(true);
         }
@@ -188,15 +188,15 @@ public class testboard {
     }
     @Test
     void testfig4(){
-        board boardp=new board();
-        node [] e=new node[54];
+        Board boardp=new Board();
+        Node[] e=new Node[54];
         ArrayList<Integer> ints=new ArrayList<>();
         int a=5;
         int t=0;
         for(int i=0;i<9;i++){
             for(int j=0;j<a;j++){
 
-                node n=new node(i+j+1,6);
+                Node n=new Node(i+j+1,6);
                 n.setexit(false);
                 n.setnext(7);
                 boardp.setBoardindex(i,j,n);
@@ -213,7 +213,7 @@ public class testboard {
             }
         }
         for(int i=0;i<54;i++){
-            e[i]=new node(i+1,1);
+            e[i]=new Node(i+1,1);
             e[i].setValue(i+1);
             e[i].setexit(true);
         }
