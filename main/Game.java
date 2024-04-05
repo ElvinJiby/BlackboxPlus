@@ -1,5 +1,6 @@
 package main;
 
+import computations.*;
 import entities.*;
 
 import javax.swing.*;
@@ -13,14 +14,15 @@ public class Game {
     private GameScreen gameScreen;
 
     // Game Variables
-    private final int NUM_OF_ATOMS = 6;
+    private final int NUM_OF_ATOMS = 0;
     private static Image bgImage = (new ImageIcon(Game.class.getClassLoader().getResource("res/Board Layouts/transparent-numbered-all.PNG")).getImage());
     private static Image boardCover = (new ImageIcon(Game.class.getClassLoader().getResource("res/Board Layouts/transparent-numbered-background.PNG")).getImage());
-    private Boolean seeAtomsandRays = false; // debug setting to show internal atoms (default: false)
+    private Boolean seeAtomsandRays = true; // debug setting to show internal atoms (default: false)
     private final ArrayList<HexagonalBox> hexagonalBoxes; // Arraylist that contains all the hexagonal boxes
     private final ArrayList<Atom> atomList; // Arraylist that contains all the atoms
     private ArrayList<Color> markerColourList = new ArrayList<>();
     private ArrayList<ArrayList<Ray>> rayPathList = new ArrayList<>(); // Arraylist that contains a list of each Ray and their own paths
+    private ArrayList<ExitPoint> exitPointsList = new ArrayList<>(); // Arraylist that contains the coordinates of each exit point
     private static final Random rand = new Random();
 
     // default constructor
@@ -32,7 +34,9 @@ public class Game {
 
         hexagonalBoxes = loadHexagonalBoxes();
         atomList = generateAtoms();
-        markerColourList = generateMarkerColourList();
+        exitPointsList = loadExitPointCoords();
+
+//        markerColourList = generateMarkerColourList();
     }
 
     /* Handles the visuals of the game */
@@ -61,27 +65,38 @@ public class Game {
         }
     }
 
-    private ArrayList<Color> generateMarkerColourList() {
-        ArrayList<Color> colourList = new ArrayList<>();
+    public void shootRay(int entry) {
+        // int exit;
+        ArrayList<Ray> newRayPath = new ArrayList<>();
+        // algorithm to add next ray destination (get center x,y of next box & make a ray connecting last point to box coords) to arraylist
+        // if (entry & !exit) announceAbsorbed & setAbsorbedMarker
+        // else if (entry == exit) setReflectionMarker & announceReflected & addpoint
+        // else setDeflectionMarkers & announceDeflected & addpoint
+        ArrayList<Integer> boxNumList = new ArrayList<>();
+        Board boardp = new Board();
+        boardp = (new Lists()).createboard();
+        boardp.getnode(4,4).setatom(true);
+        boxNumList = boardp.iterate(entry);
 
-        int rValue = rand.nextInt(255);
-        int gValue = rand.nextInt(255);
-        int bValue = rand.nextInt(255);
+        System.out.println(boxNumList);
 
-        // 54 "exit" points
-        // assume each marker gets absorbed, so different colour each time
-        for (int i = 0; i < 54; i++) {
-            while (((rValue<100)&&(gValue<100)&&(bValue<100)) || ((rValue>100)&&(gValue>100)&&(bValue>100))) {
-                rValue = rand.nextInt(255);
-                gValue = rand.nextInt(255);
-                bValue = rand.nextInt(255);
-            } // this is done to make sure a colour close to white or black isn't generated (which are used for reflection/absorbed markers)
-            colourList.add(new Color(rValue,gValue,bValue));
-        }
-        if (colourList.size() != 54) {
-            JOptionPane.showMessageDialog(null,"Failed to initialise colourlist.", "ColourList Initialisation Error", JOptionPane.ERROR_MESSAGE);
-        }
-        return colourList;
+        ExitPoint startExit = exitPointsList.get(boxNumList.get(0)-1);
+        newRayPath.add(new Ray(startExit.getX(),startExit.getY(),hexagonalBoxes.get(boxNumList.get(1)-1).getX(),hexagonalBoxes.get(boxNumList.get(1)-1).getY()));
+
+        int pathLength;
+        if (boxNumList.get(boxNumList.size()-1) == -1) pathLength = boxNumList.size()-1;
+        else pathLength = boxNumList.size();
+
+//        for (int i = 1; i < pathLength-1; i++) {
+//            newRayPath.add(new Ray(
+//                    hexagonalBoxes.get(boxNumList.get(i)).getX(),
+//                    hexagonalBoxes.get(boxNumList.get(i)).getY(),
+//                    hexagonalBoxes.get(boxNumList.get(i+1)).getX(),
+//                    hexagonalBoxes.get(boxNumList.get(i+1)).getY()));
+//        }
+
+        rayPathList.add(newRayPath);
+
     }
 
     public void loadPresetRayPath() {
@@ -129,6 +144,84 @@ public class Game {
         rayPathList.add(newRay);
     }
 
+    private ArrayList<ExitPoint> loadExitPointCoords() {
+        ArrayList<ExitPoint> exitPoints = new ArrayList<>();
+
+        // Hardcoded coordinates for each exit point (where the number is)
+        // 1 - 10
+        exitPoints.add(new ExitPoint(458,50));
+        exitPoints.add(new ExitPoint(429,100));
+        exitPoints.add(new ExitPoint(420,112));
+        exitPoints.add(new ExitPoint(389,165));
+        exitPoints.add(new ExitPoint(383,174));
+
+        exitPoints.add(new ExitPoint(358,230));
+        exitPoints.add(new ExitPoint(348,240));
+        exitPoints.add(new ExitPoint(318,295));
+        exitPoints.add(new ExitPoint(308,308));
+        exitPoints.add(new ExitPoint(280,361));
+
+        // 11 - 20
+        exitPoints.add(new ExitPoint(309,415));
+        exitPoints.add(new ExitPoint(321,428));
+        exitPoints.add(new ExitPoint(346,480));
+        exitPoints.add(new ExitPoint(355,490));
+        exitPoints.add(new ExitPoint(383,541));
+
+        exitPoints.add(new ExitPoint(392,552));
+        exitPoints.add(new ExitPoint(420,605));
+        exitPoints.add(new ExitPoint(430,620));
+        exitPoints.add(new ExitPoint(461,671));
+        exitPoints.add(new ExitPoint(523,670));
+
+        // 21 - 30
+        exitPoints.add(new ExitPoint(533,671));
+        exitPoints.add(new ExitPoint(598,671));
+        exitPoints.add(new ExitPoint(605,672));
+        exitPoints.add(new ExitPoint(670,671));
+        exitPoints.add(new ExitPoint(682,672));
+
+        exitPoints.add(new ExitPoint(746,672));
+        exitPoints.add(new ExitPoint(755,672));
+        exitPoints.add(new ExitPoint(819,670));
+        exitPoints.add(new ExitPoint(854,620));
+        exitPoints.add(new ExitPoint(858,608));
+
+        // 31 - 40
+        exitPoints.add(new ExitPoint(893,554));
+        exitPoints.add(new ExitPoint(898,543));
+        exitPoints.add(new ExitPoint(927,491));
+        exitPoints.add(new ExitPoint(933,479));
+        exitPoints.add(new ExitPoint(962,428));
+
+        exitPoints.add(new ExitPoint(970,415));
+        exitPoints.add(new ExitPoint(999,360));
+        exitPoints.add(new ExitPoint(969,306));
+        exitPoints.add(new ExitPoint(959,294));
+        exitPoints.add(new ExitPoint(933,240));
+
+        // 41 - 50
+        exitPoints.add(new ExitPoint(927,230));
+        exitPoints.add(new ExitPoint(895,177));
+        exitPoints.add(new ExitPoint(890,167));
+        exitPoints.add(new ExitPoint(858,113));
+        exitPoints.add(new ExitPoint(852,100));
+
+        exitPoints.add(new ExitPoint(822,47));
+        exitPoints.add(new ExitPoint(755,47));
+        exitPoints.add(new ExitPoint(747,46));
+        exitPoints.add(new ExitPoint(683,48));
+        exitPoints.add(new ExitPoint(672,46));
+
+        // 51 - 54
+        exitPoints.add(new ExitPoint(606,48));
+        exitPoints.add(new ExitPoint(598,47));
+        exitPoints.add(new ExitPoint(533,48));
+        exitPoints.add(new ExitPoint(526,46));
+
+        return exitPoints;
+    }
+
     private ArrayList<Atom> generateAtoms() {
         if (hexagonalBoxes == null) {
             JOptionPane.showMessageDialog(null,"Error: HexagonalBoxes arraylist is null.", null, JOptionPane.ERROR_MESSAGE);
@@ -150,6 +243,29 @@ public class Game {
             atoms.add(atom);
         }
         return atoms;
+    }
+
+    private ArrayList<Color> generateMarkerColourList() {
+        ArrayList<Color> colourList = new ArrayList<>();
+
+        int rValue = rand.nextInt(255);
+        int gValue = rand.nextInt(255);
+        int bValue = rand.nextInt(255);
+
+        // 54 "exit" points
+        // assume each marker gets absorbed, so different colour each time
+        for (int i = 0; i < 54; i++) {
+            while (((rValue<100)&&(gValue<100)&&(bValue<100)) || ((rValue>100)&&(gValue>100)&&(bValue>100))) {
+                rValue = rand.nextInt(255);
+                gValue = rand.nextInt(255);
+                bValue = rand.nextInt(255);
+            } // this is done to make sure a colour close to white or black isn't generated (which are used for reflection/absorbed markers)
+            colourList.add(new Color(rValue,gValue,bValue));
+        }
+        if (colourList.size() != 54) {
+            JOptionPane.showMessageDialog(null,"Failed to initialise colourlist.", "ColourList Initialisation Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return colourList;
     }
 
     private ArrayList<HexagonalBox> loadHexagonalBoxes() {

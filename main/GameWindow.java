@@ -51,7 +51,7 @@ public class GameWindow {
         buttonPanel.setBackground(Color.BLACK);
         createLabels(buttonPanel); // creates all the buttons/clickable elements and adds it to buttonPanel
         try {
-            gameWindow.add(buttonPanel, BorderLayout.NORTH);
+            gameWindow.add(buttonPanel, BorderLayout.SOUTH);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -88,7 +88,7 @@ public class GameWindow {
         playerNameLabel = new JLabel("| Player Name: " + playerName);
         playerNameLabel.setForeground(Color.WHITE);
 
-        arrowNumberInputPrompt = new JLabel("| Enter an integer 1-59: ");
+        arrowNumberInputPrompt = new JLabel("| Enter an integer 1-54: ");
         arrowNumberInputPrompt.setForeground(Color.WHITE);
 
         JLabel colorWindow = new JLabel();
@@ -153,12 +153,16 @@ public class GameWindow {
     private void validateInput() {
         try {
             value = Integer.parseInt(arrowNumberInputField.getText());
-            if (value < 1 || value > 59) {
-                JOptionPane.showMessageDialog(null, "Enter a number between 1 and 59", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            if (value < 1 || value > 54) {
+                JOptionPane.showMessageDialog(null, "Enter a number between 1 and 54", "Invalid Input", JOptionPane.ERROR_MESSAGE);
                 arrowNumberInputField.setText("1"); // Reset to default value
                 value = 1;
                 resultLabel.setText("Shoot ray from: " + value);
-            } else resultLabel.setText("Shoot ray from: " + value);
+            } else {
+                resultLabel.setText("Shoot ray from: " + value);
+                game.shootRay(value);
+                gameScreen.repaint();
+            }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Please enter a valid integer.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
             arrowNumberInputField.setText("1"); // Reset to default value

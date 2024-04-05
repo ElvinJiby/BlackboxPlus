@@ -1,22 +1,11 @@
 package entities;
 
-public class HexagonalBox {
-    // (x,y) coordinates of the center of a hexagonal box on the board
-    private final int x;
-    private final int y;
+public class HexagonalBox extends Entity {
     private boolean hasAtom = false;
 
+    // (x,y) coordinates of the center of a hexagonal box on the board
     public HexagonalBox(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+        super(x,y);
     }
 
     public void setHasAtom(Boolean hasAtom) { // used when generating atoms. call when a hexagonal box is chosen to host an atom
