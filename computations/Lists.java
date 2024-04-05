@@ -1,23 +1,19 @@
 package computations;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public class testboard {
-    @Test
-    void testpath(){
-        board boardp=new board();
-        node [] e=new node[54];
+public class Lists {
+    public Board createboard(){
+        Board boardp=new Board();
         ArrayList<Integer> ints=new ArrayList<>();
+        Node[] e=new Node[54];
         int a=5;
         int t=0;
+        int c=0;
         for(int i=0;i<9;i++){
             for(int j=0;j<a;j++){
-
-                node n=new node(i+j+1,6);
+                c++;
+                Node n=new Node(c,6);
                 n.setexit(false);
                 n.setnext(7);
                 boardp.setBoardindex(i,j,n);
@@ -34,17 +30,30 @@ public class testboard {
             }
         }
         for(int i=0;i<54;i++){
-            e[i]=new node(i+1,1);
+            e[i]=new Node(i+1,1);
             e[i].setValue(i+1);
             e[i].setexit(true);
         }
         boardp.setexit(e);
-        boardp.linkboard();
-        ints= boardp.iterate(44);
-        int u=ints.get(ints.size()-1);
-        assertEquals(21, u);
+        System.out.println(boardp);
 
-        assertEquals(34, u);
+
+        boardp.linkboard();
+        return boardp;
+    }
+   public static void main(String[] args) {
+       Board boardp=new Board();
+       ArrayList<Integer> ints=new ArrayList<>();
+       Lists c=new Lists();
+       boardp=c.createboard();
+       boardp.getnode(4,3).setatom(true);
+       boardp.getnode(4,2).setatom(true);
+
+
+
+        ints= boardp.iterate(17);
+
+
+
     }
 }
-

@@ -1,14 +1,14 @@
 package computations;
 
-public class node{
+public class Node {
     private int value;
     private int next;
-    private node[] sides;
+    private Node[] sides;
     private boolean isexit;
     private boolean atom;
-    public node(int value,int s){
+    public Node(int value, int s){
         this.value=value;
-        this.sides=new node[s];
+        this.sides=new Node[s];
         this.atom=false;
     }
 
@@ -18,10 +18,10 @@ public class node{
     public void setValue(int value){
         this.value=value;
     }
-    public void setSides(int i,node v){
+    public void setSides(int i, Node v){
         this.sides[i]=v;
     }
-    public node getSides(int i) {
+    public Node getSides(int i) {
         return this.sides[i];
     }
     public void setexit(boolean b){

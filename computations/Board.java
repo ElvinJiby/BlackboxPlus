@@ -2,20 +2,20 @@ package computations;
 
 import java.util.ArrayList;
 
-public class board {
-    private node[][] board=new node[9][9];
-    private node[] exit=new node[54];
-    public node[][]getboard(){
+public class Board {
+    private Node[][] board=new Node[9][9];
+    private Node[] exit=new Node[54];
+    public Node[][]getboard(){
         return board;
     }
 
-    public void setboard(node[][] board) {
+    public void setboard(Node[][] board) {
         this.board = board;
     }
-    public void setBoardindex(int i,int j,node k){
+    public void setBoardindex(int i, int j, Node k){
         board[i][j]=k;
     }
-    public void setexit(node[] a) {
+    public void setexit(Node[] a) {
         this.exit = a;
     }
 
@@ -39,7 +39,7 @@ public class board {
         }
         return c;
     }
-    public node getnode(int i,int j){
+    public Node getnode(int i, int j){
         return this.board[i][j];
     }
     public void linkboard(){
@@ -182,12 +182,12 @@ public class board {
                     this.board[i][j].setSides(1,board[i-1][j+1]);
                     this.board[i][j].setSides(2,board[i][j+1]);
                     this.board[i][j].setSides(3,board[i+1][j]);
-                    this.board[i][j].setSides(4,exit[aon]);
-                    exit[aon].setnext(1);
-                    exit[aon].setSides(0,this.board[i][j]);
-                    aon++;
                     this.board[i][j].setSides(5,exit[aon]);
                     exit[aon].setnext(2);
+                    exit[aon].setSides(0,this.board[i][j]);
+                    aon++;
+                    this.board[i][j].setSides(4,exit[aon]);
+                    exit[aon].setnext(1);
                     exit[aon].setSides(0,this.board[i][j]);
                     aon++;
                 } else if (i==0) {
@@ -267,31 +267,60 @@ public class board {
     }
     public ArrayList<Integer> iterate(int a){
         ArrayList<Integer> ints=new ArrayList<>();
-        node head=exit[a-1];
-        node next=head.getSides(0);
+        Node head=exit[a-1];
+        Node next=head.getSides(0);
         int n=head.getnext();
+        ints.add(head.getValue());
         System.out.print(head.getValue()+"->");
-        int l=0;
-        while (next.isexit()!=true && l==0){
-//            for(int i = 0; i<6; i++){
-//                if(next.hasatom()){
-//                    System.out.print("Ray absorbed");
-//                    l=1;
-//                    break;
-//                }else if(i!=n && next.getSides(i).isexit()==false){
-//                    if(next.getSides(i).hasatom()==true){
-//                        n=(n+1) % 6;
-//
-//                    }
-//                }
-//            }
+        if(next.hasatom()){
+            System.out.print("Ray absorbed");
+            ints.add(-1);
+            return ints;
+        }
+
+        while (next.isexit()!=true ){
+            ArrayList<Integer> atomp= new ArrayList<Integer>();
+           for(int i = 0; i<6; i++){
+               if(next.getSides(i).hasatom()==true){
+                   atomp.add(i);
+
+                }
+               }
+            if(atomp.size()==1 && next.getSides(n).hasatom()){
+                System.out.print("Ray absorbed");
+                ints.add(-1);
+                return ints;
+            } else if (atomp.size()==1) {
+                if((atomp.getFirst()==(n+1)%6) ){
+                    n=(n-1+6)%6;
+                } else if ((atomp.getFirst()==(n-1+6)%6) ) {
+                    n=(n+1)%6;
+                } else if ((atomp.getFirst()==(n+2)%6) || (atomp.getFirst()==(n-2+6)%6)) {
+                    n=(n+3)%6;
+                }
+            } else if (atomp.size()==2) {
+                if((((n + 1) % 6) == atomp.get(0) || ((n + 1) % 6) ==atomp.get(1)) && (((n ) % 6) == atomp.get(0) || ((n ) % 6) ==atomp.get(1))){
+                    n=(n-2+6)%6;
+                } else if ((((n - 1+6) % 6) == atomp.get(0) || ((n - 1+6) % 6) ==atomp.get(1)) && (((n ) % 6) == atomp.get(0) || ((n ) % 6) ==atomp.get(1))) {
+                    n=(n+2)%6;
+                }else if ((((n - 1+6) % 6) == atomp.get(0) || ((n - 1+6) % 6) ==atomp.get(1)) && (((n + 1) % 6) == atomp.get(0) || ((n + 1) % 6) ==atomp.get(1))) {
+                    n=(n+3)%6;
+                }
+            } else if (atomp.size()==3) {
+                n=(n+3)%6;
+            }
             System.out.print(next.getValue()+"->");
             ints.add(next.getValue());
 
             next=next.getSides(n);
-            //System.out.print(next.getValue()+"->");
-        }
+
+
+
+            }
         System.out.print(next.getValue());
+        System.out.println();
+        ints.add(next.getValue());
+
     return ints;
     }
 }
