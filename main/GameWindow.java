@@ -20,7 +20,8 @@ public class GameWindow {
     private final int score = 100;
     private int value = 1;
     private String playerName = "user34567";
-    private ImageIcon imageIcon;
+    private JButton howToPlayButton;
+    private JButton endGameButton;
 
     public GameWindow(GameScreen gameScreen, Game game) {
         // Window Construction
@@ -111,9 +112,11 @@ public class GameWindow {
             }
         });
 
-        JButton howToPlayButton = new JButton("How To Play");
+        howToPlayButton = new JButton("How To Play");
         howToPlayButton.setBounds(50,50,100,30);
         howToPlayButton.addActionListener(e -> howToPlayWindow());
+
+        endGameButton = new JButton("End Game");
 
         buttonPanel.add(howToPlayButton);
         buttonPanel.add(playerNameInputField);
