@@ -233,7 +233,9 @@ public class testboard {
         u=ints.get(ints.size()-1);
         assertEquals(48, u);
 
-       // ints= boardp.iterate(30);
+        ints= boardp.iterate(30);
+        u=ints.get(ints.size()-1);
+        assertEquals(-1, u);
     }
 }
 

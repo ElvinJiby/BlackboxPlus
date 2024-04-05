@@ -273,7 +273,9 @@ public class board {
         System.out.print(head.getValue()+"->");
         if(next.hasatom()){
             System.out.print("Ray absorbed");
-            return ints;}
+            ints.add(-1);
+            return ints;
+        }
 
         while (next.isexit()!=true ){
             ArrayList<Integer> atomp= new ArrayList<Integer>();
@@ -285,6 +287,7 @@ public class board {
                }
             if(atomp.size()==1 && next.getSides(n).hasatom()){
                 System.out.print("Ray absorbed");
+                ints.add(-1);
                 return ints;
             } else if (atomp.size()==1) {
                 if((atomp.getFirst()==(n+1)%6) ){
