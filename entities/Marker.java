@@ -2,10 +2,20 @@ package entities;
 
 import java.awt.*;
 
-public class Marker {
+public class Marker extends Entity {
     private Color markerColour;
 
-    public Marker(Color markerColour) {
+    public Marker() {
+        super();
+        markerColour = Color.MAGENTA;
+    }
+
+    public Marker(int x, int y, Color markerColour) {
+        super(x-5,y-5);
         this.markerColour = markerColour;
+    }
+
+    public Color getMarkerColour() {
+        return markerColour;
     }
 }

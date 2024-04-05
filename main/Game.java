@@ -12,18 +12,24 @@ public class Game {
     // Application Variables
     private GameWindow gameWindow;
     private GameScreen gameScreen;
+    private static final Random rand = new Random();
 
     // Game Variables
-    private final int NUM_OF_ATOMS = 0;
     private static Image bgImage = (new ImageIcon(Game.class.getClassLoader().getResource("res/Board Layouts/transparent-numbered-all.PNG")).getImage());
     private static Image boardCover = (new ImageIcon(Game.class.getClassLoader().getResource("res/Board Layouts/transparent-numbered-background.PNG")).getImage());
+
+    private final int NUM_OF_ATOMS = 6;
     private Boolean seeAtomsandRays = true; // debug setting to show internal atoms (default: false)
+    private int score = 0;
+    private String playerName = "user34567";
+
     private final ArrayList<HexagonalBox> hexagonalBoxes; // Arraylist that contains all the hexagonal boxes
     private final ArrayList<Atom> atomList; // Arraylist that contains all the atoms
-    private ArrayList<Color> markerColourList = new ArrayList<>();
-    private ArrayList<ArrayList<Ray>> rayPathList = new ArrayList<>(); // Arraylist that contains a list of each Ray and their own paths
+    private final ArrayList<Marker> markersList = new ArrayList<>(); // Arraylist that contains all the markers and their colour and coords
+    private final ArrayList<ArrayList<Ray>> rayPathList = new ArrayList<>(); // Arraylist that contains a list of each Ray and their own paths
     private ArrayList<ExitPoint> exitPointsList = new ArrayList<>(); // Arraylist that contains the coordinates of each exit point
-    private static final Random rand = new Random();
+    private final ArrayList<Integer> atomBoxNumbers = new ArrayList<>();
+
 
     // default constructor
     public Game() {
@@ -35,8 +41,6 @@ public class Game {
         hexagonalBoxes = loadHexagonalBoxes();
         atomList = generateAtoms();
         exitPointsList = loadExitPointCoords();
-
-//        markerColourList = generateMarkerColourList();
     }
 
     /* Handles the visuals of the game */
@@ -45,8 +49,10 @@ public class Game {
         g.drawImage(bgImage, 0, 0,1280,720, null);
 
         // draw atoms
-        for (Atom atom : atomList) {
-            g.drawImage(Atom.getAtomImage(), atom.getX(), atom.getY(), 50,50,null);
+        if (atomList != null) {
+            for (Atom atom : atomList) {
+                g.drawImage(Atom.getAtomImage(), atom.getX(), atom.getY(), 50, 50, null);
+            }
         }
 
         // draw rays
@@ -59,6 +65,12 @@ public class Game {
             }
         }
 
+        // draw markers
+        for (Marker marker : markersList) {
+            g2d.setColor(marker.getMarkerColour());
+            g2d.fillOval(marker.getX(), marker.getY(), 10,10);
+        }
+
         // hide internal atoms and rays if setting is false
         if (!seeAtomsandRays) {
             g.drawImage(boardCover, 0, 0,1280,720, null);
@@ -66,26 +78,30 @@ public class Game {
     }
 
     public void shootRay(int entry) {
-        // int exit;
-        ArrayList<Ray> newRayPath = new ArrayList<>();
-        // algorithm to add next ray destination (get center x,y of next box & make a ray connecting last point to box coords) to arraylist
         // if (entry & !exit) announceAbsorbed & setAbsorbedMarker
         // else if (entry == exit) setReflectionMarker & announceReflected & addpoint
         // else setDeflectionMarkers & announceDeflected & addpoint
-        ArrayList<Integer> boxNumList = new ArrayList<>();
-        Board boardp = new Board();
-        boardp = (new Lists()).createboard();
-        boardp.getnode(4,4).setatom(true);
-        boxNumList = boardp.iterate(entry);
+        Board boardp = (new Lists()).createboard();
+//        boardp.getnode(4,4).setatom(true);
+        ArrayList<Integer> boxNumList = boardp.iterate(entry);
+        ArrayList<Ray> newRayPath = new ArrayList<>();
 
         System.out.println(boxNumList);
 
-        ExitPoint startExit = exitPointsList.get(boxNumList.get(0)-1);
-        newRayPath.add(new Ray(startExit.getX(),startExit.getY(),hexagonalBoxes.get(boxNumList.get(1)-1).getX(),hexagonalBoxes.get(boxNumList.get(1)-1).getY()));
+        // Absorbed Ray Case
+        boolean isRayAbsorbed = boxNumList.getLast() == -1;
+        if (isRayAbsorbed) boxNumList.remove(boxNumList.getLast());
+        int pathLength = boxNumList.size();
 
-        int pathLength;
-        if (boxNumList.get(boxNumList.size()-1) == -1) pathLength = boxNumList.size()-1;
-        else pathLength = boxNumList.size();
+        // Reflected Ray Case
+        boolean isRayReflected = boxNumList.getFirst().equals(boxNumList.getLast());
+
+        ExitPoint startPoint = exitPointsList.get(boxNumList.getFirst()-1);
+        newRayPath.add(new Ray(
+                startPoint.getX(),
+                startPoint.getY(),
+                hexagonalBoxes.get(boxNumList.get(1)-1).getX(),
+                hexagonalBoxes.get(boxNumList.get(1)-1).getY()));
 
 //        for (int i = 1; i < pathLength-1; i++) {
 //            newRayPath.add(new Ray(
@@ -95,8 +111,48 @@ public class Game {
 //                    hexagonalBoxes.get(boxNumList.get(i+1)).getY()));
 //        }
 
-        rayPathList.add(newRayPath);
+        /* Marker Cases */
+        // Normal case - Ray goes straight through with no reflection of absorption
+        if (!isRayAbsorbed && !isRayReflected) {
+            // User can choose the colour of the marker
+            Color colorChoice = gameWindow.askMarkerColor();
 
+            // Marker at first entry point of ray path
+            int startX = exitPointsList.get(boxNumList.getFirst()-1).getX();
+            int startY = exitPointsList.get(boxNumList.getFirst()-1).getY();
+            markersList.add(new Marker(startX,startY,colorChoice));
+
+            // Marker at last entry point of ray path
+            int endX = exitPointsList.get(boxNumList.getLast()-1).getX();
+            int endY = exitPointsList.get(boxNumList.getLast()-1).getY();
+            markersList.add(new Marker(endX,endY,colorChoice));
+
+            score += 2;
+            System.out.println("Normal");
+        }
+        // Absorbed case - Ray absorbed by atom
+        else if (isRayAbsorbed) {
+            // Black (Gray) marker at first entry point of ray path
+            int startX = exitPointsList.get(boxNumList.getFirst()-1).getX();
+            int startY = exitPointsList.get(boxNumList.getFirst()-1).getY();
+            markersList.add(new Marker(startX,startY,Color.GRAY));
+
+            score++;
+            System.out.println("Absorbed!");
+        }
+        // Reflected case = Ray deflects and exits at the same point of entry
+        else {
+            // White marker at first entry point of ray path
+            int startX = exitPointsList.get(boxNumList.getFirst()-1).getX();
+            int startY = exitPointsList.get(boxNumList.getFirst()-1).getY();
+            markersList.add(new Marker(startX,startY,Color.WHITE));
+
+            score++;
+            System.out.println("Reflected!");
+        }
+
+        // Add the newly created ray path to a pathlist
+        rayPathList.add(newRayPath);
     }
 
     public void loadPresetRayPath() {
@@ -237,6 +293,7 @@ public class Game {
                 atomPosIndex = rand.nextInt(0,hexagonalBoxesLength);
             }
 
+            atomBoxNumbers.add(atomPosIndex+1);
             Atom atom = new Atom(hexagonalBoxes.get(atomPosIndex).getX(), hexagonalBoxes.get(atomPosIndex).getY());
             hexagonalBoxes.get(atomPosIndex).setHasAtom(true); // that box now has an atom present. set respective boolean hasAtom to true.
             System.out.println(atom);
@@ -349,5 +406,30 @@ public class Game {
 
     public void toggleInternalBoardSetting() {
         seeAtomsandRays = !seeAtomsandRays;
+        gameScreen.repaint();
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    public Boolean isAtomLocationGuessCorrect(int boxNumber) {
+        return atomBoxNumbers.contains(boxNumber);
+    }
+
+    public void addIncorrectAtomGuess() {
+        score += 5;
+    }
+
+    public int getNumAtoms() {
+        return NUM_OF_ATOMS;
     }
 }

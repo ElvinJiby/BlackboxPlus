@@ -7,24 +7,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class GameWindow {
     private JFrame gameWindow;
     private GameScreen gameScreen;
     private Game game;
-
     private JPanel buttonPanel;
+
     private JTextField arrowNumberInputField;
+    private JLabel arrowNumberInputPrompt;
     private JTextField playerNameInputField;
-    private JLabel resultLabel;
     private JLabel playerNameLabel;
     private JLabel scoreLabel;
-    private JLabel arrowNumberInputPrompt;
-    private final int score = 100;
+    private JLabel resultLabel;
     private int value = 1;
-    private String playerName = "user34567";
     private JButton howToPlayButton;
     private JButton endGameButton;
+    private final ArrayList<Integer> visitedBoxes = new ArrayList<>();
 
     public GameWindow(GameScreen gameScreen, Game game) {
         // Window Construction
@@ -62,7 +62,7 @@ public class GameWindow {
     }
 
     private void createLabels(JPanel buttonPanel) {
-        scoreLabel = new JLabel("| Score: " + score);
+        scoreLabel = new JLabel("| Score: " + game.getScore());
         scoreLabel.setForeground(Color.WHITE);
 //        scoreLabel.setBounds(1100, 650, 150, 30);
 
@@ -85,7 +85,7 @@ public class GameWindow {
             gameScreen.repaint();
         });
 
-        playerNameLabel = new JLabel("| Player Name: " + playerName);
+        playerNameLabel = new JLabel("| Player Name: " + game.getPlayerName());
         playerNameLabel.setForeground(Color.WHITE);
 
         arrowNumberInputPrompt = new JLabel("| Enter an integer 1-54: ");
@@ -100,7 +100,6 @@ public class GameWindow {
         JButton button = new JButton("Pick a colour");
         button.addActionListener(e -> {
             if (e.getSource() == button) {
-                JColorChooser colorChooser = new JColorChooser();
                 Color color = JColorChooser.showDialog(null, "Choose a colour!", Color.WHITE);
                 colorWindow.setForeground(color);
                 gameScreen.repaint();
@@ -120,7 +119,12 @@ public class GameWindow {
         howToPlayButton.addActionListener(e -> howToPlayWindow());
 
         endGameButton = new JButton("End Game");
-        endGameButton.addActionListener(e -> endGameWindow());
+        endGameButton.addActionListener(e -> {
+            endGameButton.setEnabled(false);
+//            guessAtomsWindow();
+            game.toggleInternalBoardSetting();
+            endGameWindow();
+        });
 
         buttonPanel.add(endGameButton);
         buttonPanel.add(howToPlayButton);
@@ -130,9 +134,47 @@ public class GameWindow {
         buttonPanel.add(arrowNumberInputField);
         buttonPanel.add(resultLabel);
         buttonPanel.add(scoreLabel);
-        buttonPanel.add(button);
-        buttonPanel.add(loadPresetRay);
-        buttonPanel.add(colorWindow);
+//        buttonPanel.add(button);
+//        buttonPanel.add(loadPresetRay);
+//        buttonPanel.add(colorWindow);
+    }
+
+    private void guessAtomsWindow() {
+        JFrame jFrame = new JFrame("Enter the box number you think the atom is located in");
+        jFrame.setLayout(new FlowLayout());
+        jFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        jFrame.setLocationRelativeTo(null);
+
+        JTextField textField = new JTextField();
+        textField.setPreferredSize(new Dimension(250,40));
+
+        JButton submitButton = new JButton("Submit Guess ("+game.getNumAtoms()+" guesses left)");
+        submitButton.addActionListener(e -> {
+            if (e.getSource() == submitButton) {
+                int guess;
+                int num_of_guesses = game.getNumAtoms();
+
+                while (num_of_guesses > 0) {
+                    try {
+                        guess = Integer.parseInt(textField.getText());
+                        num_of_guesses--;
+                        if (!game.isAtomLocationGuessCorrect(guess)) {
+                            game.addIncorrectAtomGuess();
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "That's not a valid input.", "Invalid Guess", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+
+                jFrame.dispose();
+            }
+        });
+
+        jFrame.add(submitButton);
+        jFrame.add(textField);
+        jFrame.pack();
+        jFrame.setVisible(true);
+
     }
 
     private void endGameWindow() {
@@ -140,28 +182,42 @@ public class GameWindow {
         jFrame.setSize(854, 480);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jFrame.setLocationRelativeTo(null);
-        jFrame.addWindowListener(new WindowAdapter() { @Override public void windowClosing(WindowEvent e) { new StartScreen(); } });
+        jFrame.addWindowListener(new WindowAdapter() { @Override public void windowClosing(WindowEvent e) {
+            gameWindow.dispose();
+            jFrame.dispose();
+            new StartScreen(); } });
 
-        JLabel finalScore = new JLabel("User " + playerName + " has scored: " + score + " points");
+        JLabel finalScore = new JLabel();
+        finalScore.setFont(new Font("Verdana", Font.BOLD, 20));
+        finalScore.setText(game.getPlayerName() + " has scored: " + game.getScore() + " points!");
 
-        jFrame.add(finalScore);
+        finalScore.setHorizontalAlignment(SwingConstants.CENTER);
+
+        jFrame.add(finalScore, BorderLayout.CENTER);
         jFrame.setVisible(true);
 
-        LeaderBoardData.storeScore(playerName, score);
+        LeaderBoardData.storeScore(game.getPlayerName(), game.getScore());
     }
 
     private void validateInput() {
         try {
             value = Integer.parseInt(arrowNumberInputField.getText());
             if (value < 1 || value > 54) {
-                JOptionPane.showMessageDialog(null, "Enter a number between 1 and 54", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Enter a number between 1 and 54 (inclusive)", "Invalid Input", JOptionPane.ERROR_MESSAGE);
                 arrowNumberInputField.setText("1"); // Reset to default value
                 value = 1;
                 resultLabel.setText("Shoot ray from: " + value);
             } else {
+                if (visitedBoxes.contains(value)) {
+                    JOptionPane.showMessageDialog(null, "This entry already has a ray generated from it", "Input Already Used", JOptionPane.ERROR_MESSAGE);
+                    arrowNumberInputField.setText("1"); // Reset to default value
+                    value = 1;
+                } else {
+                    visitedBoxes.add(value);
+                    game.shootRay(value);
+                    gameScreen.repaint();
+                }
                 resultLabel.setText("Shoot ray from: " + value);
-                game.shootRay(value);
-                gameScreen.repaint();
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Please enter a valid integer.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
@@ -171,19 +227,19 @@ public class GameWindow {
     }
 
     private void updateUsername() {
-        playerName = playerNameInputField.getText();
-        if (playerName.length() > 30) {
+        game.setPlayerName(playerNameInputField.getText());
+        if (game.getPlayerName().length() > 30) {
             JOptionPane.showMessageDialog(null, "Username must be 30 characters or less.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
         } else {
-            playerNameLabel.setText(playerName);
+            playerNameLabel.setText(game.getPlayerName());
             playerNameInputField.setVisible(false);
             gameScreen.repaint();
         }
     }
 
-    public static void howToPlayWindow() {
-        JFrame jFrame = new JFrame("New Window");
-        jFrame.setSize(854, 480);
+    public void howToPlayWindow() {
+        JFrame jFrame = new JFrame("How to Play Blackbox+");
+        jFrame.setPreferredSize(new Dimension(854, 480));
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jFrame.setLocationRelativeTo(null);
         jFrame.addWindowListener(new WindowAdapter() {
@@ -192,6 +248,22 @@ public class GameWindow {
                 super.windowClosed(e);
             }
         });
+
+        JLabel tutorialText = new JLabel();
+        tutorialText.setText("<html><br>"
+                + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                + "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+                + "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
+                + "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
+                + "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</html>");
+        tutorialText.setHorizontalAlignment(SwingConstants.CENTER);
+
+        jFrame.add(tutorialText, BorderLayout.CENTER);
+        jFrame.pack();
         jFrame.setVisible(true);
+    }
+
+    public Color askMarkerColor() {
+        return JColorChooser.showDialog(null, "Choose a colour for the Markers", Color.WHITE);
     }
 }
