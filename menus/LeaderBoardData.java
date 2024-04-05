@@ -67,6 +67,16 @@ public class LeaderBoardData {
         }
     }
 
+    public static void storeScore(String name, int score) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("./res/Miscellaneous/scores.txt", true))) {
+            writer.write(name + "," + score);
+            writer.newLine();
+        } catch (IOException e) {
+            System.err.println("Error storing score: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     public static void clearTheDamnTXTFile() throws IOException {
         FileWriter fileWriter = new FileWriter("./res/Miscellaneous/scores.txt");
         fileWriter.write("user1,0\nuser2,0\nuser3,0\nuser4,0\nuser5,0\n");
