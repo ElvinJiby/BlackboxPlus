@@ -19,7 +19,7 @@ public class Game {
     private static Image boardCover = (new ImageIcon(Game.class.getClassLoader().getResource("res/Board Layouts/transparent-numbered-background.PNG")).getImage());
 
     private final int NUM_OF_ATOMS = 6;
-    private Boolean seeAtomsandRays = true; // debug setting to show internal atoms (default: false)
+    private Boolean seeAtomsandRays = false; // debug setting to show internal atoms (default: false)
     private int score = 0;
     private String playerName = "user34567";
 
