@@ -26,13 +26,14 @@ public class Leaderboard implements Runnable {
     private final JButton clearLeaderboard; // when pressed clears the txt file
     private final JButton goBackBruh; // exits the window and goes back to main menu
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         Leaderboard leaderboard = new Leaderboard();
         leaderboard.run();
     }
 
-    public Leaderboard() throws FileNotFoundException {
+    public Leaderboard() throws IOException {
         LeaderBoardData leaderBoardData = new LeaderBoardData();
+        leaderBoardData.processFile();
         leaderBoardData.readAndSort();
         sortedScores = leaderBoardData.getSortedScores();
         leaderBoardData.writeTXTFile(sortedScores);
@@ -72,7 +73,7 @@ public class Leaderboard implements Runnable {
         clearLeaderboard.setBounds(680, 627, 220, 30);
         // this lambda expression detects whether the clear button is pressed or not
         clearLeaderboard.addActionListener(e -> {
-            try { LeaderBoardData.clearTheDamnTXTFile(); }
+            try { LeaderBoardData.clearTheLeaderboard(); }
             catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,"Failed to clear leaderboard.", "Leaderboard Data Clear Error", JOptionPane.ERROR_MESSAGE);
 //                throw new RuntimeException(ex);
