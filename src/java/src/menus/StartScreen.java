@@ -39,7 +39,7 @@ public class StartScreen {
         leaderboard.setBounds(400,560,300,60);
         leaderboard.setOpaque(false);
         leaderboard.setContentAreaFilled(false);
-        leaderboard.setBorderPainted(true);
+        leaderboard.setBorderPainted(false);
         leaderboard.setFocusable(true);
         leaderboard.addActionListener(e -> {
 //            System.out.println("Leaderboard clicked");
