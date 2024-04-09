@@ -9,6 +9,11 @@
       <sourceFolder url="file://$MODULE_DIR$/res/Icons" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/res/Start Screen" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/res/Miscellaneous" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/src" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/out" />
     <orderEntry type="inheritedJdk" />
