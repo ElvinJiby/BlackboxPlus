@@ -24,7 +24,7 @@ public class LeaderBoardData {
     }
 
     public void readTXTFile() throws FileNotFoundException { // reads in txt file and saves it to the linked hash map
-        File scores = new File("./res/Miscellaneous/scores.txt");
+        File scores = new File("scores.txt");
         if (!scores.exists()) { // if file doesn't exist, create one
             try {
                 scores.createNewFile();
@@ -56,7 +56,7 @@ public class LeaderBoardData {
     // this sorted list is then over-written to the txt file
     public void writeTXTFile(List<Map.Entry<String, Integer>> sortedEntry) {// takes in the sorted list as a map
         // FileWriter opens the file and PrintWriter writes to the file
-        try (PrintWriter printWriter = new PrintWriter(new FileWriter("./res/Miscellaneous/scores.txt"))) {
+        try (PrintWriter printWriter = new PrintWriter(new FileWriter("scores.txt"))) {
             // the loop goes through each entry in the list
             // it accesses the name and score using entry.getKey and entry.getValue
             // using PrintWriter, it writes to the file, seperated by a comma, for formatting
@@ -68,7 +68,7 @@ public class LeaderBoardData {
     }
 
     public static void storeScore(String name, int score) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("./res/Miscellaneous/scores.txt", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("scores.txt", true))) {
             writer.write(name + "," + score);
             writer.newLine();
         } catch (IOException e) {
@@ -78,7 +78,7 @@ public class LeaderBoardData {
     }
 
     public static void processFile() throws IOException {
-        String file = "./res/Miscellaneous/scores.txt";
+        String file = "scores.txt";
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
         int numOfLines = 0;
@@ -91,14 +91,14 @@ public class LeaderBoardData {
         bufferedReader.close();
 
         if (numOfLines < 5) {
-            FileWriter fileWriter = new FileWriter("./res/Miscellaneous/scores.txt");
+            FileWriter fileWriter = new FileWriter("scores.txt");
             fileWriter.write("user1,100\nuser2,100\nuser3,100\nuser4,100\nuser5,100\n");
             fileWriter.close();
         }
     }
 
     public static void clearTheLeaderboard() throws IOException {
-        FileWriter fileWriter = new FileWriter("./res/Miscellaneous/scores.txt");
+        FileWriter fileWriter = new FileWriter("scores.txt");
         fileWriter.write("user1,0\nuser2,0\nuser3,0\nuser4,0\nuser5,0\n");
         fileWriter.close();
     }

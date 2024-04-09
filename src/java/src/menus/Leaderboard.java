@@ -43,7 +43,7 @@ public class Leaderboard implements Runnable {
         jFrame.setResizable(false); // ensures the app window will always stay at 1280x720 resolution
         jFrame.setLocationRelativeTo(null); // when window is opened initially it is centred
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        jFrame.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("./res/Icons/new_icon.png")).getImage());
+        jFrame.setIconImage(new ImageIcon(getClass().getResource("/Icons/new_icon.png")).getImage());
 
         jPanel = new JPanel(); // creates new JPanel object
         jPanel.setLayout(null); // setting null allows elements to be placed anywhere on the panel
@@ -118,7 +118,7 @@ public class Leaderboard implements Runnable {
 //        button.addActionListener(e -> { Credits leaderboard = new Credits(); leaderboard.run(); });
 //        jPanel.add(button);
 
-        ImageIcon introScreen = new ImageIcon(getClass().getClassLoader().getResource("./res/Miscellaneous/leaderboard_bg.png"));
+        ImageIcon introScreen = new ImageIcon(getClass().getResource("/Miscellaneous/leaderboard_bg.png"));
         leaderboardBackground = new JLabel(introScreen);
         leaderboardBackground.setSize(1280, 720);
         jPanel.add(leaderboardBackground);
