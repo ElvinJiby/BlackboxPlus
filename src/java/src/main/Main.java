@@ -6,8 +6,6 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        String os  = Main.getOperatingSystem();
-        System.out.println(os);
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -20,11 +18,6 @@ public class Main {
                 }
             }
         });
-    }
-    public static String getOperatingSystem() {
-        String os = System.getProperty("os.name");
-        // System.out.println("Using System Property: " + os);
-        return os;
     }
 }
 
