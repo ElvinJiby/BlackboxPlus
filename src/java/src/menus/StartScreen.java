@@ -1,5 +1,6 @@
 package menus;
 
+import inputs.OperatingSystem;
 import main.Game;
 
 import javax.swing.*;
@@ -7,6 +8,7 @@ import java.awt.*;
 
 public class StartScreen {
     public StartScreen() {
+        boolean isItMacOS = OperatingSystem.isItMacOS();
         JFrame window = new JFrame("Black Box+ By Group 50");
         window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         window.setSize(1280, 720);
@@ -20,8 +22,9 @@ public class StartScreen {
         JButton newGame = new JButton();
         newGame.setBounds(130,560,230,60);
         newGame.setOpaque(false);
-        newGame.setContentAreaFilled(false);
-        newGame.setBorderPainted(true);
+        newGame.setContentAreaFilled(true);
+        if (isItMacOS) newGame.setBorderPainted(false);
+        else newGame.setBorderPainted(false);
         newGame.setFocusable(true);
         newGame.addActionListener(e -> {
             window.dispose();
@@ -38,8 +41,9 @@ public class StartScreen {
         JButton leaderboard = new JButton();
         leaderboard.setBounds(400,560,300,60);
         leaderboard.setOpaque(false);
-        leaderboard.setContentAreaFilled(false);
-        leaderboard.setBorderPainted(false);
+        leaderboard.setContentAreaFilled(true);
+        if (isItMacOS) leaderboard.setBorderPainted(false);
+        else leaderboard.setBorderPainted(false);
         leaderboard.setFocusable(true);
         leaderboard.addActionListener(e -> {
 //            System.out.println("Leaderboard clicked");
@@ -60,7 +64,8 @@ public class StartScreen {
         credits.setBounds(743,560,200,60);
         credits.setOpaque(false);
         credits.setContentAreaFilled(false);
-        credits.setBorderPainted(true);
+        if (isItMacOS) credits.setBorderPainted(false);
+        else credits.setBorderPainted(true);
         credits.setFocusable(true);
         credits.addActionListener(e -> {
             window.dispose();
@@ -78,7 +83,8 @@ public class StartScreen {
         exitGame.setBounds(991,560,110,60);
         exitGame.setOpaque(false);
         exitGame.setContentAreaFilled(false);
-        exitGame.setBorderPainted(true);
+        if (isItMacOS) exitGame.setBorderPainted(false);
+        else exitGame.setBorderPainted(true);
         exitGame.setFocusable(true);
         exitGame.addActionListener(e -> System.exit(0));
         introLabel.add(exitGame);
