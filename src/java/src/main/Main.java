@@ -1,5 +1,5 @@
 package main;
-
+// java -jar out/artifacts/Blackbox___Software_Eng__II_Group50__jar/Blackbox---Software-Eng.-II-Group50-.jar
 import menus.StartScreen;
 
 import javax.swing.*;
