@@ -292,6 +292,7 @@ public class Game {
         for (int i = 0; i<NUM_OF_ATOMS; i++) {
             while (hexagonalBoxes.get(atomPosIndex).HasAtom()) { // ensures that atoms do not generate in the same box
                 atomPosIndex = rand.nextInt(0,hexagonalBoxesLength);
+                
             }
 
             atomBoxNumbers.add(atomPosIndex+1);

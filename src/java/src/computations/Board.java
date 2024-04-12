@@ -323,4 +323,26 @@ public class Board {
 
     return ints;
     }
+    public void setrandom(Board boardp,int r){
+        int a=5;
+        int t=0;
+
+        for(int i=0;i<9;i++){
+            for(int j=0;j<a;j++){
+                if(boardp.getnode(i,j).getValue()==r){
+                    boardp.getnode(i,j).setatom(true);
+                }
+
+
+            }
+            if(a<9 && t==0){
+                a++;
+
+            }
+            else{
+                a--;
+                t=1;
+            }
+        }
+    }
 }
