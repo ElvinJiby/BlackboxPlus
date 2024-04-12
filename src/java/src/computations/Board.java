@@ -284,6 +284,7 @@ public class Board {
            for(int i = 0; i<6; i++){
                if(next.getSides(i).hasatom()==true){
                    atomp.add(i);
+                   System.out.println(atomp);
 
                 }
                }
