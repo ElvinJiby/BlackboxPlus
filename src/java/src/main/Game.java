@@ -56,6 +56,9 @@ public class Game {
             for (Atom atom : atomList) {
                 g.drawImage(Atom.getAtomImage(), atom.getX(), atom.getY(), 50, 50, null);
             }
+        } else {
+            JOptionPane.showMessageDialog(null,"Error: AtomList arraylist is null.", null, JOptionPane.ERROR_MESSAGE);
+            System.exit(-1);
         }
 
         // draw rays
@@ -91,6 +94,7 @@ public class Game {
         boolean isRayAbsorbed = boxNumList.getLast() == -1;
         if (isRayAbsorbed) boxNumList.remove(boxNumList.getLast());
         int pathLength = boxNumList.size();
+        System.out.println(pathLength);
 
         // Reflected Ray Case
         boolean isRayReflected = boxNumList.getFirst().equals(boxNumList.getLast());
@@ -102,7 +106,8 @@ public class Game {
                 hexagonalBoxes.get(boxNumList.get(1)-1).getX(),
                 hexagonalBoxes.get(boxNumList.get(1)-1).getY()));
 
-        for (int i = 1; i < pathLength-2; i++) {
+        int i;
+        for (i = 1; i < pathLength-2; i++) {
             newRayPath.add(new Ray(
                     hexagonalBoxes.get(boxNumList.get(i)-1).getX(),
                     hexagonalBoxes.get(boxNumList.get(i)-1).getY(),
@@ -112,8 +117,8 @@ public class Game {
 
         ExitPoint endPoint = exitPointsList.get(boxNumList.getLast()-1);
         newRayPath.add(new Ray(
-                hexagonalBoxes.get(boxNumList.getLast()-1).getX(),
-                hexagonalBoxes.get(boxNumList.getLast()-1).getY(),
+                hexagonalBoxes.get(boxNumList.get(i)-1).getX(),
+                hexagonalBoxes.get(boxNumList.get(i)-1).getY(),
                 endPoint.getX(),
                 endPoint.getY()));
 
