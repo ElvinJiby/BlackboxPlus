@@ -290,6 +290,7 @@ public class Board {
             if(atomp.size()==1 && next.getSides(n).hasatom()){
                 System.out.print("Ray absorbed");
                 ints.add(next.getValue());
+                ints.add(next.getSides(n).getValue());
                 ints.add(-1);
                 return ints;
             } else if (atomp.size()==1) {
