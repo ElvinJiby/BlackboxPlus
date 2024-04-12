@@ -22,9 +22,9 @@ public class StartScreen {
         JButton newGame = new JButton();
         newGame.setBounds(130,560,230,60);
         newGame.setOpaque(false);
-        newGame.setContentAreaFilled(true);
+        newGame.setContentAreaFilled(false);
         if (isItMacOS) newGame.setBorderPainted(false);
-        else newGame.setBorderPainted(false);
+        else newGame.setBorderPainted(true);
         newGame.setFocusable(true);
         newGame.addActionListener(e -> {
             window.dispose();
@@ -41,9 +41,9 @@ public class StartScreen {
         JButton leaderboard = new JButton();
         leaderboard.setBounds(400,560,300,60);
         leaderboard.setOpaque(false);
-        leaderboard.setContentAreaFilled(true);
+        leaderboard.setContentAreaFilled(false);
         if (isItMacOS) leaderboard.setBorderPainted(false);
-        else leaderboard.setBorderPainted(false);
+        else leaderboard.setBorderPainted(true);
         leaderboard.setFocusable(true);
         leaderboard.addActionListener(e -> {
 //            System.out.println("Leaderboard clicked");

@@ -20,7 +20,7 @@ public class Game {
     private static Image boardCover = (new ImageIcon(Game.class.getResource("/Board Layouts/transparent-numbered-background.PNG")).getImage());
 
     private final int NUM_OF_ATOMS = 6;
-    private Boolean seeAtomsandRays = false; // debug setting to show internal atoms (default: false)
+    private Boolean seeAtomsandRays = true; // debug setting to show internal atoms (default: false)
     private int score = 0;
     private String playerName = "user34567";
 
@@ -30,6 +30,8 @@ public class Game {
     private final ArrayList<ArrayList<Ray>> rayPathList = new ArrayList<>(); // Arraylist that contains a list of each Ray and their own paths
     private ArrayList<ExitPoint> exitPointsList = new ArrayList<>(); // Arraylist that contains the coordinates of each exit point
     private final ArrayList<Integer> atomBoxNumbers = new ArrayList<>();
+    private Board boardp = (new Lists()).createboard();
+    ;
 
 
     // default constructor
@@ -79,10 +81,6 @@ public class Game {
     }
 
     public void shootRay(int entry) {
-        // if (entry & !exit) announceAbsorbed & setAbsorbedMarker
-        // else if (entry == exit) setReflectionMarker & announceReflected & addpoint
-        // else setDeflectionMarkers & announceDeflected & addpoint
-        Board boardp = (new Lists()).createboard();
 //        boardp.getnode(4,4).setatom(true);
         ArrayList<Integer> boxNumList = boardp.iterate(entry);
         ArrayList<Ray> newRayPath = new ArrayList<>();
@@ -104,13 +102,21 @@ public class Game {
                 hexagonalBoxes.get(boxNumList.get(1)-1).getX(),
                 hexagonalBoxes.get(boxNumList.get(1)-1).getY()));
 
-//        for (int i = 1; i < pathLength-1; i++) {
-//            newRayPath.add(new Ray(
-//                    hexagonalBoxes.get(boxNumList.get(i)).getX(),
-//                    hexagonalBoxes.get(boxNumList.get(i)).getY(),
-//                    hexagonalBoxes.get(boxNumList.get(i+1)).getX(),
-//                    hexagonalBoxes.get(boxNumList.get(i+1)).getY()));
-//        }
+        for (int i = 1; i < pathLength-2; i++) {
+            newRayPath.add(new Ray(
+                    hexagonalBoxes.get(boxNumList.get(i)-1).getX(),
+                    hexagonalBoxes.get(boxNumList.get(i)-1).getY(),
+                    hexagonalBoxes.get(boxNumList.get(i+1)-1).getX(),
+                    hexagonalBoxes.get(boxNumList.get(i+1)-1).getY()));
+        }
+
+        ExitPoint endPoint = exitPointsList.get(boxNumList.getLast()-1);
+        newRayPath.add(new Ray(
+                hexagonalBoxes.get(boxNumList.getLast()-1).getX(),
+                hexagonalBoxes.get(boxNumList.getLast()-1).getY(),
+                endPoint.getX(),
+                endPoint.getY()));
+
 
         /* Marker Cases */
         // Normal case - Ray goes straight through with no reflection of absorption
@@ -128,7 +134,7 @@ public class Game {
             int endY = exitPointsList.get(boxNumList.getLast()-1).getY();
             markersList.add(new Marker(endX,endY,colorChoice));
 
-            score += 2;
+            score += 2; // 2 point for a pair of markers
             System.out.println("Normal");
         }
         // Absorbed case - Ray absorbed by atom
@@ -138,7 +144,7 @@ public class Game {
             int startY = exitPointsList.get(boxNumList.getFirst()-1).getY();
             markersList.add(new Marker(startX,startY,Color.GRAY));
 
-            score++;
+            score++; // 1 point for marker
             System.out.println("Absorbed!");
         }
         // Reflected case = Ray deflects and exits at the same point of entry
@@ -148,7 +154,7 @@ public class Game {
             int startY = exitPointsList.get(boxNumList.getFirst()-1).getY();
             markersList.add(new Marker(startX,startY,Color.WHITE));
 
-            score++;
+            score++; // 1 point for marker
             System.out.println("Reflected!");
         }
 
@@ -282,6 +288,7 @@ public class Game {
     private ArrayList<Atom> generateAtoms() {
         if (hexagonalBoxes == null) {
             JOptionPane.showMessageDialog(null,"Error: HexagonalBoxes arraylist is null.", null, JOptionPane.ERROR_MESSAGE);
+            System.exit(-1);
         } if (hexagonalBoxes.size() != 61) {
             JOptionPane.showMessageDialog(null,"Error: HexagonalBoxes arraylist length is not 61 as expected.", null, JOptionPane.ERROR_MESSAGE);
         }
