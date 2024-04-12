@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Atom extends Entity {
-    private static Image atomImage = (new ImageIcon(Atom.class.getResource("/Miscellaneous/scores.txt")).getImage());
+    private static Image atomImage = (new ImageIcon(Atom.class.getResource("/Miscellaneous/atomImage.png")).getImage());
     // (x,y) coordinate of an atom on a board
 
     public Atom(int x, int y) {
