@@ -115,12 +115,23 @@ public class Game {
                     hexagonalBoxes.get(boxNumList.get(i+1)-1).getY()));
         }
 
-        ExitPoint endPoint = exitPointsList.get(boxNumList.getLast()-1);
-        newRayPath.add(new Ray(
-                hexagonalBoxes.get(boxNumList.get(i)-1).getX(),
-                hexagonalBoxes.get(boxNumList.get(i)-1).getY(),
-                endPoint.getX(),
-                endPoint.getY()));
+
+        if (boxNumList.get(i) == -1) {
+            newRayPath.add(new Ray(
+                    hexagonalBoxes.get(boxNumList.get(i)-2).getX(),
+                    hexagonalBoxes.get(boxNumList.get(i)-2).getY(),
+                    hexagonalBoxes.get(boxNumList.get(i)-1).getX(),
+                    hexagonalBoxes.get(boxNumList.get(i)-1).getY()));
+        } else {
+            ExitPoint endPoint = exitPointsList.get(boxNumList.getLast()-1);
+            newRayPath.add(new Ray(
+                    hexagonalBoxes.get(boxNumList.get(i)-1).getX(),
+                    hexagonalBoxes.get(boxNumList.get(i)-1).getY(),
+                    endPoint.getX(),
+                    endPoint.getY()));
+        }
+
+
 
 
         /* Marker Cases */
