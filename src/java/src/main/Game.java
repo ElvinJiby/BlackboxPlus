@@ -88,13 +88,12 @@ public class Game {
         ArrayList<Integer> boxNumList = boardp.iterate(entry);
         ArrayList<Ray> newRayPath = new ArrayList<>();
 
-        System.out.println(boxNumList);
+//        System.out.println(boxNumList);
 
         // Absorbed Ray Case
-        boolean isRayAbsorbed = boxNumList.getLast() == -1;
-        if (isRayAbsorbed) boxNumList.remove(boxNumList.getLast());
+        boolean isRayAbsorbed = boxNumList.contains(-1);
         int pathLength = boxNumList.size();
-        System.out.println(pathLength);
+//        System.out.println(pathLength);
 
         // Reflected Ray Case
         boolean isRayReflected = boxNumList.getFirst().equals(boxNumList.getLast());
@@ -116,13 +115,16 @@ public class Game {
         }
 
 
-        if (boxNumList.get(i) == -1) {
+        if (isRayAbsorbed) {
+            System.out.println("-1 found");
             newRayPath.add(new Ray(
-                    hexagonalBoxes.get(boxNumList.get(i)-2).getX(),
-                    hexagonalBoxes.get(boxNumList.get(i)-2).getY(),
+                    hexagonalBoxes.get(boxNumList.get(i)-1).getX(),
+                    hexagonalBoxes.get(boxNumList.get(i)-1).getY(),
                     hexagonalBoxes.get(boxNumList.get(i)-1).getX(),
                     hexagonalBoxes.get(boxNumList.get(i)-1).getY()));
+            boxNumList.remove(boxNumList.getLast());
         } else {
+            System.out.println("no absorption");
             ExitPoint endPoint = exitPointsList.get(boxNumList.getLast()-1);
             newRayPath.add(new Ray(
                     hexagonalBoxes.get(boxNumList.get(i)-1).getX(),
