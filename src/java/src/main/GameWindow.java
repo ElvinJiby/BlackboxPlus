@@ -239,6 +239,42 @@ public class GameWindow {
         }
     }
 
+    public void enterNameWindow() {
+        JFrame jFrame = new JFrame();
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setPreferredSize(new Dimension(400, 150));
+        jFrame.setLocationRelativeTo(null);
+
+        JPanel jPanel = new JPanel();
+
+        JTextArea textArea = new JTextArea();
+        textArea.setText("\tBlack Box Instructions:\n\n" +
+                "\tBlack Box is a two-player game that consists of the setter and the experimenter. " +
+                "For the hexagonal version of Black Box, the setter will place 5 to 6 red balls on the board. " +
+                "Rays are sent from any outer edge of the entire hexagonal structure, and it is the experimenter's job " +
+                "to find these atoms which are invisible to him by observing the reflection patterns when rays are sent.\n\n" +
+
+                "\tThe atoms affect the path that a ray will take. Complex paths would be expected when using more balls. " +
+                "This should be the main objective for the setter. The main objective for the experimenter is to get the " +
+                "positions of the atoms on the board using the least number of rays.\n\n" +
+
+                "\tWhen rays are projected onto the board, the atom’s outer border helps to deflect the rays at 90-degree angles. " +
+                "If a ray collides straight on with the atom, it is reflected back.\n\n" +
+
+                "\tWhen the experimenter thinks his round of the game is complete, it is announced. Every ray projected is 1 point, " +
+                "and 5 more points are added for misplaced atoms. For every error made in reporting the result of a ray, " +
+                "the experimenter's score is reduced by 5 points.\n\n" +
+
+                "\tAfter the round ends, the roles are switched and played again. The player with the least points is the winner.");
+        textArea.setEditable(false);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+
+        jPanel.add(textArea, BorderLayout.CENTER);
+        jFrame.add(jPanel);
+        jFrame.setVisible(true);
+    }
+
     public void howToPlayWindow() {
         JFrame jFrame = new JFrame();
         jFrame.setTitle("How to Play Black Box");
