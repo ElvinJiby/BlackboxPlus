@@ -284,7 +284,7 @@ public class Board {
            for(int i = 0; i<6; i++){
                if(next.getSides(i).hasatom()==true){
                    atomp.add(i);
-                   System.out.println(atomp);
+                   System.out.println("arry where its ..."+atomp);
 
                 }
                }
@@ -335,6 +335,7 @@ public class Board {
             for(int j=0;j<a;j++){
                 if(boardp.getnode(i,j).getValue()==r){
                     boardp.getnode(i,j).setatom(true);
+                    System.out.println( boardp.getnode(i,j).getValue()+"*** "+boardp.getnode(i,j).isexit());
                 }
 
 
