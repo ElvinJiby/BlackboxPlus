@@ -99,7 +99,7 @@ public class LeaderBoardData {
 
     public static void clearTheLeaderboard() throws IOException {
         FileWriter fileWriter = new FileWriter("scores.txt");
-        fileWriter.write("user1,0\nuser2,0\nuser3,0\nuser4,0\nuser5,0\n");
+        fileWriter.write("user1,100\nuser2,100\nuser3,100\nuser4,100\nuser5,100\n");
         fileWriter.close();
     }
 }

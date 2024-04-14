@@ -56,11 +56,11 @@ public class Leaderboard implements Runnable {
         displayScore(3, font1, 805, 490, 75, 25);
         displayScore(4, font1, 805, 560, 75, 25);
 
-        displayPlayer(0, font1, 460, 275, 350, 25);
-        displayPlayer(1, font1, 460, 350, 350, 25);
-        displayPlayer(2, font1, 460, 420, 350, 25);
-        displayPlayer(3, font1, 460, 490, 350, 25);
-        displayPlayer(4, font1, 460, 560, 350, 25);
+        displayPlayer(0, font1, 460, 275, 350, 35);
+        displayPlayer(1, font1, 460, 350, 350, 35);
+        displayPlayer(2, font1, 460, 420, 350, 35);
+        displayPlayer(3, font1, 460, 490, 350, 35);
+        displayPlayer(4, font1, 460, 560, 350, 35);
 
         clearLeaderboard = new JButton();
         clearLeaderboard.setText("Clear Leaderboard");

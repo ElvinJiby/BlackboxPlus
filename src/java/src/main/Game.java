@@ -16,7 +16,7 @@ public class Game {
     private static final Random rand = new Random();
 
     // Game Variables
-    private static Image bgImage = (new ImageIcon(Game.class.getResource("/Board Layouts/transparent-numbered-all.PNG")).getImage());
+    private static Image bgImage = (new ImageIcon(Game.class.getResource("/Board Layouts/transparent-hexagon-numbered.PNG")).getImage());
     private static Image boardCover = (new ImageIcon(Game.class.getResource("/Board Layouts/transparent-numbered-background.PNG")).getImage());
 
     private final int NUM_OF_ATOMS = 6;
