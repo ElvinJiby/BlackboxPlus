@@ -101,22 +101,8 @@ public class Leaderboard implements Runnable {
             }
         });
 
-//        goBackBruh.addMouseListener(new java.awt.event.MouseAdapter() {
-//            public void mouseEntered(java.awt.event.MouseEvent evt) {
-//                goBackBruh.setBackground(Color.GREEN);
-//            }
-//
-//            public void mouseExited(java.awt.event.MouseEvent evt) {
-//                goBackBruh.setBackground(UIManager.getColor("control"));
-//            }
-//        });
-
         jPanel.add(goBackBruh);// add the button to the panel
 
-//        JButton button = new JButton("Test New Window");
-//        button.setBounds(150, 580, 150, 50);
-//        button.addActionListener(e -> { Credits leaderboard = new Credits(); leaderboard.run(); });
-//        jPanel.add(button);
 
         ImageIcon introScreen = new ImageIcon(getClass().getResource("/Miscellaneous/leaderboard_bg.png"));
         leaderboardBackground = new JLabel(introScreen);
