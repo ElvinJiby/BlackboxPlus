@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Credits {
+public class Credits implements Runnable{
     private static JFrame jFrame;
 
     public Credits() {
@@ -21,17 +21,18 @@ public class Credits {
 
         jFrame.add(creditsJLabel);
 
-        jFrame.addKeyListener(new KeyListener() {
-            @Override public void keyTyped(KeyEvent e) {}
-            @Override public void keyReleased(KeyEvent e) {}
-            @Override public void keyPressed(KeyEvent e) {
-                if (e.getKeyChar() == 'q' || e.getKeyChar() == 'Q') System.exit(0);
-                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) System.exit(0);
-                if (e.getKeyChar() == 'R' || e.getKeyChar() == 'r') {
-                    jFrame.dispose();
-                    new StartScreen();
-                }
-            }});
-        jFrame.setVisible(true);
+//        jFrame.addKeyListener(new KeyListener() {
+//            @Override public void keyTyped(KeyEvent e) {}
+//            @Override public void keyReleased(KeyEvent e) {}
+//            @Override public void keyPressed(KeyEvent e) {
+//                if (e.getKeyChar() == 'q' || e.getKeyChar() == 'Q') System.exit(0);
+//                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) System.exit(0);
+//                if (e.getKeyChar() == 'R' || e.getKeyChar() == 'r') {
+//                    jFrame.dispose();
+//                    new StartScreen();
+//                }
+//            }});
     }
+    @Override
+    public void run() {jFrame.setVisible(true);}
 }
