@@ -5,18 +5,19 @@ import main.Game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class StartScreen {
     public StartScreen() {
-        boolean isItMacOS = OperatingSystem.isItMacOS();
-        JFrame window = new JFrame("Black Box+ By Group 50");
+        boolean isItMacOS = OperatingSystem.isItMacOS(); // check os type
+        JFrame window = new JFrame("Black Box+ By Group 50"); // title
         window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         window.setResizable(false);
         window.setSize(1280, 720);
         window.setLocationRelativeTo(null);
-        window.setIconImage(new ImageIcon(getClass().getResource("/Icons/new_icon.png")).getImage());
+        window.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Icons/new_icon.png"))).getImage());
 
-        JLabel introLabel = new JLabel(new ImageIcon(getClass().getResource("/Start Screen/new-start-screen.JPG")));
+        JLabel introLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Start Screen/new-start-screen.JPG"))));
         introLabel.setPreferredSize(new Dimension(1280, 720));
 
         /* New Game Button */
