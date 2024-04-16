@@ -12,7 +12,6 @@ public class LeaderBoardData {
     public LinkedHashMap<String, Integer> getScoresLinkedHashMap() {
         return scoresLinkedHashMap;
     }
-
     public List<Map.Entry<String, Integer>> getSortedScores() {
         return sortedScores;
     }
@@ -24,16 +23,7 @@ public class LeaderBoardData {
     }
 
     public void readTXTFile() throws FileNotFoundException { // reads in txt file and saves it to the linked hash map
-        File scores = new File("scores.txt");
-        if (!scores.exists()) { // if file doesn't exist, create one
-            try {
-                scores.createNewFile();
-                clearTheLeaderboard();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
+        File scores = new File("scores.txt"); // open file
         Scanner scanner = new Scanner(scores); // scanner takes in file object
         while (scanner.hasNextLine()) {// keep reading in each string line until the end of the file
             String line = scanner.nextLine(); // save each line in the line variable
@@ -49,7 +39,7 @@ public class LeaderBoardData {
     public List<Map.Entry<String, Integer>> sortScores() {// sorts LinkedHashMap by returning a List
         List<Map.Entry<String, Integer>> sortedEntries = new ArrayList<>(scoresLinkedHashMap.entrySet()); // Map.Entry ensures key-value pairs are still in the map
         // x and y are the 2 arguments that need to be compared
-        sortedEntries.sort((x, y) -> Integer.compare(x.getValue(), y.getValue())); // getValue gets access to argument value and compares y to x to allow for descending order
+        sortedEntries.sort(Comparator.comparingInt(Map.Entry::getValue)); // getValue gets access to argument value and compares y to x to allow for descending order
         return sortedEntries; // return the list as a sorted list
     }
 
@@ -69,27 +59,24 @@ public class LeaderBoardData {
 
     public static void storeScore(String name, int score) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("scores.txt", true))) {
-            writer.write(name + "," + score);
-            writer.newLine();
-        } catch (IOException e) {
+            writer.write(name + "," + score); // write name and score seperated by commas
+            writer.newLine(); // \n
+        }
+        catch (IOException e) {
             System.err.println("Error storing score: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    public static void processFile() throws IOException {
+    public static void checkFormat() throws IOException {
         String file = "scores.txt";
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
         int numOfLines = 0;
-
         String line;
-        while ((line = bufferedReader.readLine()) != null) {
-            if (!line.isEmpty()) // Check if the line is not empty
-                numOfLines++;
-        }
+        // check if the line is not empty
+        while ((line = bufferedReader.readLine()) != null) if (!line.isEmpty()) numOfLines++;
         bufferedReader.close();
-
+        // if there are not 5 players, label has to be default values
         if (numOfLines < 5) {
             FileWriter fileWriter = new FileWriter("scores.txt");
             fileWriter.write("user1,100\nuser2,100\nuser3,100\nuser4,100\nuser5,100\n");
@@ -99,6 +86,7 @@ public class LeaderBoardData {
 
     public static void clearTheLeaderboard() throws IOException {
         FileWriter fileWriter = new FileWriter("scores.txt");
+        // fill with default values
         fileWriter.write("user1,100\nuser2,100\nuser3,100\nuser4,100\nuser5,100\n");
         fileWriter.close();
     }
