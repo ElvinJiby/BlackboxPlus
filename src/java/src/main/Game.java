@@ -21,7 +21,8 @@ public class Game {
 
     private final int NUM_OF_ATOMS = 6;
     private Boolean seeAtomsandRays = true; // debug setting to show internal atoms (default: false)
-    private int score = 0;
+    private int numIncorrectGuesses = 0;
+    public int numMarkersUsed = 0;
     private String playerName = "user34567";
 
     private final ArrayList<HexagonalBox> hexagonalBoxes; // Arraylist that contains all the hexagonal boxes
@@ -152,7 +153,7 @@ public class Game {
             int endY = exitPointsList.get(boxNumList.getLast()-1).getY();
             markersList.add(new Marker(endX,endY,colorChoice));
 
-            score += 2; // 2 point for a pair of markers
+            numMarkersUsed += 2; // add 2 markers to the count
             System.out.println("Normal");
         }
         // Absorbed case - Ray absorbed by atom
@@ -162,7 +163,7 @@ public class Game {
             int startY = exitPointsList.get(boxNumList.getFirst()-1).getY();
             markersList.add(new Marker(startX,startY,Color.GRAY));
 
-            score++; // 1 point for marker
+            numMarkersUsed++; // increment marker counter
             System.out.println("Absorbed!");
         }
         // Reflected case = Ray deflects and exits at the same point of entry
@@ -172,7 +173,7 @@ public class Game {
             int startY = exitPointsList.get(boxNumList.getFirst()-1).getY();
             markersList.add(new Marker(startX,startY,Color.WHITE));
 
-            score++; // 1 point for marker
+            numMarkersUsed++; // increment marker counter
             System.out.println("Reflected!");
         }
 
@@ -317,7 +318,6 @@ public class Game {
         for (int i = 0; i<NUM_OF_ATOMS; i++) {
             while (hexagonalBoxes.get(atomPosIndex).HasAtom()) { // ensures that atoms do not generate in the same box
                 atomPosIndex = rand.nextInt(0,hexagonalBoxesLength);
-
             }
 
             atomBoxNumbers.add(atomPosIndex+1);
@@ -437,9 +437,7 @@ public class Game {
         gameScreen.repaint();
     }
 
-    public int getScore() {
-        return score;
-    }
+    public int getScore() { return getNumMarkersUsed() + (getNumIncorrectGuesses() * 5); }
 
     public String getPlayerName() {
         return playerName;
@@ -453,11 +451,17 @@ public class Game {
         return atomBoxNumbers.contains(boxNumber);
     }
 
-    public void addIncorrectAtomGuess() {
-        score += 5;
-    }
+    public void addIncorrectAtomGuess() { numIncorrectGuesses++; }
 
     public int getNumAtoms() {
         return NUM_OF_ATOMS;
+    }
+
+    public int getNumIncorrectGuesses() {
+        return numIncorrectGuesses;
+    }
+
+    public int getNumMarkersUsed() {
+        return numMarkersUsed;
     }
 }

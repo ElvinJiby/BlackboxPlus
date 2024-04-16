@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameWindow {
     private JFrame gameWindow;
@@ -147,41 +148,44 @@ public class GameWindow {
         JTextField textField = new JTextField();
         textField.setPreferredSize(new Dimension(250,40));
 
-        // remove while loop, move guess variables outside
-        // while loop for submit window for NUM_OF_ATOMS iterations
-        // when button is pressed, use if statement to check how many guesses
-        // if guesses > 0, parse input
-
-        JButton submitButton = new JButton("Submit Guess ("+game.getNumAtoms()+" guesses left)");
-        int num_of_guesses = game.getNumAtoms();
-        while (num_of_guesses > 0) {
-            submitButton.addActionListener(e -> {
+        AtomicInteger num_of_guesses = new AtomicInteger(game.getNumAtoms());
+        JButton submitButton = new JButton("Submit Guess ("+num_of_guesses+" guesses left)");
+        submitButton.addActionListener(e -> {
             if (e.getSource() == submitButton) {
-                int guess;
-
                 try {
-                    guess = Integer.parseInt(textField.getText());
-//                    num_of_guesses--;
+                    int guess = Integer.parseInt(textField.getText());
+
+                    // if the guess is incorrect, add points to the score
                     if (!game.isAtomLocationGuessCorrect(guess)) {
                         game.addIncorrectAtomGuess();
-                    }
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "That's not a valid input.", "Invalid Guess", JOptionPane.ERROR_MESSAGE);
-                    textField.setText("0");
-                }
+                        JOptionPane.showMessageDialog(null, "Unfortunately your guess was wrong.",
+                                "Incorrect Guess", JOptionPane.INFORMATION_MESSAGE);
+                    } else JOptionPane.showMessageDialog(null, "Your guess was correct!",
+                            "Correct Guess", JOptionPane.INFORMATION_MESSAGE);
 
-                jFrame.dispose();
-//                game.toggleInternalBoardSetting();
-                endGameWindow();
+                    // decrement number of guesses
+                    num_of_guesses.decrementAndGet();
+
+                    // check if there's no more guesses left
+                    if (num_of_guesses.get() <= 0) {
+                        jFrame.dispose();
+                        game.toggleInternalBoardSetting();
+                        endGameWindow();
+                    }
+
+                    // Otherwise reset the text and continue
+                    submitButton.setText("Submit Guess ("+num_of_guesses+" guesses left)");
+
+                } catch (Exception ex) { // Invalid input
+                    JOptionPane.showMessageDialog(null, "That's not a valid input.", "Invalid Guess", JOptionPane.ERROR_MESSAGE);
+                }
             }
-            });
-            }
+        });
 
         jFrame.add(submitButton);
         jFrame.add(textField);
         jFrame.pack();
         jFrame.setVisible(true);
-
     }
 
     private void endGameWindow() {
@@ -194,12 +198,14 @@ public class GameWindow {
             jFrame.dispose();
             new StartScreen(); } });
 
-        JLabel finalScore = new JLabel();
+        JTextArea finalScore = new JTextArea();
         finalScore.setFont(new Font("Verdana", Font.BOLD, 20));
-        finalScore.setText(game.getPlayerName() + " has scored: " + game.getScore() + " points!");
-
-        finalScore.setHorizontalAlignment(SwingConstants.CENTER);
-
+        String scoreMessage = "Number of Markers Used: " + game.getNumMarkersUsed() + " x 1 = " + game.numMarkersUsed + " points\n"
+                            + "Number of Incorrect Guesses: " + game.getNumIncorrectGuesses() + " x 5 = " + (game.getNumIncorrectGuesses()*5) + " points\n"
+                            + "----------------------------------------------------\n"
+                            + game.getPlayerName() + " has scored a total of " + game.getScore() + " points!";
+        finalScore.setText(scoreMessage);
+        finalScore.setEditable(false);
         jFrame.add(finalScore, BorderLayout.CENTER);
         jFrame.setVisible(true);
 
