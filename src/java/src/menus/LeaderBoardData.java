@@ -79,6 +79,11 @@ public class LeaderBoardData {
 
     public static void processFile() throws IOException {
         String file = "scores.txt";
+        File scoreFile = new File(file);
+        if (!scoreFile.exists()) {
+            scoreFile.createNewFile();
+        }
+
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
         int numOfLines = 0;
