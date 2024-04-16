@@ -11,8 +11,7 @@ import java.util.List;
 public class Leaderboard implements Runnable {
     private static List<Map.Entry<String, Integer>> sortedScores = new ArrayList<>();
 
-    @Override
-    public void run() {jFrame.setVisible(true);}
+    @Override public void run() { jFrame.setVisible(true); }
 
     // my instance variables, which are later constructed
     // all variables are private to allow for class accessibility
@@ -27,15 +26,10 @@ public class Leaderboard implements Runnable {
 
     private final JButton clearLeaderboard; // when pressed clears the txt file
     private final JButton goBackBruh; // exits the window and goes back to main menu
-//
-//    public static void main(String[] args) throws IOException {
-//        Leaderboard leaderboard = new Leaderboard();
-//        leaderboard.run();
-//    }
 
     public Leaderboard() throws IOException {
         LeaderBoardData leaderBoardData = new LeaderBoardData();
-        leaderBoardData.processFile();
+        leaderBoardData.checkFormat();
         leaderBoardData.readAndSort();
         sortedScores = leaderBoardData.getSortedScores();
         leaderBoardData.writeTXTFile(sortedScores);
@@ -45,7 +39,7 @@ public class Leaderboard implements Runnable {
         jFrame.setResizable(false); // ensures the app window will always stay at 1280x720 resolution
         jFrame.setLocationRelativeTo(null); // when window is opened initially it is centred
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        jFrame.setIconImage(new ImageIcon(getClass().getResource("/Icons/new_icon.png")).getImage());
+        jFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Icons/new_icon.png"))).getImage());
 
         jPanel = new JPanel(); // creates new JPanel object
         jPanel.setLayout(null); // setting null allows elements to be placed anywhere on the panel
@@ -70,16 +64,12 @@ public class Leaderboard implements Runnable {
         clearLeaderboard.setOpaque(false);
         clearLeaderboard.setFocusable(false);
         clearLeaderboard.setBorderPainted(true);
-//        clearLeaderboard.setFocusable(false);
-//        clearLeaderboard.setFocusPainted(false);
         clearLeaderboard.setBounds(680, 627, 220, 30);
         // this lambda expression detects whether the clear button is pressed or not
         clearLeaderboard.addActionListener(e -> {
             try { LeaderBoardData.clearTheLeaderboard(); }
-            catch (Exception ex) {
-                JOptionPane.showMessageDialog(null,"Failed to clear leaderboard.", "Leaderboard Data Clear Error", JOptionPane.ERROR_MESSAGE);
-//                throw new RuntimeException(ex);
-            }});
+            catch (Exception ex) { JOptionPane.showMessageDialog(null, "Failed to clear leaderboard.", "Leaderboard Data Clear Error", JOptionPane.ERROR_MESSAGE);}
+        });
         jPanel.add(clearLeaderboard); // add the generate button to the JPanel
 
         goBackBruh = new JButton(); // Exit button to terminate program
@@ -89,24 +79,16 @@ public class Leaderboard implements Runnable {
         goBackBruh.setOpaque(false);
         goBackBruh.setBorderPainted(true);
         goBackBruh.setFocusable(false);
-//        goBackBruh.setFocusable(false);
-//        goBackBruh.setFocusPainted(false);
         goBackBruh.setBounds(765, 657, 140, 30);
         // lambda expression to check when pressed, if-so, return to main menu.
         goBackBruh.addActionListener(e -> {
             jFrame.dispose();
-            try {
-                new StartScreen();
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null,"Error: Failed to open Start Screen.", "Start Screen Open Error", JOptionPane.ERROR_MESSAGE);
-                System.exit(-1);
-            }
+            try { new StartScreen(); }
+            catch (Exception ex) { JOptionPane.showMessageDialog(null, "Error: Failed to open Start Screen.", "Start Screen Open Error", JOptionPane.ERROR_MESSAGE); System.exit(-1);}
         });
-
         jPanel.add(goBackBruh);// add the button to the panel
 
-
-        ImageIcon introScreen = new ImageIcon(getClass().getResource("/Miscellaneous/leaderboard_bg.png"));
+        ImageIcon introScreen = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Miscellaneous/leaderboard_bg.png")));
         leaderboardBackground = new JLabel(introScreen);
         leaderboardBackground.setSize(1280, 720);
         jPanel.add(leaderboardBackground);
