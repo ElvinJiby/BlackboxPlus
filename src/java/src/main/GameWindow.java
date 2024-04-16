@@ -18,7 +18,7 @@ public class GameWindow {
 
     private JTextField arrowNumberInputField;
     private JLabel arrowNumberInputPrompt;
-    private JTextField playerNameInputField;
+//    private JTextField playerNameInputField;
     private JLabel playerNameLabel;
     private JLabel scoreLabel;
     private JLabel resultLabel;
@@ -26,6 +26,8 @@ public class GameWindow {
     private JButton howToPlayButton;
     private JButton endGameButton;
     private final ArrayList<Integer> visitedBoxes = new ArrayList<>();
+
+    private static String name = "hello";
 
     public GameWindow(GameScreen gameScreen, Game game) {
         // Window Construction
@@ -41,6 +43,7 @@ public class GameWindow {
 
         // Game Panel (manages the rendering of images/rays/assets/etc.)
         this.gameScreen = gameScreen;
+        getUserNameWindow();
         try {
             gameWindow.add(gameScreen, BorderLayout.CENTER); // adding the screen to the window (the screen pretty much contains the game/visuals)
         } catch (Exception ex) {
@@ -78,15 +81,16 @@ public class GameWindow {
         resultLabel = new JLabel("| Shoot ray from: " + value);
         resultLabel.setForeground(Color.WHITE);
 
-        playerNameInputField = new JTextField(15);
-        playerNameInputField.setText("Enter player name (Limit: 30)");
-//        textField.setBounds(50, 50, 250, 250);
-        playerNameInputField.addActionListener(e -> {
-            updateUsername();
-            gameScreen.repaint();
-        });
+//        playerNameInputField = new JTextField(15);
+//        playerNameInputField.setText("Enter player name (Limit: 30)");
+////        textField.setBounds(50, 50, 250, 250);
+//        playerNameInputField.addActionListener(e -> {
+//            updateUsername();
+//            gameScreen.repaint();
+//        });
 
-        playerNameLabel = new JLabel("| Player Name: " + game.getPlayerName());
+//        playerNameLabel = new JLabel("| Player Name: " + game.getPlayerName());
+        playerNameLabel = new JLabel("| Player Name: " + name);
         playerNameLabel.setForeground(Color.WHITE);
 
         arrowNumberInputPrompt = new JLabel("| Enter an integer 1-54: ");
@@ -129,7 +133,7 @@ public class GameWindow {
 
         buttonPanel.add(endGameButton);
         buttonPanel.add(howToPlayButton);
-        buttonPanel.add(playerNameInputField);
+//        buttonPanel.add(playerNameInputField);
         buttonPanel.add(playerNameLabel);
         buttonPanel.add(arrowNumberInputPrompt);
         buttonPanel.add(arrowNumberInputField);
@@ -178,9 +182,25 @@ public class GameWindow {
 
     }
 
+    public static void getUserNameWindow() {
+        JFrame frame = new JFrame();
+        ImageIcon icon = new ImageIcon(new ImageIcon("src/java/resources/Icons/new_icon.png").getImage().getScaledInstance(125,125, Image.SCALE_SMOOTH));
+        name = (String) JOptionPane.showInputDialog(frame, "Please enter your name:", "Username", JOptionPane.PLAIN_MESSAGE, icon, null, "user12345");
+        try {
+            if (name.length() > 30) throw new IllegalArgumentException("Name must be less than 30 characters.");
+        }
+        catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+        finally {
+            frame.dispose(); // Close the frame after getting the name
+            frame.setVisible(false);
+        }
+    }
+
     private void endGameWindow() {
         JFrame jFrame = new JFrame("End Game");
-        jFrame.setSize(854, 480);
+        jFrame.setSize(426, 240);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jFrame.setLocationRelativeTo(null);
         jFrame.addWindowListener(new WindowAdapter() { @Override public void windowClosing(WindowEvent e) {
@@ -190,14 +210,14 @@ public class GameWindow {
 
         JLabel finalScore = new JLabel();
         finalScore.setFont(new Font("Verdana", Font.BOLD, 20));
-        finalScore.setText(game.getPlayerName() + " has scored: " + game.getScore() + " points!");
+        finalScore.setText(name + " has scored: " + game.getScore() + " points!");
 
         finalScore.setHorizontalAlignment(SwingConstants.CENTER);
 
         jFrame.add(finalScore, BorderLayout.CENTER);
         jFrame.setVisible(true);
 
-        LeaderBoardData.storeScore(game.getPlayerName(), game.getScore());
+        LeaderBoardData.storeScore(name, game.getScore());
     }
 
     private void validateInput() {
@@ -228,52 +248,17 @@ public class GameWindow {
         }
     }
 
-    private void updateUsername() {
-        game.setPlayerName(playerNameInputField.getText());
-        if (game.getPlayerName().length() > 30) {
-            JOptionPane.showMessageDialog(null, "Username must be 30 characters or less.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-        } else {
-            playerNameLabel.setText(game.getPlayerName());
-            playerNameInputField.setVisible(false);
-            gameScreen.repaint();
-        }
-    }
+//    private void updateUsername() {
+//        game.setPlayerName(playerNameInputField.getText());
+//        if (game.getPlayerName().length() > 30) {
+//            JOptionPane.showMessageDialog(null, "Username must be 30 characters or less.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+//        } else {
+//            playerNameLabel.setText(game.getPlayerName());
+//            playerNameInputField.setVisible(false);
+//            gameScreen.repaint();
+//        }
+//    }
 
-    public void enterNameWindow() {
-        JFrame jFrame = new JFrame();
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setPreferredSize(new Dimension(400, 150));
-        jFrame.setLocationRelativeTo(null);
-
-        JPanel jPanel = new JPanel();
-
-        JTextArea textArea = new JTextArea();
-        textArea.setText("\tBlack Box Instructions:\n\n" +
-                "\tBlack Box is a two-player game that consists of the setter and the experimenter. " +
-                "For the hexagonal version of Black Box, the setter will place 5 to 6 red balls on the board. " +
-                "Rays are sent from any outer edge of the entire hexagonal structure, and it is the experimenter's job " +
-                "to find these atoms which are invisible to him by observing the reflection patterns when rays are sent.\n\n" +
-
-                "\tThe atoms affect the path that a ray will take. Complex paths would be expected when using more balls. " +
-                "This should be the main objective for the setter. The main objective for the experimenter is to get the " +
-                "positions of the atoms on the board using the least number of rays.\n\n" +
-
-                "\tWhen rays are projected onto the board, the atom’s outer border helps to deflect the rays at 90-degree angles. " +
-                "If a ray collides straight on with the atom, it is reflected back.\n\n" +
-
-                "\tWhen the experimenter thinks his round of the game is complete, it is announced. Every ray projected is 1 point, " +
-                "and 5 more points are added for misplaced atoms. For every error made in reporting the result of a ray, " +
-                "the experimenter's score is reduced by 5 points.\n\n" +
-
-                "\tAfter the round ends, the roles are switched and played again. The player with the least points is the winner.");
-        textArea.setEditable(false);
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-
-        jPanel.add(textArea, BorderLayout.CENTER);
-        jFrame.add(jPanel);
-        jFrame.setVisible(true);
-    }
 
     public void howToPlayWindow() {
         JFrame jFrame = new JFrame();
