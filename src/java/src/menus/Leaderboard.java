@@ -25,11 +25,11 @@ public class Leaderboard implements Runnable {
 
     private final JButton clearLeaderboard; // when pressed clears the txt file
     private final JButton goBackBruh; // exits the window and goes back to main menu
-
-    public static void main(String[] args) throws IOException {
-        Leaderboard leaderboard = new Leaderboard();
-        leaderboard.run();
-    }
+//
+//    public static void main(String[] args) throws IOException {
+//        Leaderboard leaderboard = new Leaderboard();
+//        leaderboard.run();
+//    }
 
     public Leaderboard() throws IOException {
         LeaderBoardData leaderBoardData = new LeaderBoardData();
