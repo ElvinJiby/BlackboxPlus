@@ -1,4 +1,4 @@
-package menus;
+package inputs;
 
 import java.io.*;
 import java.util.*;

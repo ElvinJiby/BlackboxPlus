@@ -1,5 +1,7 @@
 package menus;
 
+import inputs.LeaderBoardData;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;

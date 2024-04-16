@@ -1,10 +1,9 @@
 package main;
 
-import menus.LeaderBoardData;
+import inputs.LeaderBoardData;
 import menus.StartScreen;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
