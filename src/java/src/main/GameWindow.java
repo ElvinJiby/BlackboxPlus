@@ -122,9 +122,7 @@ public class GameWindow {
         endGameButton = new JButton("End Game");
         endGameButton.addActionListener(e -> {
             endGameButton.setEnabled(false);
-//            guessAtomsWindow();
-            game.toggleInternalBoardSetting();
-            endGameWindow();
+            guessAtomsWindow();
         });
 
         buttonPanel.add(endGameButton);
@@ -149,27 +147,35 @@ public class GameWindow {
         JTextField textField = new JTextField();
         textField.setPreferredSize(new Dimension(250,40));
 
+        // remove while loop, move guess variables outside
+        // while loop for submit window for NUM_OF_ATOMS iterations
+        // when button is pressed, use if statement to check how many guesses
+        // if guesses > 0, parse input
+
         JButton submitButton = new JButton("Submit Guess ("+game.getNumAtoms()+" guesses left)");
-        submitButton.addActionListener(e -> {
+        int num_of_guesses = game.getNumAtoms();
+        while (num_of_guesses > 0) {
+            submitButton.addActionListener(e -> {
             if (e.getSource() == submitButton) {
                 int guess;
-                int num_of_guesses = game.getNumAtoms();
 
-                while (num_of_guesses > 0) {
-                    try {
-                        guess = Integer.parseInt(textField.getText());
-                        num_of_guesses--;
-                        if (!game.isAtomLocationGuessCorrect(guess)) {
-                            game.addIncorrectAtomGuess();
-                        }
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, "That's not a valid input.", "Invalid Guess", JOptionPane.ERROR_MESSAGE);
+                try {
+                    guess = Integer.parseInt(textField.getText());
+//                    num_of_guesses--;
+                    if (!game.isAtomLocationGuessCorrect(guess)) {
+                        game.addIncorrectAtomGuess();
                     }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "That's not a valid input.", "Invalid Guess", JOptionPane.ERROR_MESSAGE);
+                    textField.setText("0");
                 }
 
                 jFrame.dispose();
+//                game.toggleInternalBoardSetting();
+                endGameWindow();
             }
-        });
+            });
+            }
 
         jFrame.add(submitButton);
         jFrame.add(textField);
