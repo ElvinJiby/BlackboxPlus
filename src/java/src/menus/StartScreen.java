@@ -11,6 +11,7 @@ public class StartScreen {
         boolean isItMacOS = OperatingSystem.isItMacOS();
         JFrame window = new JFrame("Black Box+ By Group 50");
         window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        window.setResizable(false);
         window.setSize(1280, 720);
         window.setLocationRelativeTo(null);
         window.setIconImage(new ImageIcon(getClass().getResource("/Icons/new_icon.png")).getImage());
