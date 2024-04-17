@@ -10,46 +10,36 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class StartScreen {
-    public StartScreen() {
-        boolean isItMacOS = OperatingSystem.isItMacOS(); // check os type
-        JFrame window = new JFrame("Black Box+ By Group 50"); // title
-        window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        window.setResizable(false);
-        window.setSize(1280, 720);
-        window.setLocationRelativeTo(null);
-        window.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Icons/new_icon.png"))).getImage());
+    private static JFrame jFrame;
+    private static JLabel introLabel;
 
-        JLabel introLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Start Screen/new-start-screen.JPG"))));
+    public StartScreen() {
+        jFrame = new JFrame("Black Box+ By Group 50"); // title
+        jFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // exit button controlls close
+        jFrame.setResizable(false); // stay size
+        jFrame.setSize(1280, 720); // set size
+        jFrame.setLocationRelativeTo(null); //centre window
+        jFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Icons/new_icon.png"))).getImage()); // app icon
+
+        introLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Start Screen/new-start-screen.JPG"))));
         introLabel.setPreferredSize(new Dimension(1280, 720));
 
         /* New Game Button */
-        JButton newGame = new JButton();
-        newGame.setBounds(130, 560, 230, 60);
-        newGame.setOpaque(false);
-        newGame.setContentAreaFilled(false);
-        newGame.setBorderPainted(!isItMacOS);
-        newGame.setFocusable(true);
+        JButton newGame = generateButtons(130, 560, 230, 60);
         newGame.addActionListener(e -> {
-            window.dispose();
+            jFrame.dispose();
             try {
-                Game game = new Game();
+                new Game();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Failed to start a new game.", "Start New Game Open Error", JOptionPane.ERROR_MESSAGE);
                 System.exit(-1);
             }
         });
-        introLabel.add(newGame);
 
         /* Leaderboard Button */
-        JButton leaderboard = new JButton();
-        leaderboard.setBounds(400, 560, 300, 60);
-        leaderboard.setOpaque(false);
-        leaderboard.setContentAreaFilled(false);
-        leaderboard.setBorderPainted(!isItMacOS);
-        leaderboard.setFocusable(true);
+        JButton leaderboard = generateButtons(400, 560, 300, 60);
         leaderboard.addActionListener(e -> {
-//            System.out.println("Leaderboard clicked");
-            window.dispose();
+            jFrame.dispose();
             try {
                 new Leaderboard().run();
             } catch (Exception ex) {
@@ -62,40 +52,38 @@ public class StartScreen {
                 JOptionPane.showMessageDialog(null, "Failed to open leaderboard. Try again!", "Leaderboard Open Error", JOptionPane.ERROR_MESSAGE);
                 System.exit(-1);
             }
-
         });
-        introLabel.add(leaderboard);
 
         /* Credits Button */
-        JButton credits = new JButton();
-        credits.setBounds(743, 560, 200, 60);
-        credits.setOpaque(false);
-        credits.setContentAreaFilled(false);
-        credits.setBorderPainted(!isItMacOS);
-        credits.setFocusable(true);
+        JButton credits = generateButtons(743, 560, 200, 60);
         credits.addActionListener(e -> {
-            window.dispose();
+//            jFrame.dispose();
             try {
-                new Credits().run();
+                new Credits();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Failed to load credits.", "Credits Load Error", JOptionPane.ERROR_MESSAGE);
                 System.exit(-1);
             }
         });
-        introLabel.add(credits);
 
         /* Exit Button */
-        JButton exitGame = new JButton();
-        exitGame.setBounds(991, 560, 110, 60);
-        exitGame.setOpaque(false);
-        exitGame.setContentAreaFilled(false);
-        exitGame.setBorderPainted(!isItMacOS);
-        exitGame.setFocusable(true);
-        exitGame.addActionListener(e -> System.exit(0));
-        introLabel.add(exitGame);
+        JButton exitGame = generateButtons(991, 560, 110, 60);
+        exitGame.addActionListener(e -> System.exit(0)); // if pressed, exit program
 
-        window.add(introLabel);
-        window.pack();
-        window.setVisible(true);
+        jFrame.add(introLabel); // add label image to frame
+        jFrame.pack(); // size window
+        jFrame.setVisible(true); // show window
+    }
+
+    private JButton generateButtons(int x, int y, int width, int height) {
+        JButton jButton = new JButton(); // create new button
+        boolean isItMac = OperatingSystem.isItMacOS(); // check os type
+        jButton.setBounds(x, y, width, height); // set size
+        jButton.setOpaque(false); // no opaque
+        jButton.setContentAreaFilled(false); // do not fill area
+        jButton.setBorderPainted(!isItMac); // if macOS, paint border
+        jButton.setFocusable(true); // outline button
+        introLabel.add(jButton); // add to image
+        return jButton;
     }
 }
