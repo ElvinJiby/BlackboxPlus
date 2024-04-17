@@ -14,6 +14,7 @@ public class HowToPlayWindow {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setBackground(Color.BLACK);
+        frame.setIconImage(new ImageIcon(getClass().getResource("/Icons/new_icon.png")).getImage());
         frame.setSize(854, 480);
 
         panel = new JPanel();

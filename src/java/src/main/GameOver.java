@@ -15,6 +15,7 @@ public class GameOver {
         jFrame = new JFrame();
         jFrame.setTitle("Game Over");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setIconImage(new ImageIcon(getClass().getResource("/Icons/new_icon.png")).getImage());
         jFrame.setSize(400, 200);
         jFrame.setLocationRelativeTo(null); // Center the window on the screen
         jFrame.setBackground(Color.BLACK);
