@@ -2,35 +2,35 @@ package inputs;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class HowToPlayWindow {
-    private final JFrame frame;
-    private final JPanel panel;
-    private final JPanel labelsPanel;
-    private final JLabel titleLabel;
+    private final JFrame jFrame; // frame
+    private final JPanel jPanel; // area
+    private final JLabel titleLabel; // title
+    private final JPanel rulesPanel; // to put how to play labels
 
     public HowToPlayWindow() {
-        frame = new JFrame("My Window");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.setBackground(Color.BLACK);
-        frame.setIconImage(new ImageIcon(getClass().getResource("/Icons/new_icon.png")).getImage());
-        frame.setSize(854, 480);
+        jFrame = new JFrame("My Window"); // title
+        jFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); // operation when closed
+//        frame.setLocationRelativeTo(null); // centre window
+        jFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Icons/new_icon.png"))).getImage()); // app icon
+        jFrame.setSize(854, 480); // window size
 
-        panel = new JPanel();
-        panel.setBackground(Color.BLACK);
-        panel.setLayout(new BorderLayout()); // control layout of labels and panel
-        panel.setBorder(BorderFactory.createEmptyBorder(60, 50, 0, 0)); // go down 15px and 20px across
+        jPanel = new JPanel(); // area to hold labels
+        jPanel.setBackground(Color.BLACK); // black background
+        jPanel.setLayout(new BorderLayout()); // control layout of labels and panel
+        jPanel.setBorder(BorderFactory.createEmptyBorder(60, 50, 0, 0)); // go down 15px and 20px across
 
-        titleLabel = new JLabel("How to Play:");
-        titleLabel.setForeground(Color.RED);
+        titleLabel = new JLabel("How to Play:"); // title
+        titleLabel.setForeground(Color.RED); // title colour
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18)); // font formatting
-        panel.add(titleLabel, BorderLayout.NORTH); // set panel to the very top
+        jPanel.add(titleLabel, BorderLayout.NORTH); // set panel to the very top
 
-        labelsPanel = new JPanel();
-        labelsPanel.setBackground(Color.BLACK);
-        labelsPanel.setLayout(new BoxLayout(labelsPanel, BoxLayout.Y_AXIS)); // set bounds to verticals
-        panel.add(labelsPanel, BorderLayout.WEST); // set to left side
+        rulesPanel = new JPanel(); // stores every line of how to play
+        rulesPanel.setBackground(Color.BLACK); // black background
+        rulesPanel.setLayout(new BoxLayout(rulesPanel, BoxLayout.Y_AXIS)); // set bounds to verticals
+        jPanel.add(rulesPanel, BorderLayout.WEST); // set to left side
 
         // instructions
         generateHowToPlayLabel("Black Box is a two-player game where the setter will place 5 to 6 red balls on the board.");
@@ -56,20 +56,14 @@ public class HowToPlayWindow {
         generateHowToPlayLabel("\n");
         generateHowToPlayLabel("\n");
 
-        frame.add(panel);
-        frame.setVisible(true);
+        jFrame.add(jPanel); // add panel to frame
+        jFrame.setVisible(true); // visibility
     }
 
-    // to efficiently add labels
-    private void generateHowToPlayLabel(String s) {
+    private void generateHowToPlayLabel(String s) { // to efficiently add labels
         JLabel jLabel = new JLabel(s); // create new JLabel
-        jLabel.setForeground(Color.CYAN);
+        jLabel.setForeground(Color.CYAN); // text colour
         jLabel.setFont(new Font("Arial", Font.PLAIN, 12)); // font formatting
-        labelsPanel.add(jLabel); // add to the labels panel
-    }
-
-
-    public static void main(String[] args) {
-        new HowToPlayWindow();
+        rulesPanel.add(jLabel); // add to the labels panel
     }
 }
