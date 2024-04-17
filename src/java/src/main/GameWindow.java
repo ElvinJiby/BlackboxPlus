@@ -1,5 +1,6 @@
 package main;
 
+import inputs.HowToPlayWindow;
 import inputs.LeaderBoardData;
 import menus.StartScreen;
 
@@ -17,7 +18,7 @@ public class GameWindow {
 
     private JTextField arrowNumberInputField;
     private JLabel arrowNumberInputPrompt;
-//    private JTextField playerNameInputField;
+    //    private JTextField playerNameInputField;
     private JLabel playerNameLabel;
     private JLabel scoreLabel;
     private JLabel resultLabel;
@@ -120,7 +121,7 @@ public class GameWindow {
 
         howToPlayButton = new JButton("How To Play");
         howToPlayButton.setBounds(50, 50, 100, 30);
-        howToPlayButton.addActionListener(e -> howToPlayWindow());
+        howToPlayButton.addActionListener(e -> new HowToPlayWindow());
 
         endGameButton = new JButton("End Game");
         endGameButton.addActionListener(e -> {
@@ -150,9 +151,9 @@ public class GameWindow {
         jFrame.setLocationRelativeTo(null);
 
         JTextField textField = new JTextField();
-        textField.setPreferredSize(new Dimension(250,40));
+        textField.setPreferredSize(new Dimension(250, 40));
 
-        JButton submitButton = new JButton("Submit Guess ("+game.getNumAtoms()+" guesses left)");
+        JButton submitButton = new JButton("Submit Guess (" + game.getNumAtoms() + " guesses left)");
         submitButton.addActionListener(e -> {
             if (e.getSource() == submitButton) {
                 int guess;
@@ -183,15 +184,13 @@ public class GameWindow {
 
     public static void getUserNameWindow() {
         JFrame frame = new JFrame();
-        ImageIcon icon = new ImageIcon(new ImageIcon("src/java/resources/Icons/new_icon.png").getImage().getScaledInstance(125,125, Image.SCALE_SMOOTH));
+        ImageIcon icon = new ImageIcon(new ImageIcon("src/java/resources/Icons/new_icon.png").getImage().getScaledInstance(125, 125, Image.SCALE_SMOOTH));
         name = (String) JOptionPane.showInputDialog(frame, "Please enter your name:", "Username", JOptionPane.PLAIN_MESSAGE, icon, null, "user12345");
         try {
             if (name.length() > 30) throw new IllegalArgumentException("Name must be less than 30 characters.");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        }
-        finally {
+        } finally {
             frame.dispose(); // Close the frame after getting the name
             frame.setVisible(false);
         }
@@ -202,10 +201,14 @@ public class GameWindow {
         jFrame.setSize(426, 240);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jFrame.setLocationRelativeTo(null);
-        jFrame.addWindowListener(new WindowAdapter() { @Override public void windowClosing(WindowEvent e) {
-            gameWindow.dispose();
-            jFrame.dispose();
-            new StartScreen(); } });
+        jFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                gameWindow.dispose();
+                jFrame.dispose();
+                new StartScreen();
+            }
+        });
 
         JLabel finalScore = new JLabel();
         finalScore.setFont(new Font("Verdana", Font.BOLD, 20));
@@ -234,7 +237,7 @@ public class GameWindow {
                     value = 1;
                 } else {
                     visitedBoxes.add(value);
-                    System.out.println("Value: "+value);
+                    System.out.println("Value: " + value);
                     game.shootRay(value);
                     gameScreen.repaint();
                 }
@@ -257,47 +260,6 @@ public class GameWindow {
 //            gameScreen.repaint();
 //        }
 //    }
-
-
-    public void howToPlayWindow() {
-        JFrame jFrame = new JFrame();
-        jFrame.setTitle("How to Play Black Box");
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setPreferredSize(new Dimension(854, 480));
-
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
-
-        JTextArea textArea = new JTextArea();
-        textArea.setText("\tBlack Box Instructions:\n\n" +
-                "\tBlack Box is a two-player game that consists of the setter and the experimenter. " +
-                "For the hexagonal version of Black Box, the setter will place 5 to 6 red balls on the board. " +
-                "Rays are sent from any outer edge of the entire hexagonal structure, and it is the experimenter's job " +
-                "to find these atoms which are invisible to him by observing the reflection patterns when rays are sent.\n\n" +
-
-                "\tThe atoms affect the path that a ray will take. Complex paths would be expected when using more balls. " +
-                "This should be the main objective for the setter. The main objective for the experimenter is to get the " +
-                "positions of the atoms on the board using the least number of rays.\n\n" +
-
-                "\tWhen rays are projected onto the board, the atom’s outer border helps to deflect the rays at 90-degree angles. " +
-                "If a ray collides straight on with the atom, it is reflected back.\n\n" +
-
-                "\tWhen the experimenter thinks his round of the game is complete, it is announced. Every ray projected is 1 point, " +
-                "and 5 more points are added for misplaced atoms. For every error made in reporting the result of a ray, " +
-                "the experimenter's score is reduced by 5 points.\n\n" +
-
-                "\tAfter the round ends, the roles are switched and played again. The player with the least points is the winner.");
-        textArea.setEditable(false);
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-
-        mainPanel.add(textArea, BorderLayout.CENTER);
-        jFrame.add(mainPanel);
-
-        jFrame.pack();
-        jFrame.setLocationRelativeTo(null);
-        jFrame.setVisible(true);
-    }
 
     public Color askMarkerColor() {
         return JColorChooser.showDialog(null, "Choose a colour for the Markers", Color.WHITE);
