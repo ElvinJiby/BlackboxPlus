@@ -11,10 +11,10 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 public class GameWindow {
-    private JFrame gameWindow;
-    private GameScreen gameScreen;
-    private Game game;
-    private JPanel buttonPanel;
+    private final JFrame gameWindow;
+    private final GameScreen gameScreen;
+    private final Game game;
+    private final JPanel buttonPanel;
 
     private JTextField arrowNumberInputField;
     private JLabel arrowNumberInputPrompt;
