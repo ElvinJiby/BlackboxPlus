@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class GameWindow {
     private final JFrame gameWindow;
@@ -18,19 +19,18 @@ public class GameWindow {
 
     private JTextField arrowNumberInputField;
     private JLabel arrowNumberInputPrompt;
-    //    private JTextField playerNameInputField;
     private JLabel playerNameLabel;
     private JLabel scoreLabel;
     private JLabel resultLabel;
-    private int value = 1;
+    private int shootFrom = 1;
     private JButton howToPlayButton;
     private JButton endGameButton;
+
     private final ArrayList<Integer> visitedBoxes = new ArrayList<>();
 
     private static String name = "hello";
 
     public GameWindow(GameScreen gameScreen, Game game) {
-        // Window Construction
         this.game = game;
         gameWindow = new JFrame(); // creates a new window
         gameWindow.setSize(1280, 720); // sets the window dimensions
@@ -38,7 +38,7 @@ public class GameWindow {
         gameWindow.setLocationRelativeTo(null); // when opened, the window will open in the middle of the screen, instead of the top left
         gameWindow.setResizable(false); // disables the ability to resize the window
         gameWindow.setTitle("Blackbox+ - By Group 50"); // title of the window
-        gameWindow.setIconImage(new ImageIcon(getClass().getResource("/Icons/new_icon.png")).getImage());
+        gameWindow.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Icons/new_icon.png"))).getImage());
         gameWindow.setLayout(new BorderLayout());
 
         // Game Panel (manages the rendering of images/rays/assets/etc.)
@@ -68,28 +68,17 @@ public class GameWindow {
     private void createLabels(JPanel buttonPanel) {
         scoreLabel = new JLabel("| Score: " + game.getScore());
         scoreLabel.setForeground(Color.WHITE);
-//        scoreLabel.setBounds(1100, 650, 150, 30);
 
         arrowNumberInputField = new JTextField(2);
         arrowNumberInputField.setText("1");
-//        textField.setBounds(50, 50, 250, 250);
         arrowNumberInputField.addActionListener(e -> {
             validateInput();
             gameScreen.repaint();
         });
 
-        resultLabel = new JLabel("| Shoot ray from: " + value);
+        resultLabel = new JLabel("| Shoot ray from: " + shootFrom);
         resultLabel.setForeground(Color.WHITE);
 
-//        playerNameInputField = new JTextField(15);
-//        playerNameInputField.setText("Enter player name (Limit: 30)");
-////        textField.setBounds(50, 50, 250, 250);
-//        playerNameInputField.addActionListener(e -> {
-//            updateUsername();
-//            gameScreen.repaint();
-//        });
-
-//        playerNameLabel = new JLabel("| Player Name: " + game.getPlayerName());
         playerNameLabel = new JLabel("| Player Name: " + name);
         playerNameLabel.setForeground(Color.WHITE);
 
@@ -128,20 +117,16 @@ public class GameWindow {
             endGameButton.setEnabled(false);
 //            guessAtomsWindow();
             game.toggleInternalBoardSetting();
-            endGameWindow();
+            new GameOver();
         });
 
         buttonPanel.add(endGameButton);
         buttonPanel.add(howToPlayButton);
-//        buttonPanel.add(playerNameInputField);
         buttonPanel.add(playerNameLabel);
         buttonPanel.add(arrowNumberInputPrompt);
         buttonPanel.add(arrowNumberInputField);
         buttonPanel.add(resultLabel);
         buttonPanel.add(scoreLabel);
-//        buttonPanel.add(button);
-//        buttonPanel.add(loadPresetRay);
-//        buttonPanel.add(colorWindow);
     }
 
     private void guessAtomsWindow() {
@@ -224,42 +209,31 @@ public class GameWindow {
 
     private void validateInput() {
         try {
-            value = Integer.parseInt(arrowNumberInputField.getText());
-            if (value < 1 || value > 54) {
+            shootFrom = Integer.parseInt(arrowNumberInputField.getText()); // parse input
+            if (shootFrom < 1 || shootFrom > 54) { // if input is not between specified values, display error message
                 JOptionPane.showMessageDialog(null, "Enter a number between 1 and 54 (inclusive)", "Invalid Input", JOptionPane.ERROR_MESSAGE);
                 arrowNumberInputField.setText("1"); // Reset to default value
-                value = 1;
-                resultLabel.setText("Shoot ray from: " + value);
+                shootFrom = 1; // reset value
+                resultLabel.setText("Shoot ray from: " + shootFrom);
             } else {
-                if (visitedBoxes.contains(value)) {
+                if (visitedBoxes.contains(shootFrom)) { // if already entered
                     JOptionPane.showMessageDialog(null, "This entry already has a ray generated from it", "Input Already Used", JOptionPane.ERROR_MESSAGE);
                     arrowNumberInputField.setText("1"); // Reset to default value
-                    value = 1;
-                } else {
-                    visitedBoxes.add(value);
-                    System.out.println("Value: " + value);
-                    game.shootRay(value);
+                    shootFrom = 1;
+                } else { // not used input
+                    visitedBoxes.add(shootFrom);
+                    System.out.println("Value: " + shootFrom);
+                    game.shootRay(shootFrom);
                     gameScreen.repaint();
                 }
-                resultLabel.setText("Shoot ray from: " + value);
+                resultLabel.setText("Shoot ray from: " + shootFrom);
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Please enter a valid integer.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
             arrowNumberInputField.setText("1"); // Reset to default value
-            resultLabel.setText("Shoot ray from: " + value);
+            resultLabel.setText("Shoot ray from: " + shootFrom);
         }
     }
-
-//    private void updateUsername() {
-//        game.setPlayerName(playerNameInputField.getText());
-//        if (game.getPlayerName().length() > 30) {
-//            JOptionPane.showMessageDialog(null, "Username must be 30 characters or less.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-//        } else {
-//            playerNameLabel.setText(game.getPlayerName());
-//            playerNameInputField.setVisible(false);
-//            gameScreen.repaint();
-//        }
-//    }
 
     public Color askMarkerColor() {
         return JColorChooser.showDialog(null, "Choose a colour for the Markers", Color.WHITE);

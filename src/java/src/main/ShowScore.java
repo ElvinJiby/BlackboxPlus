@@ -1,5 +1,7 @@
 package main;
 
+import menus.StartScreen;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,6 +16,7 @@ public class ShowScore {
     private static int score = 150;
 
     public ShowScore() {
+        Game game = new Game();
         jFrame = new JFrame();
         jFrame.setTitle("Score");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,7 +36,7 @@ public class ShowScore {
         };
         jPanel.setLayout(null); // centre
 
-        scoreLabel = new JLabel(name + " scored " + score + " points");
+        scoreLabel = new JLabel(game.getPlayerName() + " scored " + game.getScore() + " points");
         scoreLabel.setVerticalAlignment(SwingConstants.CENTER);
         scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
         scoreLabel.setForeground(Color.CYAN);
@@ -44,11 +47,9 @@ public class ShowScore {
         jFrame.getContentPane().add(jPanel);
         jFrame.setVisible(true);
 
-        Timer disposeTimer = new Timer(5000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                jFrame.dispose();
-            }
+        Timer disposeTimer = new Timer(5000, e -> {
+            new StartScreen();
+            jFrame.dispose();
         });
         disposeTimer.setRepeats(false); // Set to not repeat
         disposeTimer.start();

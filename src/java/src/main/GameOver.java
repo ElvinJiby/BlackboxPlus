@@ -41,7 +41,7 @@ public class GameOver {
         jFrame.setVisible(true); // show window
 
         // show score window for 3000 milliseconds and close current frame
-        timer = new Timer(3000, e -> { new ShowScore(); jFrame.dispose(); });
+        timer = new Timer(3000, e -> { jFrame.dispose(); new ShowScore(); jFrame.dispose(); });
         timer.setRepeats(false); // do not repeat
         timer.start(); // start timer
     }
