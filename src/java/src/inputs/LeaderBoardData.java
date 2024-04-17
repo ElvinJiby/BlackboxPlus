@@ -4,11 +4,10 @@ import java.io.*;
 import java.util.*;
 
 public class LeaderBoardData {
-    // linked hash map ensures there is order when writing to the txt file
-    // String holds the name and Integer holds the score
+    // linked hash map ensures there is order when writing to the txt file and map list holds the name and score
     private static final LinkedHashMap<String, Integer> scoresLinkedHashMap = new LinkedHashMap<>();
     private static List<Map.Entry<String, Integer>> sortedScores = new ArrayList<>();
-
+    // getter methods
     public LinkedHashMap<String, Integer> getScoresLinkedHashMap() {
         return scoresLinkedHashMap;
     }
@@ -16,15 +15,16 @@ public class LeaderBoardData {
         return sortedScores;
     }
 
-    public void readAndSort() throws FileNotFoundException {
-        LeaderBoardData leaderBoardData = new LeaderBoardData();
-        leaderBoardData.readTXTFile();
-        sortedScores = leaderBoardData.sortScores();
+    public void readAndSort() throws IOException {
+        LeaderBoardData leaderBoardData = new LeaderBoardData(); // create new instance
+        leaderBoardData.readTXTFile(); // read text file
+        sortedScores = leaderBoardData.sortScores(); // sort scores and save to map
     }
 
-    public void readTXTFile() throws FileNotFoundException { // reads in txt file and saves it to the linked hash map
-        File scores = new File("scores.txt"); // open file
-        Scanner scanner = new Scanner(scores); // scanner takes in file object
+    public void readTXTFile() throws IOException { // reads in txt file and saves it to the linked hash map
+        File file = new File("scores.txt"); // open file
+        if (!file.exists()) file.createNewFile(); // make new file if not there
+        Scanner scanner = new Scanner(file); // scanner takes in file object
         while (scanner.hasNextLine()) {// keep reading in each string line until the end of the file
             String line = scanner.nextLine(); // save each line in the line variable
             String[] column = line.split(","); // divide this line by comma to get name and score
@@ -50,17 +50,16 @@ public class LeaderBoardData {
             // the loop goes through each entry in the list
             // it accesses the name and score using entry.getKey and entry.getValue
             // using PrintWriter, it writes to the file, seperated by a comma, for formatting
-            for (Map.Entry<String, Integer> entry : sortedEntry)
-                printWriter.println(entry.getKey() + "," + entry.getValue());
-        } catch (IOException e) {
-            System.out.println("Error writing the file!");
+            for (Map.Entry<String, Integer> entry : sortedEntry) printWriter.println(entry.getKey() + "," + entry.getValue());
         }
+        catch (IOException e) { System.out.println("Error writing the file!"); }
     }
 
+    // write the scores to txt file
     public static void storeScore(String name, int score) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("scores.txt", true))) {
-            writer.write(name + "," + score); // write name and score seperated by commas
-            writer.newLine(); // \n
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("scores.txt", true))) { // append score to file
+            bufferedWriter.write(name + "," + score); // write name and score seperated by commas
+            bufferedWriter.newLine(); // \n
         }
         catch (IOException e) {
             System.err.println("Error storing score: " + e.getMessage());
@@ -69,28 +68,24 @@ public class LeaderBoardData {
     }
 
     public static void checkFormat() throws IOException {
-        String file = "scores.txt";
-        File scoreFile = new File(file);
-        if (!scoreFile.exists()) {
-            scoreFile.createNewFile();
-        }
-
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+        File file = new File("scores.txt"); // new file object
+        if (!file.exists()) file.createNewFile(); // make new file if not there
+        BufferedReader bufferedReader = new BufferedReader(new FileReader("scores.txt")); // reader object
         int numOfLines = 0;
         String line;
         // check if the line is not empty
-        while ((line = bufferedReader.readLine()) != null) if (!line.isEmpty()) numOfLines++;
-        bufferedReader.close();
+        while ((line = bufferedReader.readLine()) != null) if (!line.isEmpty()) numOfLines++; // increment numOfLines until EOF
+        bufferedReader.close(); // close object
         // if there are not 5 players, label has to be default values
         if (numOfLines < 5) {
-            FileWriter fileWriter = new FileWriter("scores.txt");
-            fileWriter.write("user1,100\nuser2,100\nuser3,100\nuser4,100\nuser5,100\n");
+            FileWriter fileWriter = new FileWriter("scores.txt", false); // do not append
+            fileWriter.write("user1,100\nuser2,100\nuser3,100\nuser4,100\nuser5,100\n"); // defaults
             fileWriter.close();
         }
     }
 
     public static void clearTheLeaderboard() throws IOException {
-        FileWriter fileWriter = new FileWriter("scores.txt");
+        FileWriter fileWriter = new FileWriter("scores.txt", false); // do not append
         // fill with default values
         fileWriter.write("user1,100\nuser2,100\nuser3,100\nuser4,100\nuser5,100\n");
         fileWriter.close();
