@@ -70,6 +70,11 @@ public class LeaderBoardData {
 
     public static void checkFormat() throws IOException {
         String file = "scores.txt";
+        File scoreFile = new File(file);
+        if (!scoreFile.exists()) {
+            scoreFile.createNewFile();
+        }
+
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         int numOfLines = 0;
         String line;
