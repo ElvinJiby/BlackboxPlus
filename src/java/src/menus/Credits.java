@@ -5,16 +5,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Objects;
 
-public class Credits implements Runnable {
+public class Credits {
     private static JFrame jFrame; // credits window
     private static ImageIcon creditsGIF; // GIF image
     private static JLabel creditsJLabel; // Image cast as JLabel
 
-    @Override public void run() { jFrame.setVisible(true); } // overriding run method to set JFrame visibility to true
+//    @Override public void run() { jFrame.setVisible(true); } // overriding run method to set JFrame visibility to true
 
     public Credits() {
         jFrame = new JFrame("Credits"); // creates new JFrame object with "Credits" as title
-        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // if window is closed, program does not terminate
+        jFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); // if window is closed, program does not terminate
         jFrame.setResizable(false); // restricts resizing
         jFrame.setSize(1280, 720); // 720p window
         jFrame.setLocationRelativeTo(null); // centre window according to device screen size
@@ -33,5 +33,7 @@ public class Credits implements Runnable {
                 if (e.getKeyChar() == 'q' || e.getKeyChar() == 'Q') { jFrame.dispose(); new StartScreen(); }
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) { jFrame.dispose(); new StartScreen(); }
             }});
+
+        jFrame.setVisible(true);
     }
 }
