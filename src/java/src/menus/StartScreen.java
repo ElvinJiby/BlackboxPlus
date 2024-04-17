@@ -1,10 +1,12 @@
 package menus;
 
+import inputs.LeaderBoardData;
 import inputs.OperatingSystem;
 import main.Game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.Objects;
 
 public class StartScreen {
@@ -52,7 +54,12 @@ public class StartScreen {
                 new Leaderboard().run();
             } catch (Exception ex) {
                 ex.printStackTrace();
-                JOptionPane.showMessageDialog(null, "Failed to open leaderboard.", "Leaderboard Open Error", JOptionPane.ERROR_MESSAGE);
+                try {
+                    LeaderBoardData.clearTheLeaderboard();
+                } catch (IOException exc) {
+                    throw new RuntimeException(exc);
+                }
+                JOptionPane.showMessageDialog(null, "Failed to open leaderboard. Try again!", "Leaderboard Open Error", JOptionPane.ERROR_MESSAGE);
                 System.exit(-1);
             }
 
