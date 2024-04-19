@@ -317,9 +317,9 @@ public class Game {
         for (int i = 0; i<NUM_OF_ATOMS; i++) {
             while (hexagonalBoxes.get(atomPosIndex).HasAtom()) { // ensures that atoms do not generate in the same box
                 atomPosIndex = rand.nextInt(0,hexagonalBoxesLength);
-                boardp.setrandom(boardp,atomPosIndex+1);
-            }
 
+            }
+            boardp.setrandom(boardp,atomPosIndex+1);
             atomBoxNumbers.add(atomPosIndex+1);
             Atom atom = new Atom(hexagonalBoxes.get(atomPosIndex).getX(), hexagonalBoxes.get(atomPosIndex).getY());
             hexagonalBoxes.get(atomPosIndex).setHasAtom(true); // that box now has an atom present. set respective boolean hasAtom to true.
