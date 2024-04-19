@@ -21,8 +21,9 @@ public class Game {
 
     private final int NUM_OF_ATOMS = 6;
     private Boolean seeAtomsandRays = true; // debug setting to show internal atoms (default: false)
-    private int score = 0;
-    private String playerName = "user34567";
+    private int numIncorrectGuesses = 0;
+    private int numMarkersUsed = 0;
+    private String playerName = "user" + rand.nextInt(99999);
 
     private final ArrayList<HexagonalBox> hexagonalBoxes; // Arraylist that contains all the hexagonal boxes
     private final ArrayList<Atom> atomList; // Arraylist that contains all the atoms
@@ -30,8 +31,7 @@ public class Game {
     private final ArrayList<ArrayList<Ray>> rayPathList = new ArrayList<>(); // Arraylist that contains a list of each Ray and their own paths
     private ArrayList<ExitPoint> exitPointsList = new ArrayList<>(); // Arraylist that contains the coordinates of each exit point
     private final ArrayList<Integer> atomBoxNumbers = new ArrayList<>();
-    private Board boardp = (new Lists()).createboard();
-    ;
+    private final Board boardp = (new Lists()).createboard();
 
 
     // default constructor
@@ -114,7 +114,7 @@ public class Game {
                     hexagonalBoxes.get(boxNumList.get(i+1)-1).getY()));
         }
 
-
+        // set final ray towards atom for absorption case
         if (isRayAbsorbed) {
             System.out.println("-1 found");
             newRayPath.add(new Ray(
@@ -123,7 +123,7 @@ public class Game {
                     hexagonalBoxes.get(boxNumList.get(i)-1).getX(),
                     hexagonalBoxes.get(boxNumList.get(i)-1).getY()));
             boxNumList.remove(boxNumList.getLast());
-        } else {
+        } else { // in all other cases, set the final ray towards the exit point
             System.out.println("no absorption");
             ExitPoint endPoint = exitPointsList.get(boxNumList.getLast()-1);
             newRayPath.add(new Ray(
@@ -131,10 +131,9 @@ public class Game {
                     hexagonalBoxes.get(boxNumList.get(i)-1).getY(),
                     endPoint.getX(),
                     endPoint.getY()));
+            // this is to make sure a ray can't be shot from the final exit point
+            gameWindow.addVisitedBox(boxNumList.getLast());
         }
-
-
-
 
         /* Marker Cases */
         // Normal case - Ray goes straight through with no reflection of absorption
@@ -152,8 +151,9 @@ public class Game {
             int endY = exitPointsList.get(boxNumList.getLast()-1).getY();
             markersList.add(new Marker(endX,endY,colorChoice));
 
-            score += 2; // 2 point for a pair of markers
-            System.out.println("Normal");
+            numMarkersUsed += 2; // add 2 markers to the counter
+            System.out.println("Deflected");
+            gameWindow.setLastRayStatus("normal/deflected");
         }
         // Absorbed case - Ray absorbed by atom
         else if (isRayAbsorbed) {
@@ -162,8 +162,9 @@ public class Game {
             int startY = exitPointsList.get(boxNumList.getFirst()-1).getY();
             markersList.add(new Marker(startX,startY,Color.GRAY));
 
-            score++; // 1 point for marker
+            numMarkersUsed++; // increment marker counter
             System.out.println("Absorbed!");
+            gameWindow.setLastRayStatus("absorbed");
         }
         // Reflected case = Ray deflects and exits at the same point of entry
         else {
@@ -172,8 +173,9 @@ public class Game {
             int startY = exitPointsList.get(boxNumList.getFirst()-1).getY();
             markersList.add(new Marker(startX,startY,Color.WHITE));
 
-            score++; // 1 point for marker
+            numMarkersUsed++; // increment marker counter
             System.out.println("Reflected!");
+            gameWindow.setLastRayStatus("reflected");
         }
 
         // Add the newly created ray path to a pathlist
@@ -317,9 +319,9 @@ public class Game {
         for (int i = 0; i<NUM_OF_ATOMS; i++) {
             while (hexagonalBoxes.get(atomPosIndex).HasAtom()) { // ensures that atoms do not generate in the same box
                 atomPosIndex = rand.nextInt(0,hexagonalBoxesLength);
-                boardp.setrandom(boardp,atomPosIndex+1);
-            }
 
+            }
+            boardp.setrandom(boardp,atomPosIndex+1);
             atomBoxNumbers.add(atomPosIndex+1);
             Atom atom = new Atom(hexagonalBoxes.get(atomPosIndex).getX(), hexagonalBoxes.get(atomPosIndex).getY());
             hexagonalBoxes.get(atomPosIndex).setHasAtom(true); // that box now has an atom present. set respective boolean hasAtom to true.
@@ -436,10 +438,6 @@ public class Game {
         gameScreen.repaint();
     }
 
-    public int getScore() {
-        return score;
-    }
-
     public String getPlayerName() {
         return playerName;
     }
@@ -452,11 +450,20 @@ public class Game {
         return atomBoxNumbers.contains(boxNumber);
     }
 
-    public void addIncorrectAtomGuess() {
-        score += 5;
-    }
+    public void addIncorrectAtomGuess() { numIncorrectGuesses += 5; }
 
     public int getNumAtoms() {
         return NUM_OF_ATOMS;
+    }
+
+    public int getScore() {
+        return getNumMarkersUsed() + (getNumIncorrectGuesses() * 5);
+    }
+    public int getNumIncorrectGuesses() {
+        return numIncorrectGuesses;
+    }
+
+    public int getNumMarkersUsed() {
+        return numMarkersUsed;
     }
 }

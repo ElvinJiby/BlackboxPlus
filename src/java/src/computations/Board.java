@@ -302,14 +302,17 @@ public class Board {
                     n=(n+3)%6;
                 }
             } else if (atomp.size()==2) {
-                if((((n + 1) % 6) == atomp.get(0) || ((n + 1) % 6) ==atomp.get(1)) && (((n ) % 6) == atomp.get(0) || ((n ) % 6) ==atomp.get(1))){
+                if ((((n - 2+6) % 6) == atomp.get(0) || ((n - 2+6) % 6) ==atomp.get(1)) || (((n + 2) % 6) == atomp.get(0) || ((n + 2) % 6) ==atomp.get(1))) {
+                    n=(n+3)%6;
+                }
+                else if((((n + 1) % 6) == atomp.get(0) || ((n + 1) % 6) ==atomp.get(1)) && (((n ) % 6) == atomp.get(0) || ((n ) % 6) ==atomp.get(1))){
                     n=(n-2+6)%6;
                 } else if ((((n - 1+6) % 6) == atomp.get(0) || ((n - 1+6) % 6) ==atomp.get(1)) && (((n ) % 6) == atomp.get(0) || ((n ) % 6) ==atomp.get(1))) {
                     n=(n+2)%6;
                 }else if ((((n - 1+6) % 6) == atomp.get(0) || ((n - 1+6) % 6) ==atomp.get(1)) && (((n + 1) % 6) == atomp.get(0) || ((n + 1) % 6) ==atomp.get(1))) {
                     n=(n+3)%6;
                 }
-            } else if (atomp.size()==3) {
+            } else if (atomp.size()>3) {
                 n=(n+3)%6;
             }
             System.out.print(next.getValue()+"->");
