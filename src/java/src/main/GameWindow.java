@@ -37,7 +37,7 @@ public class GameWindow {
         this.game = game;
         gameWindow = new JFrame(); // creates a new window
         gameWindow.setSize(1280, 720); // sets the window dimensions
-        gameWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // when you click the X to close to program, the program actually closes (by default it just hides the window)
+        gameWindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // when you click the X to close to program, the program actually closes (by default it just hides the window)
         gameWindow.setLocationRelativeTo(null); // when opened, the window will open in the middle of the screen, instead of the top left
         gameWindow.setResizable(false); // disables the ability to resize the window
         gameWindow.setTitle("Blackbox+ - By Group 50"); // title of the window
@@ -69,7 +69,8 @@ public class GameWindow {
     }
 
     private void createLabels(JPanel buttonPanel) {
-        scoreLabel = new JLabel("| Score: " + game.getScore());
+        scoreLabel = new JLabel(" | Score: " + game.getScore() + " | ");
+        scoreLabel.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
         scoreLabel.setForeground(Color.WHITE);
 //        scoreLabel.setBounds(1100, 650, 150, 30);
 
@@ -83,7 +84,8 @@ public class GameWindow {
             gameScreen.repaint();
         });
 
-        rayStatusLabel = new JLabel();
+        rayStatusLabel = new JLabel("| No ray has been shot yet.");
+        rayStatusLabel.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
         rayStatusLabel.setForeground(Color.WHITE);
 
 //        playerNameInputField = new JTextField(15);
@@ -95,16 +97,18 @@ public class GameWindow {
 //        });
 
 //        playerNameLabel = new JLabel("| Player Name: " + game.getPlayerName());
-        playerNameLabel = new JLabel("| Player Name: " + name);
+        playerNameLabel = new JLabel("  | Player Name: " + name);
         playerNameLabel.setForeground(Color.WHITE);
+        playerNameLabel.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
 
         arrowNumberInputPrompt = new JLabel("| Enter an integer 1-54: ");
+        arrowNumberInputPrompt.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
         arrowNumberInputPrompt.setForeground(Color.WHITE);
 
         JLabel colorWindow = new JLabel();
         colorWindow.setBackground(Color.WHITE);
         colorWindow.setText("Sample Text");
-        colorWindow.setFont(new Font("Comic Sans", Font.BOLD, 20));
+        colorWindow.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
         colorWindow.setOpaque(true);
 
         JButton button = new JButton("Pick a colour");
@@ -125,23 +129,28 @@ public class GameWindow {
         });
 
         howToPlayButton = new JButton("How To Play");
+        howToPlayButton.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
         howToPlayButton.setBounds(50, 50, 100, 30);
+        howToPlayButton.setFocusable(false);
         howToPlayButton.addActionListener(e -> new HowToPlayWindow());
 
         endGameButton = new JButton("End Game");
+        endGameButton.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
+        endGameButton.setFocusable(false);
         endGameButton.addActionListener(e -> {
             endGameButton.setEnabled(false);
+//            new GameOver();
             guessAtomsWindow();
         });
 
         buttonPanel.add(endGameButton);
-        buttonPanel.add(howToPlayButton);
 //        buttonPanel.add(playerNameInputField);
         buttonPanel.add(playerNameLabel);
         buttonPanel.add(arrowNumberInputPrompt);
         buttonPanel.add(arrowNumberInputField);
         buttonPanel.add(rayStatusLabel);
         buttonPanel.add(scoreLabel);
+        buttonPanel.add(howToPlayButton);
 //        buttonPanel.add(button);
 //        buttonPanel.add(loadPresetRay);
 //        buttonPanel.add(colorWindow);
@@ -154,6 +163,8 @@ public class GameWindow {
         jFrame.setLocationRelativeTo(null);
         JTextField textField = new JTextField();
         textField.setPreferredSize(new Dimension(250, 40));
+        game.setEnableNumberedBoard(true);
+        gameScreen.repaint();
 
         ArrayList<Integer> guessList = new ArrayList<>();
         AtomicInteger num_of_guesses = new AtomicInteger(game.getNumAtoms());
@@ -164,14 +175,12 @@ public class GameWindow {
                 try {
                     int guess = Integer.parseInt(textField.getText());
                     if (guess < 1 || guess > 61) { // validation check
-                        JOptionPane.showMessageDialog(null, "Invalid guess. The boxes are numbered from 1-61", "Invalid Guess", JOptionPane.ERROR_MESSAGE);
-                        throw new IllegalArgumentException();
+                        throw new IllegalArgumentException("Invalid guess. The boxes are numbered from 1-61");
                     } if (guessList.contains(guess)) { // validation check 2
-                        JOptionPane.showMessageDialog(null, "You have already guessed that box number.", "Invalid Guess", JOptionPane.ERROR_MESSAGE);
-                        throw new IllegalArgumentException();
+                        throw new IllegalArgumentException("You have already guessed that box number.");
                     }
 
-                    if (!game.isAtomLocationGuessCorrect(guess)) { // if it's incorrect, add 5 points to the score
+                    if (!game.isAtomLocationGuessCorrect(guess)) { // if it's incorrect, increment the amount of wrong guesses
                         game.addIncorrectAtomGuess();
                         JOptionPane.showMessageDialog(null, "Unfortunately your guess was wrong.", "Incorrect Guess", JOptionPane.INFORMATION_MESSAGE);
                     } else { // guess was correct
@@ -184,6 +193,7 @@ public class GameWindow {
                     // Check if there's no more guesses left
                     if (num_of_guesses.get() <= 0) {
                         jFrame.dispose();
+                        game.setEnableNumberedBoard(false);
                         game.toggleInternalBoardSetting(); // game is over at this point, allow user to see atoms and rays
                         endGameWindow(); // score window
                     }
@@ -192,7 +202,7 @@ public class GameWindow {
                     submitButton.setText("Submit Guess (" + num_of_guesses + " guesses left)");
 
                 } catch (Exception ex) { // invalid input exception handling
-                    JOptionPane.showMessageDialog(null, "That's not a valid input.", "Invalid Guess", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Invalid Input", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -205,7 +215,7 @@ public class GameWindow {
 
     public static void getUserNameWindow() {
         JFrame frame = new JFrame();
-        ImageIcon icon = new ImageIcon(new ImageIcon("src/java/resources/Icons/new_icon.png").getImage().getScaledInstance(125, 125, Image.SCALE_SMOOTH));
+        ImageIcon icon = new ImageIcon(new ImageIcon(Game.class.getResource("/Icons/new_icon.png")).getImage().getScaledInstance(125, 125, Image.SCALE_SMOOTH));
         name = (String) JOptionPane.showInputDialog(frame, "Please enter your name:", "Username", JOptionPane.PLAIN_MESSAGE, icon, null, ("user" + rand.nextInt(99999)));
         try {
             if (name.length() > 30) throw new IllegalArgumentException("Name must be less than 30 characters.");
@@ -219,7 +229,7 @@ public class GameWindow {
 
     private void endGameWindow() {
         JFrame jFrame = new JFrame("End Game");
-        jFrame.setSize(426, 240);
+        jFrame.setSize(640, 360);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jFrame.setLocationRelativeTo(null);
         jFrame.addWindowListener(new WindowAdapter() {
@@ -231,12 +241,13 @@ public class GameWindow {
             }
         });
 
+        game.setPlayerName(name);
         JTextArea finalScore = new JTextArea();
-        finalScore.setFont(new Font("Verdana", Font.BOLD, 20));
+        finalScore.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
         finalScore.setText(name + " has scored: " + game.getScore() + " points!");
 
-        String scoreMessage = "Number of Markers Used: " + game.getNumMarkersUsed() + " x 1 = " + game.getNumMarkersUsed() + " points\n"
-                + "Number of Incorrect Guesses: " + game.getNumIncorrectGuesses() + " x 5 = " + (game.getNumIncorrectGuesses()*5) + " points\n"
+        String scoreMessage = "Number of Markers Used: " + game.getNumMarkersUsed() + " x 1 point = " + game.getNumMarkersUsed() + " points\n"
+                + "Number of Incorrect Guesses: " + game.getNumIncorrectGuesses() + " x 5 points = " + (game.getNumIncorrectGuesses()*5) + " points\n"
                 + "----------------------------------------------------\n"
                 + game.getPlayerName() + " has scored a total of " + game.getScore() + " points!";
         finalScore.setText(scoreMessage);
@@ -265,6 +276,7 @@ public class GameWindow {
                     visitedBoxes.add(value);
                     System.out.println("Value: " + value);
                     game.shootRay(value);
+                    scoreLabel.setText("| Score: " + game.getScore() + " |  ");
                     rayStatusLabel.setText("| Last ray was " + getLastRayStatus());
                     gameScreen.repaint();
                 }

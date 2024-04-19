@@ -16,11 +16,13 @@ public class Game {
     private static final Random rand = new Random();
 
     // Game Variables
-    private static Image bgImage = (new ImageIcon(Game.class.getResource("/Board Layouts/transparent-hexagon-numbered.PNG")).getImage());
-    private static Image boardCover = (new ImageIcon(Game.class.getResource("/Board Layouts/transparent-numbered-background.PNG")).getImage());
+    private static Image bgImage = (new ImageIcon(Game.class.getResource("/Board Layouts/yellow-clear-all.png")).getImage());
+    private static Image boardCover = (new ImageIcon(Game.class.getResource("/Board Layouts/yellow-clear-background.png")).getImage());
+    private static Image boardBoxNumber = (new ImageIcon(Game.class.getResource("/Board Layouts/transparent-hexagon-numbered.PNG")).getImage());
 
     private final int NUM_OF_ATOMS = 6;
-    private Boolean seeAtomsandRays = true; // debug setting to show internal atoms (default: false)
+    private Boolean seeAtomsandRays = false; // debug setting to show internal atoms (default: false)
+    private Boolean enableNumberedBoard = false;
     private int numIncorrectGuesses = 0;
     private int numMarkersUsed = 0;
     private String playerName = "user" + rand.nextInt(99999);
@@ -66,20 +68,24 @@ public class Game {
         for (ArrayList<Ray> rayPath : rayPathList) {
             for (Ray ray : rayPath) {
                 g2d.setStroke(new BasicStroke(5));
-                g2d.setColor(Color.YELLOW);
+                g2d.setColor(Color.WHITE);
                 g2d.drawLine(ray.getX1(), ray.getY1(), ray.getX2(), ray.getY2());
             }
+        }
+
+        // hide internal atoms and rays if setting is false
+        if (!seeAtomsandRays) {
+            g.drawImage(boardCover, 0, 0,1280,720, null);
+        }
+
+        if (enableNumberedBoard) {
+            g.drawImage(boardBoxNumber, 0, 0, 1280, 720, null);
         }
 
         // draw markers
         for (Marker marker : markersList) {
             g2d.setColor(marker.getMarkerColour());
             g2d.fillOval(marker.getX(), marker.getY(), 10,10);
-        }
-
-        // hide internal atoms and rays if setting is false
-        if (!seeAtomsandRays) {
-            g.drawImage(boardCover, 0, 0,1280,720, null);
         }
     }
 
@@ -450,7 +456,7 @@ public class Game {
         return atomBoxNumbers.contains(boxNumber);
     }
 
-    public void addIncorrectAtomGuess() { numIncorrectGuesses += 5; }
+    public void addIncorrectAtomGuess() { numIncorrectGuesses++; }
 
     public int getNumAtoms() {
         return NUM_OF_ATOMS;
@@ -465,5 +471,9 @@ public class Game {
 
     public int getNumMarkersUsed() {
         return numMarkersUsed;
+    }
+
+    public void setEnableNumberedBoard(Boolean enableNumberedBoard) {
+        this.enableNumberedBoard = enableNumberedBoard;
     }
 }

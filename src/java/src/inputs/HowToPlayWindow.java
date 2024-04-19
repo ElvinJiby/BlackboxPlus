@@ -33,7 +33,7 @@ public class HowToPlayWindow {
         jPanel.add(rulesPanel, BorderLayout.WEST); // set to left side
 
         // instructions
-        generateHowToPlayLabel("Black Box is a two-player game where the setter will place 5 to 6 red balls on the board.");
+        generateHowToPlayLabel("Black Box is a two-player game where the setter will place 6 red balls on the board.");
         generateHowToPlayLabel("Rays are sent from any edge of a hexagon and it is your job to find these invisible atoms");
         generateHowToPlayLabel("by observing the reflection patterns when rays are sent");
         generateHowToPlayLabel("\n");
@@ -43,14 +43,14 @@ public class HowToPlayWindow {
         generateHowToPlayLabel("If a ray collides straight on with the atom, it is reflected back.");
         generateHowToPlayLabel("\n");
         generateHowToPlayLabel("When you think the round is complete, Press the \"End Game\" button.");
-        generateHowToPlayLabel("Every ray projected is 1 point, and 5 more points are added for misplaced atoms.");
-        generateHowToPlayLabel("For every error made in reporting the result of a ray, your score is reduced by 5 points.");
-        generateHowToPlayLabel("After the round ends, the roles are switched with the other player and played again.");
+        generateHowToPlayLabel("Every marker placed is 1 point to the score, and 5 more points are added for misplaced atoms.");
+        generateHowToPlayLabel("After the round ends, the score is stored in the leaderboard.");
         generateHowToPlayLabel("The player with the least amount of points is the winner.");
         generateHowToPlayLabel("\n");
         generateHowToPlayLabel("To shoot a ray onto the board, use the input field at the bottom to input");
-        generateHowToPlayLabel("a number, this number should be between 1 and 54.");
-        generateHowToPlayLabel("You will then be asked to choose a colour for the emitted ray.");
+        generateHowToPlayLabel("a number, this number should be between 1 and 54 inclusive.");
+        generateHowToPlayLabel("You will then be asked to choose a colour for the marker, if its ray is not absorbed or reflected.");
+        generateHowToPlayLabel("Reflected rays will automatically place a white marker. Absorbed rays will automatically place a dark gray marker.");
         generateHowToPlayLabel("When you have decided that you have finished the round, press \"End game\"");
         generateHowToPlayLabel("\n");
         generateHowToPlayLabel("\n");

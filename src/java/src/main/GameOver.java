@@ -18,7 +18,7 @@ public class GameOver {
         jFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Icons/new_icon.png"))).getImage()); // app icon
         jFrame.setSize(400, 200); // window size
         jFrame.setLocationRelativeTo(null); // center the window on the screen
-        jFrame.setBackground(Color.BLACK); // black background
+        jFrame.getContentPane().setBackground(Color.BLACK); // black background
         jFrame.setResizable(false); // cannot resize
 
         jPanel = new JPanel() {
@@ -44,5 +44,9 @@ public class GameOver {
         timer = new Timer(3000, e -> { jFrame.dispose(); new ShowScore(); jFrame.dispose(); });
         timer.setRepeats(false); // do not repeat
         timer.start(); // start timer
+    }
+
+    public static void main(String[] args) {
+        new GameOver();
     }
 }
