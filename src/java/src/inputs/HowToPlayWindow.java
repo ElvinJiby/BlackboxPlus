@@ -11,7 +11,7 @@ public class HowToPlayWindow {
     private final JPanel rulesPanel; // to put how to play labels
 
     public HowToPlayWindow() {
-        jFrame = new JFrame("My Window"); // title
+        jFrame = new JFrame("How to Play Blackbox+"); // title
         jFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); // operation when closed
 //        frame.setLocationRelativeTo(null); // centre window
         jFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Icons/new_icon.png"))).getImage()); // app icon

@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameWindow {
     private JFrame gameWindow;
@@ -21,13 +23,14 @@ public class GameWindow {
     //    private JTextField playerNameInputField;
     private JLabel playerNameLabel;
     private JLabel scoreLabel;
-    private JLabel resultLabel;
+    private JLabel rayStatusLabel;
     private int value = 1;
     private JButton howToPlayButton;
     private JButton endGameButton;
     private final ArrayList<Integer> visitedBoxes = new ArrayList<>();
-
+    private static final Random rand = new Random();
     private static String name = "hello";
+    private String lastRayStatus = "normal/deflected";
 
     public GameWindow(GameScreen gameScreen, Game game) {
         // Window Construction
@@ -71,15 +74,17 @@ public class GameWindow {
 //        scoreLabel.setBounds(1100, 650, 150, 30);
 
         arrowNumberInputField = new JTextField(2);
+        arrowNumberInputField.setBackground(Color.BLACK);
         arrowNumberInputField.setText("1");
+        arrowNumberInputField.setForeground(Color.WHITE);
 //        textField.setBounds(50, 50, 250, 250);
         arrowNumberInputField.addActionListener(e -> {
             validateInput();
             gameScreen.repaint();
         });
 
-        resultLabel = new JLabel("| Shoot ray from: " + value);
-        resultLabel.setForeground(Color.WHITE);
+        rayStatusLabel = new JLabel();
+        rayStatusLabel.setForeground(Color.WHITE);
 
 //        playerNameInputField = new JTextField(15);
 //        playerNameInputField.setText("Enter player name (Limit: 30)");
@@ -126,9 +131,7 @@ public class GameWindow {
         endGameButton = new JButton("End Game");
         endGameButton.addActionListener(e -> {
             endGameButton.setEnabled(false);
-//            guessAtomsWindow();
-            game.toggleInternalBoardSetting();
-            endGameWindow();
+            guessAtomsWindow();
         });
 
         buttonPanel.add(endGameButton);
@@ -137,7 +140,7 @@ public class GameWindow {
         buttonPanel.add(playerNameLabel);
         buttonPanel.add(arrowNumberInputPrompt);
         buttonPanel.add(arrowNumberInputField);
-        buttonPanel.add(resultLabel);
+        buttonPanel.add(rayStatusLabel);
         buttonPanel.add(scoreLabel);
 //        buttonPanel.add(button);
 //        buttonPanel.add(loadPresetRay);
@@ -149,29 +152,48 @@ public class GameWindow {
         jFrame.setLayout(new FlowLayout());
         jFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         jFrame.setLocationRelativeTo(null);
-
         JTextField textField = new JTextField();
         textField.setPreferredSize(new Dimension(250, 40));
+
+        ArrayList<Integer> guessList = new ArrayList<>();
+        AtomicInteger num_of_guesses = new AtomicInteger(game.getNumAtoms());
 
         JButton submitButton = new JButton("Submit Guess (" + game.getNumAtoms() + " guesses left)");
         submitButton.addActionListener(e -> {
             if (e.getSource() == submitButton) {
-                int guess;
-                int num_of_guesses = game.getNumAtoms();
-
-                while (num_of_guesses > 0) {
-                    try {
-                        guess = Integer.parseInt(textField.getText());
-                        num_of_guesses--;
-                        if (!game.isAtomLocationGuessCorrect(guess)) {
-                            game.addIncorrectAtomGuess();
-                        }
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, "That's not a valid input.", "Invalid Guess", JOptionPane.ERROR_MESSAGE);
+                try {
+                    int guess = Integer.parseInt(textField.getText());
+                    if (guess < 1 || guess > 61) { // validation check
+                        JOptionPane.showMessageDialog(null, "Invalid guess. The boxes are numbered from 1-61", "Invalid Guess", JOptionPane.ERROR_MESSAGE);
+                        throw new IllegalArgumentException();
+                    } if (guessList.contains(guess)) { // validation check 2
+                        JOptionPane.showMessageDialog(null, "You have already guessed that box number.", "Invalid Guess", JOptionPane.ERROR_MESSAGE);
+                        throw new IllegalArgumentException();
                     }
-                }
 
-                jFrame.dispose();
+                    if (!game.isAtomLocationGuessCorrect(guess)) { // if it's incorrect, add 5 points to the score
+                        game.addIncorrectAtomGuess();
+                        JOptionPane.showMessageDialog(null, "Unfortunately your guess was wrong.", "Incorrect Guess", JOptionPane.INFORMATION_MESSAGE);
+                    } else { // guess was correct
+                        JOptionPane.showMessageDialog(null, "Your guess was correct!.", "Correct Guess", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
+                    num_of_guesses.decrementAndGet(); // decrease the amount of guesses the player has
+                    guessList.add(guess); // add guess to a list to ensure the same guess isn't made again (especially so that they can't guess the same correct box over and over to reduce points)
+
+                    // Check if there's no more guesses left
+                    if (num_of_guesses.get() <= 0) {
+                        jFrame.dispose();
+                        game.toggleInternalBoardSetting(); // game is over at this point, allow user to see atoms and rays
+                        endGameWindow(); // score window
+                    }
+
+                    // Otherwise reset the text and continue
+                    submitButton.setText("Submit Guess (" + num_of_guesses + " guesses left)");
+
+                } catch (Exception ex) { // invalid input exception handling
+                    JOptionPane.showMessageDialog(null, "That's not a valid input.", "Invalid Guess", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -179,13 +201,12 @@ public class GameWindow {
         jFrame.add(textField);
         jFrame.pack();
         jFrame.setVisible(true);
-
     }
 
     public static void getUserNameWindow() {
         JFrame frame = new JFrame();
         ImageIcon icon = new ImageIcon(new ImageIcon("src/java/resources/Icons/new_icon.png").getImage().getScaledInstance(125, 125, Image.SCALE_SMOOTH));
-        name = (String) JOptionPane.showInputDialog(frame, "Please enter your name:", "Username", JOptionPane.PLAIN_MESSAGE, icon, null, "user12345");
+        name = (String) JOptionPane.showInputDialog(frame, "Please enter your name:", "Username", JOptionPane.PLAIN_MESSAGE, icon, null, ("user" + rand.nextInt(99999)));
         try {
             if (name.length() > 30) throw new IllegalArgumentException("Name must be less than 30 characters.");
         } catch (IllegalArgumentException e) {
@@ -210,11 +231,16 @@ public class GameWindow {
             }
         });
 
-        JLabel finalScore = new JLabel();
+        JTextArea finalScore = new JTextArea();
         finalScore.setFont(new Font("Verdana", Font.BOLD, 20));
         finalScore.setText(name + " has scored: " + game.getScore() + " points!");
 
-        finalScore.setHorizontalAlignment(SwingConstants.CENTER);
+        String scoreMessage = "Number of Markers Used: " + game.getNumMarkersUsed() + " x 1 = " + game.getNumMarkersUsed() + " points\n"
+                + "Number of Incorrect Guesses: " + game.getNumIncorrectGuesses() + " x 5 = " + (game.getNumIncorrectGuesses()*5) + " points\n"
+                + "----------------------------------------------------\n"
+                + game.getPlayerName() + " has scored a total of " + game.getScore() + " points!";
+        finalScore.setText(scoreMessage);
+        finalScore.setEditable(false);
 
         jFrame.add(finalScore, BorderLayout.CENTER);
         jFrame.setVisible(true);
@@ -229,7 +255,7 @@ public class GameWindow {
                 JOptionPane.showMessageDialog(null, "Enter a number between 1 and 54 (inclusive)", "Invalid Input", JOptionPane.ERROR_MESSAGE);
                 arrowNumberInputField.setText("1"); // Reset to default value
                 value = 1;
-                resultLabel.setText("Shoot ray from: " + value);
+                rayStatusLabel.setText("Shoot ray from: " + value);
             } else {
                 if (visitedBoxes.contains(value)) {
                     JOptionPane.showMessageDialog(null, "This entry already has a ray generated from it", "Input Already Used", JOptionPane.ERROR_MESSAGE);
@@ -239,14 +265,14 @@ public class GameWindow {
                     visitedBoxes.add(value);
                     System.out.println("Value: " + value);
                     game.shootRay(value);
+                    rayStatusLabel.setText("| Last ray was " + getLastRayStatus());
                     gameScreen.repaint();
                 }
-                resultLabel.setText("Shoot ray from: " + value);
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Please enter a valid integer.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
             arrowNumberInputField.setText("1"); // Reset to default value
-            resultLabel.setText("Shoot ray from: " + value);
+            rayStatusLabel.setText("Shoot ray from: " + value);
         }
     }
 
@@ -262,6 +288,20 @@ public class GameWindow {
 //    }
 
     public Color askMarkerColor() {
-        return JColorChooser.showDialog(null, "Choose a colour for the Markers", Color.WHITE);
+        return JColorChooser.showDialog(null, "Choose a colour for the Markers", Color.MAGENTA);
+    }
+
+    public void addVisitedBox(int value) {
+        if (!visitedBoxes.contains(value)) {
+            visitedBoxes.add(value);
+        }
+    }
+
+    public String getLastRayStatus() {
+        return lastRayStatus;
+    }
+
+    public void setLastRayStatus(String lastRayStatus) {
+        this.lastRayStatus = lastRayStatus;
     }
 }
