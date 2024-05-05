@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -26,5 +27,11 @@ public class ResourceLoadingTest {
         assertNotNull(boardBoxNumber, "Board box number image is not loaded");
         assertNotNull(atomImage, "Atom image is not loaded");
         assertNotNull(gameIcon, "Game's icon image is not loaded");
+    }
+
+    @Test
+    public void loadCreditsAssets() {
+        ImageIcon creditsGIF = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Miscellaneous/credits_720p.gif"))); // open gif image
+
     }
 }

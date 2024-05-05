@@ -7,6 +7,7 @@ import entities.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public class Game {
@@ -15,9 +16,9 @@ public class Game {
     private final GameScreen gameScreen;
 
     // Game Variables
-    private static final Image bgImage = (new ImageIcon(Game.class.getResource("/Board Layouts/yellow-clear-all.png")).getImage());
-    private static final Image boardCover = (new ImageIcon(Game.class.getResource("/Board Layouts/yellow-clear-background.png")).getImage());
-    private static final Image boardBoxNumber = (new ImageIcon(Game.class.getResource("/Board Layouts/transparent-hexagon-numbered.PNG")).getImage());
+    private static final Image bgImage = (new ImageIcon(Objects.requireNonNull(Game.class.getResource("/Board Layouts/yellow-clear-all.png"))).getImage());
+    private static final Image boardCover = (new ImageIcon(Objects.requireNonNull(Game.class.getResource("/Board Layouts/yellow-clear-background.png"))).getImage());
+    private static final Image boardBoxNumber = (new ImageIcon(Objects.requireNonNull(Game.class.getResource("/Board Layouts/transparent-hexagon-numbered.PNG"))).getImage());
 
     private static final Random rand = new Random();
     private int numIncorrectGuesses = 0;

@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -18,7 +19,7 @@ public class GameWindow {
     private final GameScreen gameScreen;
     private final Game game;
 
-    private static final Image gameIcon = new ImageIcon(GameWindow.class.getResource("/Icons/new_icon.png")).getImage();
+    private static final Image gameIcon = new ImageIcon(Objects.requireNonNull(GameWindow.class.getResource("/Icons/new_icon.png"))).getImage();
 
     // JLabels and JButton variables
     private JTextField arrowNumberInputField;

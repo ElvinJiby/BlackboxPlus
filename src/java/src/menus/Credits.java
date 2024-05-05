@@ -1,12 +1,17 @@
 package menus;
 
+import main.GameWindow;
+
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Objects;
 
 public class Credits {
     private static JFrame jFrame; // credits window
+    private static final Image gameIcon = new ImageIcon(Objects.requireNonNull(GameWindow.class.getResource("/Icons/new_icon.png"))).getImage();
+    private static final ImageIcon creditsGIF = new ImageIcon(Objects.requireNonNull(Credits.class.getResource("/Miscellaneous/credits_720p.gif")));
 
     public Credits() {
         jFrame = new JFrame("Credits"); // creates new JFrame object with "Credits" as title
@@ -14,10 +19,8 @@ public class Credits {
         jFrame.setResizable(false); // restricts resizing
         jFrame.setSize(1280, 720); // 720p window
         jFrame.setLocationRelativeTo(null); // centre window according to device screen size
-        jFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Icons/new_icon.png"))).getImage()); // sets icon image
+        jFrame.setIconImage(gameIcon); // sets icon image
 
-        // GIF image
-        ImageIcon creditsGIF = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Miscellaneous/credits_720p.gif"))); // open gif image
         // Image cast as JLabel
         JLabel creditsJLabel = new JLabel(creditsGIF); // save image as JLabel
         creditsJLabel.setSize(1280, 720); // set size to 720p
