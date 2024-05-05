@@ -22,7 +22,7 @@ public class GameWindow {
     private final GameScreen gameScreen;
     private final Game game;
 
-    private static final Image gameIcon = new ImageIcon(Objects.requireNonNull(GameWindow.class.getResource("/Icons/new_icon.png"))).getImage(); // game icon
+    private static final Image gameIcon = new ImageIcon(Objects.requireNonNull(GameWindow.class.getResource("/Icons/new_icon.png"))).getImage();
 
     // JLabels and JButton variables
     private JTextField arrowNumberInputField;
@@ -30,11 +30,11 @@ public class GameWindow {
     private JLabel rayStatusLabel;
     private JButton endGameButton;
 
-    private final ArrayList<Integer> visitedBoxes = new ArrayList<>(); // arraylist to store what hexagonal boxes have been visited
+    private final ArrayList<Integer> visitedBoxes = new ArrayList<>();
     private static final Random rand = new Random();
-    private int value = 1; // used for the atom box number guessing
-    private static String name = "hello"; // used for username input window
-    private String lastRayStatus = "normal/deflected"; // string to indicate the status of the previous ray shot (default string given)
+    private int value = 1;
+    private static String name = "hello";
+    private String lastRayStatus = "normal/deflected";
 
     /**
      * Constructor that links the game's window to the game's screen and the overall game logic
@@ -65,7 +65,7 @@ public class GameWindow {
         // Button Panel (manages all the button/text input guis)
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.BLACK);
-        createLabels(buttonPanel); // creates all the buttons/clickable elements and adds it to buttonPanel
+        createLabels(buttonPanel);
         try {
             gameWindow.add(buttonPanel, BorderLayout.SOUTH);
         } catch (Exception ex) {
@@ -74,7 +74,7 @@ public class GameWindow {
 
 
         gameWindow.pack(); // creates the window with its components according to a specific resolution
-        gameWindow.setVisible(true); // visibility option to actually see the window
+        gameWindow.setVisible(true);
     }
 
     /**
