@@ -33,8 +33,8 @@ public class Game {
     private final Board boardp = (new Lists()).createboard();
 
     // Game Settings
-    private final int NUM_OF_ATOMS = 6;
-    private Boolean seeAtomsandRays = false; // debug setting to show internal atoms (default: false)
+    private final int NUM_OF_ATOMS = 61;
+    private Boolean seeAtomsAndRays = true; // debug setting to show internal atoms (default: false)
     private Boolean enableNumberedBoard = false;
     private String playerName = "user" + rand.nextInt(99999);
 
@@ -76,7 +76,7 @@ public class Game {
         }
 
         // hide internal atoms and rays if setting is false
-        if (!seeAtomsandRays) {
+        if (!seeAtomsAndRays) {
             g.drawImage(boardCover, 0, 0, 1280, 720, null);
         }
 
@@ -182,7 +182,7 @@ public class Game {
             gameWindow.setLastRayStatus("reflected");
         }
 
-        // Add the newly created ray path to a pathlist
+        // Add the newly created ray path to a path list
         rayPathList.add(newRayPath);
     }
 
@@ -301,11 +301,11 @@ public class Game {
         //row 1
         constructBoxes_Row1and9(hexagonalBoxArrayList, 103);
         //row 2
-        constructBoxes_Row2and8(hexagonalBoxArrayList, 166);
+        constructBoxes_Row2and8(hexagonalBoxArrayList, 168);
         //row 3
         constructBoxes_Row3and7(hexagonalBoxArrayList, 231);
         //row 4
-        constructBoxes_Row4and6(hexagonalBoxArrayList, 295);
+        constructBoxes_Row4and6(hexagonalBoxArrayList, 296);
         //row 5
         constructBoxes_Row5(hexagonalBoxArrayList);
         //row 6
@@ -315,26 +315,26 @@ public class Game {
         //row 8
         constructBoxes_Row2and8(hexagonalBoxArrayList, 552);
         //row 9
-        constructBoxes_Row1and9(hexagonalBoxArrayList, 612);
+        constructBoxes_Row1and9(hexagonalBoxArrayList, 615);
 
         return hexagonalBoxArrayList;
     }
 
     private void constructBoxes_Row1and9(ArrayList<HexagonalBox> hexagonalBoxArrayList, int y) {
-        hexagonalBoxArrayList.add(new HexagonalBox(491, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(565, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(642, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(712, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(787, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(493, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(568, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(641, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(715, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(790, y));
     }
 
     private void constructBoxes_Row2and8(ArrayList<HexagonalBox> hexagonalBoxArrayList, int y) {
         hexagonalBoxArrayList.add(new HexagonalBox(454, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(527, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(600, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(674, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(750, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(822, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(529, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(604, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(677, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(752, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(826, y));
     }
 
     private void constructBoxes_Row3and7(ArrayList<HexagonalBox> hexagonalBoxArrayList, int y) {
@@ -342,36 +342,36 @@ public class Game {
         hexagonalBoxArrayList.add(new HexagonalBox(490, y));
         hexagonalBoxArrayList.add(new HexagonalBox(564, y));
         hexagonalBoxArrayList.add(new HexagonalBox(639, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(708, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(780, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(860, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(714, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(785, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(863, y));
     }
 
     private void constructBoxes_Row4and6(ArrayList<HexagonalBox> hexagonalBoxArrayList, int y) {
         hexagonalBoxArrayList.add(new HexagonalBox(380, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(455, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(530, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(600, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(674, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(752, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(835, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(898, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(457, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(529, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(602, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(677, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(751, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(826, y));
+        hexagonalBoxArrayList.add(new HexagonalBox(900, y));
     }
 
     private void constructBoxes_Row5(ArrayList<HexagonalBox> hexagonalBoxArrayList) {
-        hexagonalBoxArrayList.add(new HexagonalBox(345, 359));
-        hexagonalBoxArrayList.add(new HexagonalBox(416, 359));
-        hexagonalBoxArrayList.add(new HexagonalBox(490, 359));
-        hexagonalBoxArrayList.add(new HexagonalBox(565, 359));
-        hexagonalBoxArrayList.add(new HexagonalBox(638, 359));
-        hexagonalBoxArrayList.add(new HexagonalBox(715, 359));
-        hexagonalBoxArrayList.add(new HexagonalBox(785, 359));
-        hexagonalBoxArrayList.add(new HexagonalBox(860, 359));
-        hexagonalBoxArrayList.add(new HexagonalBox(933, 359));
+        hexagonalBoxArrayList.add(new HexagonalBox(344, 361));
+        hexagonalBoxArrayList.add(new HexagonalBox(418, 361));
+        hexagonalBoxArrayList.add(new HexagonalBox(492, 361));
+        hexagonalBoxArrayList.add(new HexagonalBox(566, 361));
+        hexagonalBoxArrayList.add(new HexagonalBox(639, 361));
+        hexagonalBoxArrayList.add(new HexagonalBox(715, 361));
+        hexagonalBoxArrayList.add(new HexagonalBox(789, 361));
+        hexagonalBoxArrayList.add(new HexagonalBox(862, 361));
+        hexagonalBoxArrayList.add(new HexagonalBox(937, 361));
     }
 
     public void toggleInternalBoardSetting() {
-        seeAtomsandRays = !seeAtomsandRays;
+        seeAtomsAndRays = !seeAtomsAndRays;
         gameScreen.repaint();
     }
 
@@ -410,4 +410,5 @@ public class Game {
     public void setEnableNumberedBoard(Boolean enableNumberedBoard) {
         this.enableNumberedBoard = enableNumberedBoard;
     }
+
 }
