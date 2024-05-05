@@ -24,8 +24,8 @@ public class Game {
     private static final Image boardBoxNumber = (new ImageIcon(Objects.requireNonNull(Game.class.getResource("/Board Layouts/transparent-hexagon-numbered.PNG"))).getImage());
 
     private static final Random rand = new Random();
-    private int numIncorrectGuesses = 0; // Counter to store the amount of incorrect atom location guesses
-    private int numMarkersUsed = 0; // Counter to store the amount of markers placed during the game
+    private int numIncorrectGuesses = 0;
+    private int numMarkersUsed = 0;
 
     private final ArrayList<HexagonalBox> hexagonalBoxes; // Arraylist that contains all the hexagonal boxes
     private final ArrayList<Atom> atomList; // Arraylist that contains all the atoms
@@ -39,7 +39,7 @@ public class Game {
     private final int NUM_OF_ATOMS = 6;
     private Boolean seeAtomsAndRays = false; // debug setting to show internal atoms (default: false)
     private Boolean enableNumberedBoard = false; // debug setting to show a version of the board with numbered boxes
-    private String playerName = "user" + rand.nextInt(99999); // String to store the player's username
+    private String playerName = "user" + rand.nextInt(99999);
 
     /**
      * Default constructor that creates the game's window and screen
@@ -63,38 +63,22 @@ public class Game {
     public void render(Graphics g) {
         // draw background board
         g.drawImage(bgImage, 0, 0, 1280, 720, null);
-
-        // draw atoms
-        if (atomList != null) {
-            for (Atom atom : atomList) {
-                g.drawImage(Atom.getAtomImage(), atom.getX(), atom.getY(), 50, 50, null);
-            }
+        if (atomList != null) { // draw atoms
+            for (Atom atom : atomList) g.drawImage(Atom.getAtomImage(), atom.getX(), atom.getY(), 50, 50, null);
         } else {
             JOptionPane.showMessageDialog(null, "Error: AtomList arraylist is null.", null, JOptionPane.ERROR_MESSAGE);
             System.exit(-1);
         }
-
-        // draw rays
         Graphics2D g2d = (Graphics2D) g;
-        for (ArrayList<Ray> rayPath : rayPathList) {
-            for (Ray ray : rayPath) {
+        for (ArrayList<Ray> rayPath : rayPathList) for (Ray ray : rayPath) { // draw rays
                 g2d.setStroke(new BasicStroke(5));
                 g2d.setColor(Color.WHITE);
                 g2d.drawLine(ray.getX1(), ray.getY1(), ray.getX2(), ray.getY2());
             }
-        }
-
         // hide internal atoms and rays if setting is false
-        if (!seeAtomsAndRays) {
-            g.drawImage(boardCover, 0, 0, 1280, 720, null);
-        }
-
-        if (enableNumberedBoard) {
-            g.drawImage(boardBoxNumber, 0, 0, 1280, 720, null);
-        }
-
-        // draw markers
-        for (Marker marker : markersList) {
+        if (!seeAtomsAndRays) g.drawImage(boardCover, 0, 0, 1280, 720, null);
+        if (enableNumberedBoard) g.drawImage(boardBoxNumber, 0, 0, 1280, 720, null);
+        for (Marker marker : markersList) { // draw markers
             g2d.setColor(marker.getMarkerColour());
             g2d.fillOval(marker.getX(), marker.getY(), 10, 10);
         }

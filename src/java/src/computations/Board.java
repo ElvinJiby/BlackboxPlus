@@ -12,42 +12,42 @@ public class Board {
 
     public void setboard(Node[][] board) {
         this.board = board;
-    }//set method for board
+    }
 
     public void setBoardindex(int i, int j, Node k) {
         board[i][j] = k;
-    }//sets node k in board index i and j
+    } // sets node k in board index i and j
 
     public void setexit(Node[] a) {
         this.exit = a;
-    }//sets node a as exit
+    }
 
-    public String toString() {//overriding the toString() method
-        StringBuilder c = new StringBuilder();
+    @Override // prints whole board
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
         int a = 5;
         int t = 0;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < a; j++) {
-                c.append(board[i][j].getValue()).append(" ");
+                stringBuilder.append(board[i][j].getValue()).append(" ");
             }
             if (a < 9 && t == 0) {
                 a++;
-
             } else {
                 a--;
                 t = 1;
             }
-            c.append("\n");
+            stringBuilder.append("\n");
         }
-        return c.toString();
-    }//to string method to print the whole board
+        return stringBuilder.toString();
+    }
 
     public Node getnode(int i, int j) {
         return this.board[i][j];
-    }//returns the node at index i and j
+    }
 
-    public void linkboard() {//links each node with all its surrounding 6 nodes or exit nodes
-
+    //links each node with all its surrounding 6 nodes or exit nodes
+    public void linkboard() {
         int a = 5;//this variable used as the end value of j increases in the 2d array as the value of i increases until middle and starts to decrease as soon as it reaches the mid
         int t = 0;//used as a bollean value which is set to 1 as soon as it reaches the mid indicating that now we need to decrease the value of a if this is set to 1
         int ao = 2;//this is inisilazed to 2 in the begning but changes for all the external hexagonal box at j=0 with above the middle index
@@ -163,8 +163,7 @@ public class Board {
                     this.board[i][j].setSides(4, board[i + 1][j]);
                     this.board[i][j].setSides(5, board[i][j - 1]);
 
-                }
-                else if (i < 4 && j == 0) {//all the external hexagonal box at j=0 with above the middle index
+                } else if (i < 4 && j == 0) {//all the external hexagonal box at j=0 with above the middle index
                     this.board[i][j].setSides(0, exit[ao]);
                     exit[ao].setnext(3);
                     exit[ao].setSides(0, this.board[i][j]);
@@ -269,9 +268,9 @@ public class Board {
         Node next = head.getSides(0);//gets the node pointed by the head
         int n = head.getnext();//this points to the next value in the path which is changed continuesly in the code to cause deflections or reflections.
         ints.add(head.getValue());//adds the head to the array list of the path
-       // System.out.print(head.getValue() + "->");
+        // System.out.print(head.getValue() + "->");
         if (next.hasatom()) {//ray is obsorbed
-           // System.out.print("Ray absorbed");
+            // System.out.print("Ray absorbed");
             ints.add(next.getValue());//adds the value to the array list
             ints.add(-1);//also adds -1 indicating the ray has been absorbrd
             return ints;//returns the path and stops the function
@@ -325,8 +324,6 @@ public class Board {
 
 
         }
-        //System.out.print(next.getValue());
-        //System.out.println();
         ints.add(next.getValue());//adds next value to the array list
 
         return ints;//returns the array list of the whole path
@@ -346,7 +343,6 @@ public class Board {
             }
             if (a < 9 && t == 0) {
                 a++;
-
             } else {
                 a--;
                 t = 1;

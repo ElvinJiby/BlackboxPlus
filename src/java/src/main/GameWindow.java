@@ -44,12 +44,12 @@ public class GameWindow {
     public GameWindow(GameScreen gameScreen, Game game) {
         // Window Construction
         this.game = game;
-        gameWindow = new JFrame(); // creates a new window
-        gameWindow.setSize(1280, 720); // sets the window dimensions
-        gameWindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // when you click the X to close to program, the program actually closes (by default it just hides the window)
-        gameWindow.setLocationRelativeTo(null); // when opened, the window will open in the middle of the screen, instead of the top left
-        gameWindow.setResizable(false); // disables the ability to resize the window
-        gameWindow.setTitle("Blackbox+ - By Group 50"); // title of the window
+        gameWindow = new JFrame();
+        gameWindow.setSize(1280, 720);
+        gameWindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        gameWindow.setLocationRelativeTo(null);
+        gameWindow.setResizable(false);
+        gameWindow.setTitle("Blackbox+ - By Group 50");
         gameWindow.setIconImage(gameIcon);
         gameWindow.setLayout(new BorderLayout());
 
