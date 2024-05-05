@@ -118,7 +118,6 @@ public class Game {
 
         // set final ray towards atom for absorption case
         if (isRayAbsorbed) {
-            System.out.println("-1 found");
             newRayPath.add(new Ray(
                     hexagonalBoxes.get(boxNumList.get(i) - 1).getX(),
                     hexagonalBoxes.get(boxNumList.get(i) - 1).getY(),
@@ -126,7 +125,6 @@ public class Game {
                     hexagonalBoxes.get(boxNumList.get(i) - 1).getY()));
             boxNumList.remove(boxNumList.getLast());
         } else { // in all other cases, set the final ray towards the exit point
-            System.out.println("no absorption");
             ExitPoint endPoint = exitPointsList.get(boxNumList.getLast() - 1);
             newRayPath.add(new Ray(
                     hexagonalBoxes.get(boxNumList.get(i) - 1).getX(),
@@ -154,7 +152,6 @@ public class Game {
             markersList.add(new Marker(endX, endY, colorChoice));
 
             numMarkersUsed += 2; // add 2 markers to the counter
-            System.out.println("Deflected");
             gameWindow.setLastRayStatus("normal/deflected");
         }
         // Absorbed case - Ray absorbed by atom
@@ -165,7 +162,6 @@ public class Game {
             markersList.add(new Marker(startX, startY, Color.GRAY));
 
             numMarkersUsed++; // increment marker counter
-            System.out.println("Absorbed!");
             gameWindow.setLastRayStatus("absorbed");
         }
         // Reflected case = Ray deflects and exits at the same point of entry
@@ -176,7 +172,6 @@ public class Game {
             markersList.add(new Marker(startX, startY, Color.WHITE));
 
             numMarkersUsed++; // increment marker counter
-            System.out.println("Reflected!");
             gameWindow.setLastRayStatus("reflected");
         }
 

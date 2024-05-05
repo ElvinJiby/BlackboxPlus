@@ -276,7 +276,6 @@ public class GameWindow {
                     value = 1;
                 } else {
                     visitedBoxes.add(value);
-                    System.out.println("Value: " + value);
                     game.shootRay(value);
                     scoreLabel.setText("| Score: " + game.getScore() + " |  ");
                     rayStatusLabel.setText("| Last ray was " + getLastRayStatus());
