@@ -267,7 +267,7 @@ public class Board {
         ArrayList<Integer> ints = new ArrayList<>();
         Node head = exit[a - 1];//sets the head as the exit
         Node next = head.getSides(0);//gets the node pointed by the head
-        int n = head.getnext();
+        int n = head.getnext();//this points to the next value in the path which is changed continuesly in the code to cause deflections or reflections.
         ints.add(head.getValue());//adds the head to the array list of the path
        // System.out.print(head.getValue() + "->");
         if (next.hasatom()) {//ray is obsorbed
@@ -300,13 +300,19 @@ public class Board {
                     n = (n + 3) % 6;
                 }
             } else if (atomp.size() == 2) {//condition checks for two atoms
-                if ((((n - 2 + 6) % 6) == atomp.get(0) || ((n - 2 + 6) % 6) == atomp.get(1)) || (((n + 2) % 6) == atomp.get(0) || ((n + 2) % 6) == atomp.get(1))) {
+                if ((((n - 2 + 6) % 6) == atomp.get(0) //checks if the two element in the atomp array is in those positions and if it is then reflect completely
+                        || ((n - 2 + 6) % 6) == atomp.get(1))
+                        || (((n + 2) % 6) == atomp.get(0)
+                        || ((n + 2) % 6) == atomp.get(1))) {
                     n = (n + 3) % 6;//checks if one of the atoms causes the atoms to get completely reflected
-                } else if ((((n + 1) % 6) == atomp.get(0) || ((n + 1) % 6) == atomp.get(1)) && (((n) % 6) == atomp.get(0) || ((n) % 6) == atomp.get(1))) {
+                } else if ((((n + 1) % 6) == atomp.get(0) || ((n + 1) % 6) == atomp.get(1)) //checks if the atoms are in the positions and decreases n to deflect the ray
+                        && (((n) % 6) == atomp.get(0) || ((n) % 6) == atomp.get(1))) {
                     n = (n - 2 + 6) % 6;//decreases the value if n by 2 causing the ray to get deflected after bouncing through the 2 atoms
-                } else if ((((n - 1 + 6) % 6) == atomp.get(0) || ((n - 1 + 6) % 6) == atomp.get(1)) && (((n) % 6) == atomp.get(0) || ((n) % 6) == atomp.get(1))) {
+                } else if ((((n - 1 + 6) % 6) == atomp.get(0) || ((n - 1 + 6) % 6) == atomp.get(1)) //checks if the two atoms are in those positions to increase the value of n to cause deflection.
+                        && (((n) % 6) == atomp.get(0) || ((n) % 6) == atomp.get(1))) {
                     n = (n + 2) % 6;//increases the value of n by 2 causing the ray to get deflected after bouncing through the 2 atoms.
-                } else if ((((n - 1 + 6) % 6) == atomp.get(0) || ((n - 1 + 6) % 6) == atomp.get(1)) && (((n + 1) % 6) == atomp.get(0) || ((n + 1) % 6) == atomp.get(1))) {
+                } else if ((((n - 1 + 6) % 6) == atomp.get(0) || ((n - 1 + 6) % 6) == atomp.get(1))
+                        && (((n + 1) % 6) == atomp.get(0) || ((n + 1) % 6) == atomp.get(1))) {//checks if the atoms are in those positions to cause complete reflection
                     n = (n + 3) % 6;//checks if the ray should bounce in a way to cause complete reflection
                 }
             } else if (atomp.size() > 3) {//if there are 3 or more atoms it deflects completely.
