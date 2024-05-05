@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestBoard {
     @Test
-    void testpath(){
+    void testpath(){//test if it returns the right path without any atoms
         Board boardp=new Board();
         Node[] e=new Node[54];
         ArrayList<Integer> ints=new ArrayList<>();
@@ -47,7 +47,7 @@ public class TestBoard {
         assertEquals(21, ints.getLast());
     }
     @Test
-    void testoneatomdeflection(){
+    void testoneatomdeflection(){//test if the board works for one atom
         Board boardp=new Board();
         Node[] e=new Node[54];
         ArrayList<Integer> ints=new ArrayList<>();
@@ -87,7 +87,7 @@ public class TestBoard {
         assertEquals(44, ints.getLast());
     }
     @Test
-    void testtwoatomdeflection(){
+    void testtwoatomdeflection(){//test if the board works for two atom
         Board boardp=new Board();
         Node[] e=new Node[54];
         ArrayList<Integer> ints=new ArrayList<>();
@@ -127,7 +127,7 @@ public class TestBoard {
 
     }
     @Test
-    void testfig3(){
+    void testfig3(){//test to see if it works for the fig 3 given in the report
         Board boardp=new Board();
         Node[] e=new Node[54];
         ArrayList<Integer> ints=new ArrayList<>();
@@ -158,6 +158,7 @@ public class TestBoard {
             e[i].setexit(true);
         }
         boardp.setexit(e);
+        //sets the values shown in figure 3 for atom positions as true
         boardp.getnode(2,1).setatom(true);
         boardp.getnode(4,2).setatom(true);
         boardp.getnode(4,3).setatom(true);
@@ -165,6 +166,7 @@ public class TestBoard {
         boardp.getnode(3,4).setatom(true);
         boardp.getnode(3,7).setatom(true);
         boardp.linkboard();
+        //shoots all rays as in fig 3 using iterate function
         ints= boardp.iterate(24);
         int u=ints.get(ints.size()-1);
         assertEquals(17, u);
@@ -187,7 +189,7 @@ public class TestBoard {
 
     }
     @Test
-    void testfig4(){
+    void testfig4(){//check for figure 4 in the report
         Board boardp=new Board();
         Node[] e=new Node[54];
         ArrayList<Integer> ints=new ArrayList<>();
@@ -218,6 +220,7 @@ public class TestBoard {
             e[i].setexit(true);
         }
         boardp.setexit(e);
+        //sets all atoms shown in fig 4 to true
         boardp.getnode(2,2).setatom(true);
         boardp.getnode(2,4).setatom(true);
         boardp.getnode(4,5).setatom(true);
@@ -225,6 +228,7 @@ public class TestBoard {
         boardp.getnode(7,1).setatom(true);
         boardp.getnode(8,3).setatom(true);
         boardp.linkboard();
+        //shoots all rays as in fig 4 using iterate function
         ints= boardp.iterate(14);
         int u=ints.get(ints.size()-1);
         assertEquals(14, u);
