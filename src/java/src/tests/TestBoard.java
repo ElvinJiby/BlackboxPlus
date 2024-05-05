@@ -1,5 +1,7 @@
-package computations;
+package tests;
 
+import computations.Board;
+import computations.Node;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
