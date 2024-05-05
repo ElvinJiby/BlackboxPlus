@@ -80,7 +80,7 @@ public class Game {
         if (enableNumberedBoard) g.drawImage(boardBoxNumber, 0, 0, 1280, 720, null);
         for (Marker marker : markersList) { // draw markers
             g2d.setColor(marker.getMarkerColour());
-            g2d.fillOval(marker.getX(), marker.getY(), 10, 10);
+            g2d.fillOval(marker.getX(), marker.getY(), 12, 12);
         }
     }
 
