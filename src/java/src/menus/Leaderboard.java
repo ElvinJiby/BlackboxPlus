@@ -1,6 +1,7 @@
 package menus;
 
 import computations.LeaderBoardData;
+import main.GameWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +20,9 @@ public class Leaderboard implements Runnable {
     private final JFrame jFrame; // app window
     private final JPanel jPanel; // layout within the app window
 
+    private static final Image gameIcon = new ImageIcon(Objects.requireNonNull(GameWindow.class.getResource("/Icons/new_icon.png"))).getImage();
+    private static final ImageIcon leaderboardImage = new ImageIcon(Objects.requireNonNull(Leaderboard.class.getResource("/Miscellaneous/leaderboard_bg.png")));
+
 
     public Leaderboard() throws IOException {
         LeaderBoardData leaderBoardData = new LeaderBoardData();
@@ -32,7 +36,7 @@ public class Leaderboard implements Runnable {
         jFrame.setResizable(false); // ensures the app window will always stay at 1280x720 resolution
         jFrame.setLocationRelativeTo(null); // when window is opened initially it is centred
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        jFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Icons/new_icon.png"))).getImage());
+        jFrame.setIconImage(gameIcon);
 
         jPanel = new JPanel(); // creates new JPanel object
         jPanel.setLayout(null); // setting null allows elements to be placed anywhere on the panel
@@ -60,7 +64,7 @@ public class Leaderboard implements Runnable {
         JButton returnToMainMenu = getMainMenuButton();
         jPanel.add(returnToMainMenu);// add the button to the panel
 
-        ImageIcon introScreen = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Miscellaneous/leaderboard_bg.png")));
+        ImageIcon introScreen = leaderboardImage;
         JLabel leaderboardBackground = new JLabel(introScreen);
         leaderboardBackground.setSize(1280, 720);
         jPanel.add(leaderboardBackground);

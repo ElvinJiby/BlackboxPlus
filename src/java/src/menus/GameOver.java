@@ -1,5 +1,7 @@
 package menus;
 
+import main.GameWindow;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
@@ -7,12 +9,13 @@ import java.util.Objects;
 public class GameOver {
 
     private final JFrame jFrame; // window
+    private static final Image gameIcon = new ImageIcon(Objects.requireNonNull(GameWindow.class.getResource("/Icons/new_icon.png"))).getImage();
 
     public GameOver() {
         jFrame = new JFrame(); // create new window
         jFrame.setTitle("Game Over"); // title
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exit
-        jFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Icons/new_icon.png"))).getImage()); // app icon
+        jFrame.setIconImage(gameIcon); // app icon
         jFrame.setSize(400, 200); // window size
         jFrame.setLocationRelativeTo(null); // center the window on the screen
         jFrame.getContentPane().setBackground(Color.BLACK); // black background

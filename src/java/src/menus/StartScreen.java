@@ -1,6 +1,7 @@
 package menus;
 
 import computations.LeaderBoardData;
+import main.GameWindow;
 import main.OperatingSystem;
 import main.Game;
 
@@ -12,6 +13,9 @@ import java.util.Objects;
 public class StartScreen {
     private static JFrame jFrame;
     private static JLabel introLabel;
+    private static final Image gameIcon = new ImageIcon(Objects.requireNonNull(GameWindow.class.getResource("/Icons/new_icon.png"))).getImage();
+    private static ImageIcon startScreenImage = new ImageIcon(Objects.requireNonNull(StartScreen.class.getResource("/Start Screen/new-start-screen.JPG")));
+
 
     public StartScreen() {
         jFrame = new JFrame("Black Box+ By Group 50"); // title
@@ -19,9 +23,9 @@ public class StartScreen {
         jFrame.setResizable(false); // stay size
         jFrame.setSize(1280, 720); // set size
         jFrame.setLocationRelativeTo(null); //centre window
-        jFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Icons/new_icon.png"))).getImage()); // app icon
+        jFrame.setIconImage(gameIcon); // app icon
 
-        introLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Start Screen/new-start-screen.JPG"))));
+        introLabel = new JLabel(startScreenImage);
         introLabel.setPreferredSize(new Dimension(1280, 720));
 
         /* New Game Button */

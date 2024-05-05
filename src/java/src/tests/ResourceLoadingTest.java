@@ -3,6 +3,9 @@ package tests;
 import entities.Atom;
 import main.Game;
 import main.GameWindow;
+import menus.Credits;
+import menus.Leaderboard;
+import menus.StartScreen;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
@@ -13,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ResourceLoadingTest {
     @Test
-    public void loadGameResourcesTest() {
+    public void loadBlackboxAssetsTest() {
         // Load the resources
         Image bgImage = new ImageIcon(Game.class.getResource("/Board Layouts/yellow-clear-all.png")).getImage();
         Image boardCover = new ImageIcon(Game.class.getResource("/Board Layouts/yellow-clear-background.png")).getImage();
@@ -30,8 +33,20 @@ public class ResourceLoadingTest {
     }
 
     @Test
-    public void loadCreditsAssets() {
-        ImageIcon creditsGIF = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Miscellaneous/credits_720p.gif"))); // open gif image
+    public void loadCreditsAssetsTest() {
+        ImageIcon creditsGIF = new ImageIcon(Credits.class.getResource("/Miscellaneous/credits_720p.gif"));
+        assertNotNull(creditsGIF, "Credits GIF is not loaded");
+    }
 
+    @Test
+    public void loadStartScreenAssetsTest() {
+        ImageIcon startScreenImage = new ImageIcon(StartScreen.class.getResource("/Start Screen/new-start-screen.JPG"));
+        assertNotNull(startScreenImage, "Start Screen background image is not loaded");
+    }
+
+    @Test
+    public void loadLeaderboardAssetsTest() {
+        ImageIcon leaderboardImage = new ImageIcon(Objects.requireNonNull(Leaderboard.class.getResource("/Miscellaneous/leaderboard_bg.png")));
+        assertNotNull(leaderboardImage, "Leaderboard background image is not loaded");
     }
 }
