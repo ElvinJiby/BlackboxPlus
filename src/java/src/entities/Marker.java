@@ -3,7 +3,7 @@ package entities;
 import java.awt.*;
 
 public class Marker extends Entity {
-    private Color markerColour;
+    private final Color markerColour;
 
     public Marker() {
         super();

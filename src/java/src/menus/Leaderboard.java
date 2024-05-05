@@ -1,6 +1,6 @@
 package menus;
 
-import inputs.LeaderBoardData;
+import computations.LeaderBoardData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,16 +20,9 @@ public class Leaderboard implements Runnable {
     private final JPanel jPanel; // layout within the app window
 
 
-    private final JLabel leaderboardBackground;
-    private final JLabel score = new JLabel("");
-
-
-    private final JButton clearLeaderboard; // when pressed clears the txt file
-    private final JButton goBackBruh; // exits the window and goes back to main menu
-
     public Leaderboard() throws IOException {
         LeaderBoardData leaderBoardData = new LeaderBoardData();
-        leaderBoardData.checkFormat();
+        LeaderBoardData.checkFormat();
         leaderBoardData.readAndSort();
         sortedScores = leaderBoardData.getSortedScores();
         leaderBoardData.writeTXTFile(sortedScores);
@@ -45,6 +38,7 @@ public class Leaderboard implements Runnable {
         jPanel.setLayout(null); // setting null allows elements to be placed anywhere on the panel
         jPanel.setSize(1280, 720); // sets max region to add elements to panel
 
+        JLabel score = new JLabel("");
         Font font1 = score.getFont();
         displayScore(0, font1, 805, 275, 75, 25);
         displayScore(1, font1, 805, 350, 75, 25);
@@ -58,7 +52,42 @@ public class Leaderboard implements Runnable {
         displayPlayer(3, font1, 460, 490, 350, 35);
         displayPlayer(4, font1, 460, 560, 350, 35);
 
-        clearLeaderboard = new JButton();
+        // when pressed clears the txt file
+        JButton clearLeaderboard = getClearLeaderboardButton();
+        jPanel.add(clearLeaderboard); // add the generate button to the JPanel
+
+        // exits the window and goes back to main menu
+        JButton returnToMainMenu = getMainMenuButton();
+        jPanel.add(returnToMainMenu);// add the button to the panel
+
+        ImageIcon introScreen = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Miscellaneous/leaderboard_bg.png")));
+        JLabel leaderboardBackground = new JLabel(introScreen);
+        leaderboardBackground.setSize(1280, 720);
+        jPanel.add(leaderboardBackground);
+
+        jFrame.add(jPanel); // add the JPanel to the JFrame to display its contents
+    }
+
+    private JButton getMainMenuButton() {
+        JButton returnToMainMenu = new JButton(); // Exit button to terminate program
+        // sets region where label should be placed **in pixels**
+        // this label is 100x50 with the top-left corner going across 377 and 290 down
+        returnToMainMenu.setText("Main Menu");
+        returnToMainMenu.setOpaque(false);
+        returnToMainMenu.setBorderPainted(true);
+        returnToMainMenu.setFocusable(false);
+        returnToMainMenu.setBounds(765, 657, 140, 30);
+        // lambda expression to check when pressed, if-so, return to main menu.
+        returnToMainMenu.addActionListener(e -> {
+            jFrame.dispose();
+            try { new StartScreen(); }
+            catch (Exception ex) { JOptionPane.showMessageDialog(null, "Error: Failed to open Start Screen.", "Start Screen Open Error", JOptionPane.ERROR_MESSAGE); System.exit(-1);}
+        });
+        return returnToMainMenu;
+    }
+
+    private static JButton getClearLeaderboardButton() {
+        JButton clearLeaderboard = new JButton();
         clearLeaderboard.setText("Clear Leaderboard");
         // sets region where label should be placed **in pixels**
         clearLeaderboard.setOpaque(false);
@@ -70,30 +99,7 @@ public class Leaderboard implements Runnable {
             try { LeaderBoardData.clearTheLeaderboard(); }
             catch (Exception ex) { JOptionPane.showMessageDialog(null, "Failed to clear leaderboard.", "Leaderboard Data Clear Error", JOptionPane.ERROR_MESSAGE);}
         });
-        jPanel.add(clearLeaderboard); // add the generate button to the JPanel
-
-        goBackBruh = new JButton(); // Exit button to terminate program
-        // sets region where label should be placed **in pixels**
-        // this label is 100x50 with the top-left corner going across 377 and 290 down
-        goBackBruh.setText("Main Menu");
-        goBackBruh.setOpaque(false);
-        goBackBruh.setBorderPainted(true);
-        goBackBruh.setFocusable(false);
-        goBackBruh.setBounds(765, 657, 140, 30);
-        // lambda expression to check when pressed, if-so, return to main menu.
-        goBackBruh.addActionListener(e -> {
-            jFrame.dispose();
-            try { new StartScreen(); }
-            catch (Exception ex) { JOptionPane.showMessageDialog(null, "Error: Failed to open Start Screen.", "Start Screen Open Error", JOptionPane.ERROR_MESSAGE); System.exit(-1);}
-        });
-        jPanel.add(goBackBruh);// add the button to the panel
-
-        ImageIcon introScreen = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Miscellaneous/leaderboard_bg.png")));
-        leaderboardBackground = new JLabel(introScreen);
-        leaderboardBackground.setSize(1280, 720);
-        jPanel.add(leaderboardBackground);
-
-        jFrame.add(jPanel); // add the JPanel to the JFrame to display its contents
+        return clearLeaderboard;
     }
 
     public void displayScore(int index, Font font, int x, int y, int width, int height) {

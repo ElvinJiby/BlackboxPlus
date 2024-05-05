@@ -1,4 +1,4 @@
-package inputs;
+package computations;
 
 import java.io.*;
 import java.util.*;

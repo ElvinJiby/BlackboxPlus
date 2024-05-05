@@ -1,8 +1,8 @@
 package entities;
 
 public class Entity {
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     public Entity() {
         x = 0;

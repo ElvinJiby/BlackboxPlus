@@ -1,7 +1,7 @@
 package menus;
 
-import inputs.LeaderBoardData;
-import inputs.OperatingSystem;
+import computations.LeaderBoardData;
+import main.OperatingSystem;
 import main.Game;
 
 import javax.swing.*;
@@ -25,7 +25,7 @@ public class StartScreen {
         introLabel.setPreferredSize(new Dimension(1280, 720));
 
         /* New Game Button */
-        JButton newGame = generateButtons(130, 560, 230, 60);
+        JButton newGame = generateButtons(130, 230);
         newGame.addActionListener(e -> {
             jFrame.dispose();
             try {
@@ -37,7 +37,7 @@ public class StartScreen {
         });
 
         /* Leaderboard Button */
-        JButton leaderboard = generateButtons(400, 560, 300, 60);
+        JButton leaderboard = generateButtons(400, 300);
         leaderboard.addActionListener(e -> {
             jFrame.dispose();
             try {
@@ -55,7 +55,7 @@ public class StartScreen {
         });
 
         /* Credits Button */
-        JButton credits = generateButtons(743, 560, 200, 60);
+        JButton credits = generateButtons(743, 200);
         credits.addActionListener(e -> {
 //            jFrame.dispose();
             try {
@@ -67,7 +67,7 @@ public class StartScreen {
         });
 
         /* Exit Button */
-        JButton exitGame = generateButtons(991, 560, 110, 60);
+        JButton exitGame = generateButtons(991, 110);
         exitGame.addActionListener(e -> System.exit(0)); // if pressed, exit program
 
         jFrame.add(introLabel); // add label image to frame
@@ -75,10 +75,10 @@ public class StartScreen {
         jFrame.setVisible(true); // show window
     }
 
-    private JButton generateButtons(int x, int y, int width, int height) {
+    private JButton generateButtons(int x, int width) {
         JButton jButton = new JButton(); // create new button
         boolean isItMac = OperatingSystem.isItMacOS(); // check os type
-        jButton.setBounds(x, y, width, height); // set size
+        jButton.setBounds(x, 560, width, 60); // set size
         jButton.setOpaque(false); // no opaque
         jButton.setContentAreaFilled(false); // do not fill area
         jButton.setBorderPainted(!isItMac); // if macOS, paint border

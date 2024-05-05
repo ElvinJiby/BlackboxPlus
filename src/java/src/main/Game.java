@@ -11,21 +11,17 @@ import java.util.Random;
 
 public class Game {
     // Application Variables
-    private GameWindow gameWindow;
-    private GameScreen gameScreen;
-    private static final Random rand = new Random();
+    private final GameWindow gameWindow;
+    private final GameScreen gameScreen;
 
     // Game Variables
-    private static Image bgImage = (new ImageIcon(Game.class.getResource("/Board Layouts/yellow-clear-all.png")).getImage());
-    private static Image boardCover = (new ImageIcon(Game.class.getResource("/Board Layouts/yellow-clear-background.png")).getImage());
-    private static Image boardBoxNumber = (new ImageIcon(Game.class.getResource("/Board Layouts/transparent-hexagon-numbered.PNG")).getImage());
+    private static final Image bgImage = (new ImageIcon(Game.class.getResource("/Board Layouts/yellow-clear-all.png")).getImage());
+    private static final Image boardCover = (new ImageIcon(Game.class.getResource("/Board Layouts/yellow-clear-background.png")).getImage());
+    private static final Image boardBoxNumber = (new ImageIcon(Game.class.getResource("/Board Layouts/transparent-hexagon-numbered.PNG")).getImage());
 
-    private final int NUM_OF_ATOMS = 6;
-    private Boolean seeAtomsandRays = false; // debug setting to show internal atoms (default: false)
-    private Boolean enableNumberedBoard = false;
+    private static final Random rand = new Random();
     private int numIncorrectGuesses = 0;
     private int numMarkersUsed = 0;
-    private String playerName = "user" + rand.nextInt(99999);
 
     private final ArrayList<HexagonalBox> hexagonalBoxes; // Arraylist that contains all the hexagonal boxes
     private final ArrayList<Atom> atomList; // Arraylist that contains all the atoms
@@ -35,6 +31,11 @@ public class Game {
     private final ArrayList<Integer> atomBoxNumbers = new ArrayList<>();
     private final Board boardp = (new Lists()).createboard();
 
+    // Game Settings
+    private final int NUM_OF_ATOMS = 6;
+    private Boolean seeAtomsandRays = false; // debug setting to show internal atoms (default: false)
+    private Boolean enableNumberedBoard = false;
+    private String playerName = "user" + rand.nextInt(99999);
 
     // default constructor
     public Game() {
@@ -90,16 +91,12 @@ public class Game {
     }
 
     public void shootRay(int entry) {
-//        boardp.getnode(4,4).setatom(true);
         ArrayList<Integer> boxNumList = boardp.iterate(entry);
         ArrayList<Ray> newRayPath = new ArrayList<>();
-
-//        System.out.println(boxNumList);
 
         // Absorbed Ray Case
         boolean isRayAbsorbed = boxNumList.contains(-1);
         int pathLength = boxNumList.size();
-//        System.out.println(pathLength);
 
         // Reflected Ray Case
         boolean isRayReflected = boxNumList.getFirst().equals(boxNumList.getLast());
@@ -186,51 +183,6 @@ public class Game {
 
         // Add the newly created ray path to a pathlist
         rayPathList.add(newRayPath);
-    }
-
-    public void loadPresetRayPath() {
-        // 6 - 30 - 16 - 9 - 10 - 34 - 46 - 61
-        // Loads a singular preset ray path
-
-        ArrayList<Ray> newRay = new ArrayList<>();
-
-        // starting
-        newRay.add(new Ray(329,162,
-                hexagonalBoxes.get(5).getX(),hexagonalBoxes.get(5).getY()));
-
-        // 6 -> 30
-        newRay.add(new Ray(hexagonalBoxes.get(5).getX(),hexagonalBoxes.get(5).getY(),
-                hexagonalBoxes.get(29).getX(),hexagonalBoxes.get(29).getY()));
-
-        // 30 -> 16
-        newRay.add(new Ray(hexagonalBoxes.get(29).getX(),hexagonalBoxes.get(29).getY(),
-                hexagonalBoxes.get(15).getX(),hexagonalBoxes.get(15).getY()));
-
-        // 16 -> 9
-        newRay.add(new Ray(hexagonalBoxes.get(15).getX(),hexagonalBoxes.get(15).getY(),
-                hexagonalBoxes.get(8).getX(),hexagonalBoxes.get(8).getY()));
-
-        // 9 -> 10
-        newRay.add(new Ray(hexagonalBoxes.get(8).getX(),hexagonalBoxes.get(8).getY(),
-                hexagonalBoxes.get(9).getX(),hexagonalBoxes.get(9).getY()));
-
-        // 10 -> 34
-        newRay.add(new Ray(hexagonalBoxes.get(9).getX(),hexagonalBoxes.get(9).getY(),
-                hexagonalBoxes.get(33).getX(),hexagonalBoxes.get(33).getY()));
-
-        // 34 -> 46
-        newRay.add(new Ray(hexagonalBoxes.get(33).getX(),hexagonalBoxes.get(33).getY(),
-                hexagonalBoxes.get(45).getX(),hexagonalBoxes.get(45).getY()));
-
-        // 46 -> 61
-        newRay.add(new Ray(hexagonalBoxes.get(45).getX(),hexagonalBoxes.get(45).getY(),
-                hexagonalBoxes.get(60).getX(),hexagonalBoxes.get(60).getY()));
-
-        // ending
-        newRay.add(new Ray(hexagonalBoxes.get(60).getX(),hexagonalBoxes.get(60).getY(),
-                973,620));
-
-        rayPathList.add(newRay);
     }
 
     private ArrayList<ExitPoint> loadExitPointCoords() {
@@ -337,29 +289,6 @@ public class Game {
         return atoms;
     }
 
-    private ArrayList<Color> generateMarkerColourList() {
-        ArrayList<Color> colourList = new ArrayList<>();
-
-        int rValue = rand.nextInt(255);
-        int gValue = rand.nextInt(255);
-        int bValue = rand.nextInt(255);
-
-        // 54 "exit" points
-        // assume each marker gets absorbed, so different colour each time
-        for (int i = 0; i < 54; i++) {
-            while (((rValue<100)&&(gValue<100)&&(bValue<100)) || ((rValue>100)&&(gValue>100)&&(bValue>100))) {
-                rValue = rand.nextInt(255);
-                gValue = rand.nextInt(255);
-                bValue = rand.nextInt(255);
-            } // this is done to make sure a colour close to white or black isn't generated (which are used for reflection/absorbed markers)
-            colourList.add(new Color(rValue,gValue,bValue));
-        }
-        if (colourList.size() != 54) {
-            JOptionPane.showMessageDialog(null,"Failed to initialise colourlist.", "ColourList Initialisation Error", JOptionPane.ERROR_MESSAGE);
-        }
-        return colourList;
-    }
-
     private ArrayList<HexagonalBox> loadHexagonalBoxes() {
         /*
         This method creates an arraylist of all the hexagonal boxes on the board,
@@ -376,7 +305,7 @@ public class Game {
         //row 4
         constructBoxes_Row4and6(hexagonalBoxArrayList, 295);
         //row 5
-        constructBoxes_Row5(hexagonalBoxArrayList, 359);
+        constructBoxes_Row5(hexagonalBoxArrayList);
         //row 6
         constructBoxes_Row4and6(hexagonalBoxArrayList, 424);
         //row 7
@@ -427,16 +356,16 @@ public class Game {
         hexagonalBoxArrayList.add(new HexagonalBox(898, y));
     }
 
-    private void constructBoxes_Row5(ArrayList<HexagonalBox> hexagonalBoxArrayList, int y) {
-        hexagonalBoxArrayList.add(new HexagonalBox(345, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(416, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(490, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(565, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(638, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(715, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(785, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(860, y));
-        hexagonalBoxArrayList.add(new HexagonalBox(933, y));
+    private void constructBoxes_Row5(ArrayList<HexagonalBox> hexagonalBoxArrayList) {
+        hexagonalBoxArrayList.add(new HexagonalBox(345, 359));
+        hexagonalBoxArrayList.add(new HexagonalBox(416, 359));
+        hexagonalBoxArrayList.add(new HexagonalBox(490, 359));
+        hexagonalBoxArrayList.add(new HexagonalBox(565, 359));
+        hexagonalBoxArrayList.add(new HexagonalBox(638, 359));
+        hexagonalBoxArrayList.add(new HexagonalBox(715, 359));
+        hexagonalBoxArrayList.add(new HexagonalBox(785, 359));
+        hexagonalBoxArrayList.add(new HexagonalBox(860, 359));
+        hexagonalBoxArrayList.add(new HexagonalBox(933, 359));
     }
 
     public void toggleInternalBoardSetting() {

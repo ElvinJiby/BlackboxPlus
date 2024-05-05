@@ -2,8 +2,8 @@ package entities;
 
 public class Ray extends Entity {
     // (x,y) pair of coordinates for drawing line
-    private int x2 = 0;
-    private int y2 = 0;
+    private final int x2;
+    private final int y2;
 
     public Ray(int x1, int y1, int x2, int y2){
         super(x1,y1);

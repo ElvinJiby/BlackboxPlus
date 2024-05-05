@@ -1,28 +1,28 @@
-package inputs;
+package menus;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
 public class HowToPlayWindow {
-    private final JFrame jFrame; // frame
-    private final JPanel jPanel; // area
-    private final JLabel titleLabel; // title
     private final JPanel rulesPanel; // to put how to play labels
 
     public HowToPlayWindow() {
-        jFrame = new JFrame("How to Play Blackbox+"); // title
+        // frame
+        JFrame jFrame = new JFrame("How to Play Blackbox+"); // title
         jFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); // operation when closed
 //        frame.setLocationRelativeTo(null); // centre window
         jFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Icons/new_icon.png"))).getImage()); // app icon
         jFrame.setSize(854, 480); // window size
 
-        jPanel = new JPanel(); // area to hold labels
+        // area
+        JPanel jPanel = new JPanel(); // area to hold labels
         jPanel.setBackground(Color.BLACK); // black background
         jPanel.setLayout(new BorderLayout()); // control layout of labels and panel
         jPanel.setBorder(BorderFactory.createEmptyBorder(60, 50, 0, 0)); // go down 15px and 20px across
 
-        titleLabel = new JLabel("How to Play:"); // title
+        // title
+        JLabel titleLabel = new JLabel("How to Play:"); // title
         titleLabel.setForeground(Color.RED); // title colour
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18)); // font formatting
         jPanel.add(titleLabel, BorderLayout.NORTH); // set panel to the very top

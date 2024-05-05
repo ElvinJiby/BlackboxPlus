@@ -1,7 +1,7 @@
 package main;
 
-import inputs.HowToPlayWindow;
-import inputs.LeaderBoardData;
+import computations.LeaderBoardData;
+import menus.HowToPlayWindow;
 import menus.StartScreen;
 
 import javax.swing.*;
@@ -13,22 +13,26 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameWindow {
-    private JFrame gameWindow;
-    private GameScreen gameScreen;
-    private Game game;
-    private JPanel buttonPanel;
+    // Application Variables
+    private final JFrame gameWindow;
+    private final GameScreen gameScreen;
+    private final Game game;
+    private final JPanel buttonPanel;
 
+    // JLabels and JButton variables
     private JTextField arrowNumberInputField;
+
     private JLabel arrowNumberInputPrompt;
-    //    private JTextField playerNameInputField;
     private JLabel playerNameLabel;
     private JLabel scoreLabel;
     private JLabel rayStatusLabel;
-    private int value = 1;
+
     private JButton howToPlayButton;
     private JButton endGameButton;
+
     private final ArrayList<Integer> visitedBoxes = new ArrayList<>();
     private static final Random rand = new Random();
+    private int value = 1;
     private static String name = "hello";
     private String lastRayStatus = "normal/deflected";
 
@@ -72,13 +76,12 @@ public class GameWindow {
         scoreLabel = new JLabel(" | Score: " + game.getScore() + " | ");
         scoreLabel.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
         scoreLabel.setForeground(Color.WHITE);
-//        scoreLabel.setBounds(1100, 650, 150, 30);
 
         arrowNumberInputField = new JTextField(2);
         arrowNumberInputField.setBackground(Color.BLACK);
         arrowNumberInputField.setText("1");
         arrowNumberInputField.setForeground(Color.WHITE);
-//        textField.setBounds(50, 50, 250, 250);
+
         arrowNumberInputField.addActionListener(e -> {
             validateInput();
             gameScreen.repaint();
@@ -88,15 +91,6 @@ public class GameWindow {
         rayStatusLabel.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
         rayStatusLabel.setForeground(Color.WHITE);
 
-//        playerNameInputField = new JTextField(15);
-//        playerNameInputField.setText("Enter player name (Limit: 30)");
-////        textField.setBounds(50, 50, 250, 250);
-//        playerNameInputField.addActionListener(e -> {
-//            updateUsername();
-//            gameScreen.repaint();
-//        });
-
-//        playerNameLabel = new JLabel("| Player Name: " + game.getPlayerName());
         playerNameLabel = new JLabel("  | Player Name: " + name);
         playerNameLabel.setForeground(Color.WHITE);
         playerNameLabel.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
@@ -104,29 +98,6 @@ public class GameWindow {
         arrowNumberInputPrompt = new JLabel("| Enter an integer 1-54: ");
         arrowNumberInputPrompt.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
         arrowNumberInputPrompt.setForeground(Color.WHITE);
-
-        JLabel colorWindow = new JLabel();
-        colorWindow.setBackground(Color.WHITE);
-        colorWindow.setText("Sample Text");
-        colorWindow.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
-        colorWindow.setOpaque(true);
-
-        JButton button = new JButton("Pick a colour");
-        button.addActionListener(e -> {
-            if (e.getSource() == button) {
-                Color color = JColorChooser.showDialog(null, "Choose a colour!", Color.WHITE);
-                colorWindow.setForeground(color);
-                gameScreen.repaint();
-            }
-        });
-
-        JButton loadPresetRay = new JButton("Load Preset Ray");
-        loadPresetRay.addActionListener(e -> {
-            if (e.getSource() == loadPresetRay) {
-                game.loadPresetRayPath();
-                gameScreen.repaint();
-            }
-        });
 
         howToPlayButton = new JButton("How To Play");
         howToPlayButton.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
@@ -139,21 +110,16 @@ public class GameWindow {
         endGameButton.setFocusable(false);
         endGameButton.addActionListener(e -> {
             endGameButton.setEnabled(false);
-//            new GameOver();
             guessAtomsWindow();
         });
 
         buttonPanel.add(endGameButton);
-//        buttonPanel.add(playerNameInputField);
         buttonPanel.add(playerNameLabel);
         buttonPanel.add(arrowNumberInputPrompt);
         buttonPanel.add(arrowNumberInputField);
         buttonPanel.add(rayStatusLabel);
         buttonPanel.add(scoreLabel);
         buttonPanel.add(howToPlayButton);
-//        buttonPanel.add(button);
-//        buttonPanel.add(loadPresetRay);
-//        buttonPanel.add(colorWindow);
     }
 
     private void guessAtomsWindow() {
@@ -163,6 +129,7 @@ public class GameWindow {
         jFrame.setLocationRelativeTo(null);
         JTextField textField = new JTextField();
         textField.setPreferredSize(new Dimension(250, 40));
+
         game.setEnableNumberedBoard(true);
         gameScreen.repaint();
 
@@ -216,15 +183,17 @@ public class GameWindow {
     public static void getUserNameWindow() {
         JFrame frame = new JFrame();
         ImageIcon icon = new ImageIcon(new ImageIcon(Game.class.getResource("/Icons/new_icon.png")).getImage().getScaledInstance(125, 125, Image.SCALE_SMOOTH));
-        name = (String) JOptionPane.showInputDialog(frame, "Please enter your name:", "Username", JOptionPane.PLAIN_MESSAGE, icon, null, ("user" + rand.nextInt(99999)));
-        try {
-            if (name.length() > 30) throw new IllegalArgumentException("Name must be less than 30 characters.");
-        } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        } finally {
-            frame.dispose(); // Close the frame after getting the name
-            frame.setVisible(false);
+
+        while (true) {
+            try {
+                name = (String) JOptionPane.showInputDialog(frame, "Please enter your name:", "Username", JOptionPane.PLAIN_MESSAGE, icon, null, ("user" + rand.nextInt(99999)));
+                if (name.length() > 30) throw new IllegalArgumentException("Name must be within 30 characters.");
+                break;
+            } catch (IllegalArgumentException e) {
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            }
         }
+        frame.dispose(); // Close the frame after getting the name
     }
 
     private void endGameWindow() {
@@ -242,6 +211,15 @@ public class GameWindow {
         });
 
         game.setPlayerName(name);
+        JTextArea finalScore = getScoreTextArea();
+
+        jFrame.add(finalScore, BorderLayout.CENTER);
+        jFrame.setVisible(true);
+
+        LeaderBoardData.storeScore(name, game.getScore());
+    }
+
+    private JTextArea getScoreTextArea() {
         JTextArea finalScore = new JTextArea();
         finalScore.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
         finalScore.setText(name + " has scored: " + game.getScore() + " points!");
@@ -252,11 +230,7 @@ public class GameWindow {
                 + game.getPlayerName() + " has scored a total of " + game.getScore() + " points!";
         finalScore.setText(scoreMessage);
         finalScore.setEditable(false);
-
-        jFrame.add(finalScore, BorderLayout.CENTER);
-        jFrame.setVisible(true);
-
-        LeaderBoardData.storeScore(name, game.getScore());
+        return finalScore;
     }
 
     private void validateInput() {
@@ -288,16 +262,6 @@ public class GameWindow {
         }
     }
 
-//    private void updateUsername() {
-//        game.setPlayerName(playerNameInputField.getText());
-//        if (game.getPlayerName().length() > 30) {
-//            JOptionPane.showMessageDialog(null, "Username must be 30 characters or less.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-//        } else {
-//            playerNameLabel.setText(game.getPlayerName());
-//            playerNameInputField.setVisible(false);
-//            gameScreen.repaint();
-//        }
-//    }
 
     public Color askMarkerColor() {
         return JColorChooser.showDialog(null, "Choose a colour for the Markers", Color.MAGENTA);

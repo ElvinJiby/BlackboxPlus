@@ -23,12 +23,12 @@ public class Board {
     }//sets node a as exit
 
     public String toString() {//overriding the toString() method
-        String c = "";
+        StringBuilder c = new StringBuilder();
         int a = 5;
         int t = 0;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < a; j++) {
-                c = c + board[i][j].getValue() + " ";
+                c.append(board[i][j].getValue()).append(" ");
             }
             if (a < 9 && t == 0) {
                 a++;
@@ -37,9 +37,9 @@ public class Board {
                 a--;
                 t = 1;
             }
-            c = c + "\n";
+            c.append("\n");
         }
-        return c;
+        return c.toString();
     }//to string method to print the whole board
 
     public Node getnode(int i, int j) {
@@ -255,7 +255,7 @@ public class Board {
             if (a < 9 && t == 0) {//increase a until it reaches the mid
                 a++;
 
-            } else {//start deacreasing a as it has now reached the mid and also set t to 1 therfore it doesnt go to the above condition
+            } else {//start deacreasing a as it has now reached the mid and also set t to 1 therfore it doesn't go to the above condition
                 a--;
                 t = 1;
             }
@@ -277,10 +277,10 @@ public class Board {
             return ints;//returns the path and stops the function
         }
 
-        while (next.isexit() != true) {//runs until it reaches another exit node
-            ArrayList<Integer> atomp = new ArrayList<Integer>();// array list is used to get the nodes with the atoms in it
+        while (!next.isexit()) {//runs until it reaches another exit node
+            ArrayList<Integer> atomp = new ArrayList<>();// array list is used to get the nodes with the atoms in it
             for (int i = 0; i < 6; i++) {
-                if (next.getSides(i).hasatom() == true) {//if the side has an atom stores the index of the side in the array list
+                if (next.getSides(i).hasatom()) {//if the side has an atom stores the index of the side in the array list
                     atomp.add(i);
 
                 }
@@ -291,7 +291,7 @@ public class Board {
                 ints.add(next.getSides(n).getValue());//adds the value of the node with the atom to the array list
                 ints.add(-1);//indicates the ray is absorbed
                 return ints;
-            } else if (atomp.size() == 1) {//condition where there is only one atom but it needs to deflect
+            } else if (atomp.size() == 1) {//condition where there is only one atom, but it needs to deflect
                 if ((atomp.getFirst() == (n + 1) % 6)) {//decreases the value of the next side it needs to go to by one to deflect the ray
                     n = (n - 1 + 6) % 6;
                 } else if ((atomp.getFirst() == (n - 1 + 6) % 6)) {//increases the value of the next side it needs to go to by one to deflect the ray
