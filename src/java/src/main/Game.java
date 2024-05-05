@@ -36,13 +36,13 @@ public class Game {
     private final Board boardp = (new Lists()).createboard();
 
     // Game Settings
-    private final int NUM_OF_ATOMS = 61;
-    private Boolean seeAtomsAndRays = true; // debug setting to show internal atoms (default: false)
+    private final int NUM_OF_ATOMS = 6;
+    private Boolean seeAtomsAndRays = false; // debug setting to show internal atoms (default: false)
     private Boolean enableNumberedBoard = false;
     private String playerName = "user" + rand.nextInt(99999);
 
     /**
-     * Default constructor that creates the game's window & screen
+     * Default constructor that creates the game's window and screen
      * Additionally initialises the atoms, exit points and hexagonal box lists
      */
     public Game() {
@@ -204,7 +204,7 @@ public class Game {
      * Method to initialise the exitPoints list with all their respective coordinates
      * @return An array list containing the coordinates of all the exit points
      */
-    private ArrayList<ExitPoint> loadExitPointCoords() {
+    public static ArrayList<ExitPoint> loadExitPointCoords() {
         ArrayList<ExitPoint> exitPoints = new ArrayList<>();
 
         // Hardcoded coordinates for each exit point (where the number is)
@@ -307,7 +307,6 @@ public class Game {
             atomBoxNumbers.add(atomPosIndex + 1);
             Atom atom = new Atom(hexagonalBoxes.get(atomPosIndex).getX(), hexagonalBoxes.get(atomPosIndex).getY());
             hexagonalBoxes.get(atomPosIndex).setHasAtom(true); // that box now has an atom present. set respective boolean hasAtom to true.
-            System.out.println(atom);
             atoms.add(atom);
         }
         return atoms;

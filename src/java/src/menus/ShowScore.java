@@ -1,17 +1,22 @@
 package menus;
 
 import main.Game;
+import main.GameWindow;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class ShowScore {
+    private static final Image gameIcon = new ImageIcon(Objects.requireNonNull(GameWindow.class.getResource("/Icons/new_icon.png"))).getImage();
+
     public ShowScore() {
         Game game = new Game();
         JFrame jFrame = new JFrame();
         jFrame.setTitle("Score");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setSize(640, 200); // window size
-        jFrame.setIconImage(new ImageIcon(getClass().getResource("/Icons/new_icon.png")).getImage());
+        jFrame.setIconImage(gameIcon);
         jFrame.setLocationRelativeTo(null); // centre window
         jFrame.setBackground(Color.BLACK); // set black background so window stays dark
         jFrame.setResizable(false); // cannot be resized
