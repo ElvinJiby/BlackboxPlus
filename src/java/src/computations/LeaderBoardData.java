@@ -85,7 +85,7 @@ public class LeaderBoardData {
     }
 
     public static void clearTheLeaderboard() throws IOException {
-        for (Map.Entry<String, Integer> x : sortedScores) sortedScores.remove(x);
+        sortedScores.clear();
         FileWriter fileWriter = new FileWriter("scores.txt", false); // do not append
         // fill with default values
         fileWriter.write("user1,100\nuser2,100\nuser3,100\nuser4,100\nuser5,100\n");
