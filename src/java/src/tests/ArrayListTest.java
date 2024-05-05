@@ -20,4 +20,26 @@ public class ArrayListTest {
         assertNotNull(exitPointsList, "Exit Points array list is null");
         assertFalse(exitPointsList.isEmpty());
     }
+
+    @Test
+    public void LoadHexagonalBoxesTest() {
+        Game game = new Game();
+
+        ArrayList<ExitPoint> exitPointsList = new ArrayList<>(); // Arraylist that contains the coordinates of each exit point
+        exitPointsList = Game.loadExitPointCoords();
+
+        assertNotNull(exitPointsList, "Exit Points array list is null");
+        assertFalse(exitPointsList.isEmpty());
+    }
+
+    @Test
+    public void LoadAtomListTest() {
+        Game game = new Game();
+
+        ArrayList<ExitPoint> exitPointsList = new ArrayList<>(); // Arraylist that contains the coordinates of each exit point
+        exitPointsList = Game.loadExitPointCoords();
+
+        assertNotNull(exitPointsList, "Exit Points array list is null");
+        assertFalse(exitPointsList.isEmpty());
+    }
 }

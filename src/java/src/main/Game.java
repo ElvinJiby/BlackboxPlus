@@ -24,22 +24,22 @@ public class Game {
     private static final Image boardBoxNumber = (new ImageIcon(Objects.requireNonNull(Game.class.getResource("/Board Layouts/transparent-hexagon-numbered.PNG"))).getImage());
 
     private static final Random rand = new Random();
-    private int numIncorrectGuesses = 0;
-    private int numMarkersUsed = 0;
+    private int numIncorrectGuesses = 0; // Counter to store the amount of incorrect atom location guesses
+    private int numMarkersUsed = 0; // Counter to store the amount of markers placed during the game
 
     private final ArrayList<HexagonalBox> hexagonalBoxes; // Arraylist that contains all the hexagonal boxes
     private final ArrayList<Atom> atomList; // Arraylist that contains all the atoms
     private final ArrayList<Marker> markersList = new ArrayList<>(); // Arraylist that contains all the markers and their colour and coords
     private final ArrayList<ArrayList<Ray>> rayPathList = new ArrayList<>(); // Arraylist that contains a list of each Ray and their own paths
     private ArrayList<ExitPoint> exitPointsList = new ArrayList<>(); // Arraylist that contains the coordinates of each exit point
-    private final ArrayList<Integer> atomBoxNumbers = new ArrayList<>();
-    private final Board boardp = (new Lists()).createboard();
+    private final ArrayList<Integer> atomBoxNumbers = new ArrayList<>(); // Arraylist that stores the hexagonal box numbers that contain an atom
+    private final Board raySystem = (new Lists()).createboard(); // instance of the Board class, used to handle the path of any ray
 
     // Game Settings
     private final int NUM_OF_ATOMS = 6;
     private Boolean seeAtomsAndRays = false; // debug setting to show internal atoms (default: false)
-    private Boolean enableNumberedBoard = false;
-    private String playerName = "user" + rand.nextInt(99999);
+    private Boolean enableNumberedBoard = false; // debug setting to show a version of the board with numbered boxes
+    private String playerName = "user" + rand.nextInt(99999); // String to store the player's username
 
     /**
      * Default constructor that creates the game's window and screen
@@ -106,7 +106,7 @@ public class Game {
      * @param entry An exit number (represented by the arrow on the board)
      */
     public void shootRay(int entry) {
-        ArrayList<Integer> boxNumList = boardp.iterate(entry);
+        ArrayList<Integer> boxNumList = raySystem.iterate(entry);
         ArrayList<Ray> newRayPath = new ArrayList<>();
 
         // Absorbed Ray Case
@@ -303,7 +303,7 @@ public class Game {
                 atomPosIndex = rand.nextInt(0, hexagonalBoxesLength);
 
             }
-            boardp.setrandom(boardp, atomPosIndex + 1);
+            raySystem.setrandom(raySystem, atomPosIndex + 1);
             atomBoxNumbers.add(atomPosIndex + 1);
             Atom atom = new Atom(hexagonalBoxes.get(atomPosIndex).getX(), hexagonalBoxes.get(atomPosIndex).getY());
             hexagonalBoxes.get(atomPosIndex).setHasAtom(true); // that box now has an atom present. set respective boolean hasAtom to true.
