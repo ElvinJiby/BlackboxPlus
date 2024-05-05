@@ -14,7 +14,7 @@ public class StartScreen {
     private static JFrame jFrame;
     private static JLabel introLabel;
     private static final Image gameIcon = new ImageIcon(Objects.requireNonNull(GameWindow.class.getResource("/Icons/new_icon.png"))).getImage();
-    private static ImageIcon startScreenImage = new ImageIcon(Objects.requireNonNull(StartScreen.class.getResource("/Start Screen/new-start-screen.JPG")));
+    private static final ImageIcon startScreenImage = new ImageIcon(Objects.requireNonNull(StartScreen.class.getResource("/Start Screen/new-start-screen.JPG")));
 
     public StartScreen() {
         jFrame = new JFrame("Black Box+ By Group 50");

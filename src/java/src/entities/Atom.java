@@ -2,9 +2,10 @@ package entities;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class Atom extends Entity {
-    private static final Image atomImage = (new ImageIcon(Atom.class.getResource("/Miscellaneous/atomImage.png")).getImage());
+    private static final Image atomImage = (new ImageIcon(Objects.requireNonNull(Atom.class.getResource("/Miscellaneous/atomImage.png"))).getImage());
     // (x,y) coordinate of an atom on a board
 
     public Atom(int x, int y) {

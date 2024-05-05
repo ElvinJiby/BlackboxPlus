@@ -62,8 +62,7 @@ public class Leaderboard implements Runnable {
         JButton returnToMainMenu = getMainMenuButton();
         jPanel.add(returnToMainMenu);
 
-        ImageIcon introScreen = leaderboardImage;
-        JLabel leaderboardBackground = new JLabel(introScreen);
+        JLabel leaderboardBackground = new JLabel(leaderboardImage);
         leaderboardBackground.setSize(1280, 720);
         jPanel.add(leaderboardBackground);
 

@@ -29,7 +29,7 @@ public class Board {
         int t = 0;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < a; j++) {
-                stringBuilder.append(board[i][j].getValue()).append(" ");
+                stringBuilder.append(board[i][j].getNodeValue()).append(" ");
             }
             if (a < 9 && t == 0) {
                 a++;
@@ -267,11 +267,11 @@ public class Board {
         Node head = exit[a - 1];//sets the head as the exit
         Node next = head.getSides(0);//gets the node pointed by the head
         int n = head.getnext();//this points to the next value in the path which is changed continuesly in the code to cause deflections or reflections.
-        ints.add(head.getValue());//adds the head to the array list of the path
+        ints.add(head.getNodeValue());//adds the head to the array list of the path
         // System.out.print(head.getValue() + "->");
         if (next.hasatom()) {//ray is obsorbed
             // System.out.print("Ray absorbed");
-            ints.add(next.getValue());//adds the value to the array list
+            ints.add(next.getNodeValue());//adds the value to the array list
             ints.add(-1);//also adds -1 indicating the ray has been absorbrd
             return ints;//returns the path and stops the function
         }
@@ -286,8 +286,8 @@ public class Board {
             }
             if (atomp.size() == 1 && next.getSides(n).hasatom()) {//condition where there is only one atom in the next corresponding sides and ray gets absorbed.
                 //System.out.print("Ray absorbed");
-                ints.add(next.getValue());//adds the value to the array list
-                ints.add(next.getSides(n).getValue());//adds the value of the node with the atom to the array list
+                ints.add(next.getNodeValue());//adds the value to the array list
+                ints.add(next.getSides(n).getNodeValue());//adds the value of the node with the atom to the array list
                 ints.add(-1);//indicates the ray is absorbed
                 return ints;
             } else if (atomp.size() == 1) {//condition where there is only one atom, but it needs to deflect
@@ -318,13 +318,13 @@ public class Board {
                 n = (n + 3) % 6;
             }
             //System.out.print(next.getValue() + "->");
-            ints.add(next.getValue());//adds the next to the list of paths
+            ints.add(next.getNodeValue());//adds the next to the list of paths
 
             next = next.getSides(n);//change the value of next therfore getting the value after getting deflected or reflected
 
 
         }
-        ints.add(next.getValue());//adds next value to the array list
+        ints.add(next.getNodeValue());//adds next value to the array list
 
         return ints;//returns the array list of the whole path
     }
@@ -335,7 +335,7 @@ public class Board {
 
         for (int i = 0; i < 9; i++) {//goes through the whole board to search for entry r
             for (int j = 0; j < a; j++) {
-                if (boardp.getnode(i, j).getValue() == r) {
+                if (boardp.getnode(i, j).getNodeValue() == r) {
                     boardp.getnode(i, j).setatom(true);//sets the node to true when it finds r
                 }
 

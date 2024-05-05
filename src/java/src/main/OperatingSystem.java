@@ -1,9 +1,9 @@
 package main;
 
 public class OperatingSystem {
-    private static String OSName = System.getProperty("os.name");
+    private static final String OperatingSystem = System.getProperty("os.name");
 
     public static boolean isItMacOS() {
-        return OSName.equals("Mac OS X"); // if name is macOS, return true
+        return OperatingSystem.equals("Mac OS X"); // if name is macOS, return true
     }
 }

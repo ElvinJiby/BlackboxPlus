@@ -35,7 +35,7 @@ public class TestBoard {
         }
         for (int i = 0; i < 54; i++) {
             e[i] = new Node(i + 1, 1);
-            e[i].setValue(i + 1);
+            e[i].setNodeValue(i + 1);
             e[i].setexit(true);
         }
         boardp.setexit(e);
@@ -74,7 +74,7 @@ public class TestBoard {
         }
         for (int i = 0; i < 54; i++) {
             e[i] = new Node(i + 1, 1);
-            e[i].setValue(i + 1);
+            e[i].setNodeValue(i + 1);
             e[i].setexit(true);
         }
         boardp.setexit(e);
@@ -114,7 +114,7 @@ public class TestBoard {
         }
         for (int i = 0; i < 54; i++) {
             e[i] = new Node(i + 1, 1);
-            e[i].setValue(i + 1);
+            e[i].setNodeValue(i + 1);
             e[i].setexit(true);
         }
         boardp.setexit(e);
@@ -154,7 +154,7 @@ public class TestBoard {
         }
         for (int i = 0; i < 54; i++) {
             e[i] = new Node(i + 1, 1);
-            e[i].setValue(i + 1);
+            e[i].setNodeValue(i + 1);
             e[i].setexit(true);
         }
         boardp.setexit(e);
@@ -217,7 +217,7 @@ public class TestBoard {
         }
         for (int i = 0; i < 54; i++) {
             e[i] = new Node(i + 1, 1);
-            e[i].setValue(i + 1);
+            e[i].setNodeValue(i + 1);
             e[i].setexit(true);
         }
         boardp.setexit(e);

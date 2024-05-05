@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class HowToPlayWindow {
     private final JPanel rulesPanel; // to put how to play labels
-    private static Image gameIcon = new ImageIcon(Objects.requireNonNull(GameWindow.class.getResource("/Icons/new_icon.png"))).getImage();
+    private static final Image gameIcon = new ImageIcon(Objects.requireNonNull(GameWindow.class.getResource("/Icons/new_icon.png"))).getImage();
 
 
     public HowToPlayWindow() {
