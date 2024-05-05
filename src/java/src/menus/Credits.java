@@ -15,16 +15,15 @@ public class Credits {
 
     public Credits() {
         jFrame = new JFrame("Credits");
-        jFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); // if window is closed, program does not terminate
-        jFrame.setResizable(false); // restricts resizing
-        jFrame.setSize(1280, 720); // 720p window
-        jFrame.setLocationRelativeTo(null); // centre window according to device screen size
-        jFrame.setIconImage(gameIcon); // sets icon image
+        jFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        jFrame.setResizable(false);
+        jFrame.setSize(1280, 720);
+        jFrame.setLocationRelativeTo(null);
+        jFrame.setIconImage(gameIcon);
 
-        // Image cast as JLabel
-        JLabel creditsJLabel = new JLabel(creditsGIF); // save image as JLabel
-        creditsJLabel.setSize(1280, 720); // set size to 720p
-        jFrame.add(creditsJLabel); // add JLabel to JFrame
+        JLabel creditsJLabel = new JLabel(creditsGIF);
+        creditsJLabel.setSize(1280, 720);
+        jFrame.add(creditsJLabel);
 
         // code to check if key is pressed to exit
         jFrame.addKeyListener(new KeyListener() {

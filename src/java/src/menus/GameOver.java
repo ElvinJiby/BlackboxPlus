@@ -7,28 +7,23 @@ import java.awt.*;
 import java.util.Objects;
 
 public class GameOver {
-
-    private final JFrame jFrame; // window
+    private final JFrame jFrame;
     private static final Image gameIcon = new ImageIcon(Objects.requireNonNull(GameWindow.class.getResource("/Icons/new_icon.png"))).getImage();
 
     public GameOver() {
-        jFrame = new JFrame(); // create new window
-        jFrame.setTitle("Game Over"); // title
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exit
-        jFrame.setIconImage(gameIcon); // app icon
-        jFrame.setSize(400, 200); // window size
-        jFrame.setLocationRelativeTo(null); // center the window on the screen
-        jFrame.getContentPane().setBackground(Color.BLACK); // black background
-        jFrame.setResizable(false); // cannot resize
+        jFrame = new JFrame();
+        jFrame.setTitle("Game Over");
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setIconImage(gameIcon);
+        jFrame.setSize(400, 200);
+        jFrame.setLocationRelativeTo(null);
+        jFrame.getContentPane().setBackground(Color.BLACK);
+        jFrame.setResizable(false);
 
-        // get superclass
-        // set to black
-        // paint panel black
-        // area
         JPanel jPanel = getGameOverPanel();
 
-        jFrame.getContentPane().add(jPanel); // return content pane of jFrame and add JPanel
-        jFrame.setVisible(true); // show window
+        jFrame.getContentPane().add(jPanel);
+        jFrame.setVisible(true);
 
         // show score window for 3000 milliseconds and close current frame
         // timer object
@@ -37,29 +32,29 @@ public class GameOver {
             new ShowScore();
             jFrame.dispose();
         });
-        timer.setRepeats(false); // do not repeat
-        timer.start(); // start timer
+        timer.setRepeats(false);
+        timer.start();
     }
 
     private static JPanel getGameOverPanel() {
         JPanel jPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
-                super.paintComponent(g); // get superclass
-                g.setColor(Color.BLACK); // set to black
-                g.fillRect(0, 0, getWidth(), getHeight()); // paint panel black
+                super.paintComponent(g);
+                g.setColor(Color.BLACK);
+                g.fillRect(0, 0, getWidth(), getHeight());
             }
         };
-        jPanel.setLayout(null); // sets layout manager
+        jPanel.setLayout(null);
 
         // text
-        JLabel jLabel = new JLabel("GAME OVER!!"); // title
-        jLabel.setVerticalAlignment(SwingConstants.CENTER); // centre
-        jLabel.setHorizontalAlignment(SwingConstants.CENTER); // centre
-        jLabel.setForeground(Color.CYAN); // text colour
-        jLabel.setFont(new Font("Arial", Font.BOLD, 30)); // format font
-        jLabel.setBounds(80, 50, 240, 50); // set area
-        jPanel.add(jLabel); // add label to panel
+        JLabel jLabel = new JLabel("GAME OVER!!");
+        jLabel.setVerticalAlignment(SwingConstants.CENTER);
+        jLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel.setForeground(Color.CYAN);
+        jLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        jLabel.setBounds(80, 50, 240, 50);
+        jPanel.add(jLabel);
         return jPanel;
     }
 

@@ -15,26 +15,23 @@ public class ShowScore {
         JFrame jFrame = new JFrame();
         jFrame.setTitle("Score");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setSize(640, 200); // window size
+        jFrame.setSize(640, 200);
         jFrame.setIconImage(gameIcon);
-        jFrame.setLocationRelativeTo(null); // centre window
-        jFrame.setBackground(Color.BLACK); // set black background so window stays dark
-        jFrame.setResizable(false); // cannot be resized
+        jFrame.setLocationRelativeTo(null);
+        jFrame.setBackground(Color.BLACK);
+        jFrame.setResizable(false);
 
-        // override method with package access method
-        // gets superclass method
-        // sets black background
-        // sets over region specified
         JPanel jPanel = getScorePanel(jFrame, game);
 
         jFrame.getContentPane().add(jPanel);
         jFrame.setVisible(true);
 
+        // 5-second timer
         Timer disposeTimer = new Timer(5000, e -> {
             new StartScreen();
             jFrame.dispose();
         });
-        disposeTimer.setRepeats(false); // Set to not repeat
+        disposeTimer.setRepeats(false);
         disposeTimer.start();
     }
 
@@ -47,7 +44,7 @@ public class ShowScore {
                 g.fillRect(0, 0, jFrame.getWidth(), jFrame.getHeight()); // sets over region specified
             }
         };
-        jPanel.setLayout(null); // centre
+        jPanel.setLayout(null);
 
         JLabel scoreLabel = new JLabel(game.getPlayerName() + " scored " + game.getScore() + " points");
         scoreLabel.setVerticalAlignment(SwingConstants.CENTER);

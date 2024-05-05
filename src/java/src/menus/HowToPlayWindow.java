@@ -12,31 +12,27 @@ public class HowToPlayWindow {
 
 
     public HowToPlayWindow() {
-        // frame
-        JFrame jFrame = new JFrame("How to Play Blackbox+"); // title
-        jFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); // operation when closed
-        jFrame.setLocationRelativeTo(null); // centre window
-        jFrame.setIconImage(gameIcon); // app icon
-        jFrame.setSize(854, 480); // window size
+        JFrame jFrame = new JFrame("How to Play Blackbox+");
+        jFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        jFrame.setLocationRelativeTo(null);
+        jFrame.setIconImage(gameIcon);
+        jFrame.setSize(854, 480);
 
-        // area
-        JPanel jPanel = new JPanel(); // area to hold labels
-        jPanel.setBackground(Color.BLACK); // black background
-        jPanel.setLayout(new BorderLayout()); // control layout of labels and panel
-        jPanel.setBorder(BorderFactory.createEmptyBorder(60, 50, 0, 0)); // go down 15px and 20px across
+        JPanel jPanel = new JPanel();
+        jPanel.setBackground(Color.BLACK);
+        jPanel.setLayout(new BorderLayout());
+        jPanel.setBorder(BorderFactory.createEmptyBorder(60, 50, 0, 0));
 
-        // title
-        JLabel titleLabel = new JLabel("How to Play:"); // title
-        titleLabel.setForeground(Color.RED); // title colour
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 18)); // font formatting
-        jPanel.add(titleLabel, BorderLayout.NORTH); // set panel to the very top
+        JLabel titleLabel = new JLabel("How to Play:");
+        titleLabel.setForeground(Color.RED);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        jPanel.add(titleLabel, BorderLayout.NORTH);
 
-        rulesPanel = new JPanel(); // stores every line of how to play
-        rulesPanel.setBackground(Color.BLACK); // black background
-        rulesPanel.setLayout(new BoxLayout(rulesPanel, BoxLayout.Y_AXIS)); // set bounds to verticals
-        jPanel.add(rulesPanel, BorderLayout.WEST); // set to left side
+        rulesPanel = new JPanel();
+        rulesPanel.setBackground(Color.BLACK);
+        rulesPanel.setLayout(new BoxLayout(rulesPanel, BoxLayout.Y_AXIS));
+        jPanel.add(rulesPanel, BorderLayout.WEST);
 
-        // instructions
         generateHowToPlayLabel("Black Box is a two-player game where the setter will place 6 red balls on the board.");
         generateHowToPlayLabel("Rays are sent from any edge of a hexagon and it is your job to find these invisible atoms");
         generateHowToPlayLabel("by observing the reflection patterns when rays are sent");
@@ -60,14 +56,14 @@ public class HowToPlayWindow {
         generateHowToPlayLabel("\n");
         generateHowToPlayLabel("\n");
 
-        jFrame.add(jPanel); // add panel to frame
-        jFrame.setVisible(true); // visibility
+        jFrame.add(jPanel);
+        jFrame.setVisible(true);
     }
 
     private void generateHowToPlayLabel(String s) { // to efficiently add labels
-        JLabel jLabel = new JLabel(s); // create new JLabel
-        jLabel.setForeground(Color.CYAN); // text colour
-        jLabel.setFont(new Font("Arial", Font.PLAIN, 12)); // font formatting
-        rulesPanel.add(jLabel); // add to the labels panel
+        JLabel jLabel = new JLabel(s);
+        jLabel.setForeground(Color.CYAN);
+        jLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+        rulesPanel.add(jLabel);
     }
 }

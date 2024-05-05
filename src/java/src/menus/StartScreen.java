@@ -17,12 +17,12 @@ public class StartScreen {
     private static ImageIcon startScreenImage = new ImageIcon(Objects.requireNonNull(StartScreen.class.getResource("/Start Screen/new-start-screen.JPG")));
 
     public StartScreen() {
-        jFrame = new JFrame("Black Box+ By Group 50"); // title
-        jFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // exit button controlls close
-        jFrame.setResizable(false); // stay size
-        jFrame.setSize(1280, 720); // set size
-        jFrame.setLocationRelativeTo(null); //centre window
-        jFrame.setIconImage(gameIcon); // app icon
+        jFrame = new JFrame("Black Box+ By Group 50");
+        jFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        jFrame.setResizable(false);
+        jFrame.setSize(1280, 720);
+        jFrame.setLocationRelativeTo(null);
+        jFrame.setIconImage(gameIcon);
 
         introLabel = new JLabel(startScreenImage);
         introLabel.setPreferredSize(new Dimension(1280, 720));
@@ -60,7 +60,6 @@ public class StartScreen {
         /* Credits Button */
         JButton credits = generateButtons(743, 200);
         credits.addActionListener(e -> {
-//            jFrame.dispose();
             try {
                 new Credits();
             } catch (Exception ex) {
@@ -79,14 +78,14 @@ public class StartScreen {
     }
 
     private JButton generateButtons(int x, int width) {
-        JButton jButton = new JButton(); // create new button
+        JButton jButton = new JButton();
         boolean isItMac = OperatingSystem.isItMacOS(); // check os type
-        jButton.setBounds(x, 560, width, 60); // set size
-        jButton.setOpaque(false); // no opaque
-        jButton.setContentAreaFilled(false); // do not fill area
+        jButton.setBounds(x, 560, width, 60);
+        jButton.setOpaque(false);
+        jButton.setContentAreaFilled(false);
         jButton.setBorderPainted(!isItMac); // if macOS, paint border
-        jButton.setFocusable(true); // outline button
-        introLabel.add(jButton); // add to image
+        jButton.setFocusable(true);
+        introLabel.add(jButton);
         return jButton;
     }
 }

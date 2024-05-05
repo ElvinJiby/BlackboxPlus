@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
-                new StartScreen(); // Starts the game at the main menu
+                new StartScreen();
             } catch (Exception ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(null,"Failed to open the Start Screen.", "Start Screen Open Error", JOptionPane.ERROR_MESSAGE);

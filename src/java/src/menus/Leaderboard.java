@@ -14,11 +14,10 @@ public class Leaderboard implements Runnable {
 
     @Override public void run() { jFrame.setVisible(true); }
 
-    // my instance variables, which are later constructed
     // all variables are private to allow for class accessibility
     // final variables allow for blocking further modification to my variables
-    private final JFrame jFrame; // app window
-    private final JPanel jPanel; // layout within the app window
+    private final JFrame jFrame;
+    private final JPanel jPanel;
 
     private static final Image gameIcon = new ImageIcon(Objects.requireNonNull(GameWindow.class.getResource("/Icons/new_icon.png"))).getImage();
     private static final ImageIcon leaderboardImage = new ImageIcon(Objects.requireNonNull(Leaderboard.class.getResource("/Miscellaneous/leaderboard_bg.png")));
@@ -30,16 +29,16 @@ public class Leaderboard implements Runnable {
         sortedScores = leaderBoardData.getSortedScores();
         leaderBoardData.writeTXTFile(sortedScores);
 
-        jFrame = new JFrame("Leaderboard"); // window title
-        jFrame.setSize(1280, 720); // has a fixed 720p 16:9 size
-        jFrame.setResizable(false); // ensures the app window will always stay at 1280x720 resolution
-        jFrame.setLocationRelativeTo(null); // when window is opened initially it is centred
+        jFrame = new JFrame("Leaderboard");
+        jFrame.setSize(1280, 720);
+        jFrame.setResizable(false);
+        jFrame.setLocationRelativeTo(null);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jFrame.setIconImage(gameIcon);
 
-        jPanel = new JPanel(); // creates new JPanel object
-        jPanel.setLayout(null); // setting null allows elements to be placed anywhere on the panel
-        jPanel.setSize(1280, 720); // sets max region to add elements to panel
+        jPanel = new JPanel();
+        jPanel.setLayout(null);
+        jPanel.setSize(1280, 720);
 
         JLabel score = new JLabel("");
         Font font1 = score.getFont();
@@ -57,30 +56,28 @@ public class Leaderboard implements Runnable {
 
         // when pressed clears the txt file
         JButton clearLeaderboard = getClearLeaderboardButton();
-        jPanel.add(clearLeaderboard); // add the generate button to the JPanel
+        jPanel.add(clearLeaderboard);
 
         // exits the window and goes back to main menu
         JButton returnToMainMenu = getMainMenuButton();
-        jPanel.add(returnToMainMenu);// add the button to the panel
+        jPanel.add(returnToMainMenu);
 
         ImageIcon introScreen = leaderboardImage;
         JLabel leaderboardBackground = new JLabel(introScreen);
         leaderboardBackground.setSize(1280, 720);
         jPanel.add(leaderboardBackground);
 
-        jFrame.add(jPanel); // add the JPanel to the JFrame to display its contents
+        jFrame.add(jPanel);
     }
 
     private JButton getMainMenuButton() {
-        JButton returnToMainMenu = new JButton(); // Exit button to terminate program
-        // sets region where label should be placed **in pixels**
-        // this label is 100x50 with the top-left corner going across 377 and 290 down
+        JButton returnToMainMenu = new JButton();
         returnToMainMenu.setText("Main Menu");
         returnToMainMenu.setOpaque(false);
         returnToMainMenu.setBorderPainted(true);
         returnToMainMenu.setFocusable(false);
         returnToMainMenu.setBounds(765, 657, 140, 30);
-        // lambda expression to check when pressed, if-so, return to main menu.
+        // lambda expression to check when pressed, return to main menu.
         returnToMainMenu.addActionListener(e -> {
             jFrame.dispose();
             try { new StartScreen(); }
@@ -92,7 +89,6 @@ public class Leaderboard implements Runnable {
     private static JButton getClearLeaderboardButton() {
         JButton clearLeaderboard = new JButton();
         clearLeaderboard.setText("Clear Leaderboard");
-        // sets region where label should be placed **in pixels**
         clearLeaderboard.setOpaque(false);
         clearLeaderboard.setFocusable(false);
         clearLeaderboard.setBorderPainted(true);
@@ -109,20 +105,18 @@ public class Leaderboard implements Runnable {
         JLabel score = new JLabel();
         score.setText(String.valueOf(sortedScores.get(index).getValue()));
         score.setFont(new Font(font.getFontName(), font.getStyle(), 30));
-        score.setVerticalAlignment(SwingConstants.CENTER); // centres label according to the height of the label
-        score.setHorizontalAlignment(SwingConstants.CENTER); // centres label according to the width of the label
-        // sets region where label should be placed **in pixels**
+        score.setVerticalAlignment(SwingConstants.CENTER);
+        score.setHorizontalAlignment(SwingConstants.CENTER);
         score.setBounds(x, y, width, height);
-        jPanel.add(score); // adds this label to the panel
+        jPanel.add(score);
     }
 
     public void displayPlayer(int index, Font font, int x, int y, int width, int height) {
         JLabel score = new JLabel();
         score.setText(String.valueOf(sortedScores.get(index).getKey()));
         score.setFont(new Font(font.getFontName(), font.getStyle(), 30));
-        score.setVerticalAlignment(SwingConstants.CENTER); // centres label according to the height of the label
-        // sets region where label should be placed **in pixels**
+        score.setVerticalAlignment(SwingConstants.CENTER);
         score.setBounds(x, y, width, height);
-        jPanel.add(score); // adds this label to the panel
+        jPanel.add(score);
     }
 }
