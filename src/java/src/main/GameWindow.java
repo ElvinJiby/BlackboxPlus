@@ -198,6 +198,7 @@ public class GameWindow {
     private void endGameWindow() {
         JFrame jFrame = new JFrame("End Game");
         jFrame.setSize(640, 360);
+        jFrame.setResizable(false);
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jFrame.setLocationRelativeTo(null);
         jFrame.addWindowListener(new WindowAdapter() {
