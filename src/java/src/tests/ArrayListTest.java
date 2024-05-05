@@ -1,6 +1,5 @@
 package tests;
 
-import entities.Atom;
 import entities.ExitPoint;
 import entities.HexagonalBox;
 import main.Game;
@@ -17,7 +16,7 @@ public class ArrayListTest {
     public void LoadExitPointsTest() {
         Game game = new Game();
 
-        ArrayList<ExitPoint> exitPointsList = new ArrayList<>(); // Arraylist that contains the coordinates of each exit point
+        ArrayList<ExitPoint> exitPointsList; // contains the coordinates of each exit point
         exitPointsList = Game.loadExitPointCoords();
 
         assertNotNull(exitPointsList, "Exit Points array list is null");
@@ -28,7 +27,7 @@ public class ArrayListTest {
     public void LoadHexagonalBoxesTest() {
         Game game = new Game();
 
-        ArrayList<HexagonalBox> hexagonalBoxes = new ArrayList<>();
+        ArrayList<HexagonalBox> hexagonalBoxes;
         hexagonalBoxes = loadHexagonalBoxes();
 
         assertNotNull(hexagonalBoxes, "Exit Points array list is null");
