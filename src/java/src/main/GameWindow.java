@@ -50,7 +50,7 @@ public class GameWindow {
 
         // Game Panel (manages the rendering of images/rays/assets/etc.)
         this.gameScreen = gameScreen;
-        getUserNameWindow();
+        displayUsernameWindow();
         try {
             gameWindow.add(gameScreen, BorderLayout.CENTER); // adding the screen to the window (the screen pretty much contains the game/visuals)
         } catch (Exception ex) {
@@ -180,14 +180,16 @@ public class GameWindow {
         jFrame.setVisible(true);
     }
 
-    public static void getUserNameWindow() {
+    public static void displayUsernameWindow() {
         JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         ImageIcon icon = new ImageIcon(new ImageIcon(Game.class.getResource("/Icons/new_icon.png")).getImage().getScaledInstance(125, 125, Image.SCALE_SMOOTH));
 
         while (true) {
             try {
                 name = (String) JOptionPane.showInputDialog(frame, "Please enter your name:", "Username", JOptionPane.PLAIN_MESSAGE, icon, null, ("user" + rand.nextInt(99999)));
                 if (name.length() > 30) throw new IllegalArgumentException("Name must be within 30 characters.");
+                if (name == null) new StartScreen();
                 break;
             } catch (IllegalArgumentException e) {
                 JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
