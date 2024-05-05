@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * Controls Blackbox's game logic and state
+ */
 public class Game {
     // Application Variables
     private final GameWindow gameWindow;
@@ -38,7 +41,10 @@ public class Game {
     private Boolean enableNumberedBoard = false;
     private String playerName = "user" + rand.nextInt(99999);
 
-    // default constructor
+    /**
+     * Default constructor that creates the game's window & screen
+     * Additionally initialises the atoms, exit points and hexagonal box lists
+     */
     public Game() {
         gameScreen = new GameScreen(this); // creates a new screen
         gameWindow = new GameWindow(gameScreen, this); // creates a new window
@@ -50,7 +56,10 @@ public class Game {
         exitPointsList = loadExitPointCoords();
     }
 
-    /* Handles the visuals of the game */
+    /**
+     * Method to handle the drawing of the game's visuals
+     * @param g A graphics instance to be drawn
+     */
     public void render(Graphics g) {
         // draw background board
         g.drawImage(bgImage, 0, 0, 1280, 720, null);
@@ -91,6 +100,11 @@ public class Game {
         }
     }
 
+    /**
+     * Method to determine the outcome of a ray shot through a specified exit number
+     * Ray path is created and added to the list, as well as updating the ray status and score
+     * @param entry An exit number (represented by the arrow on the board)
+     */
     public void shootRay(int entry) {
         ArrayList<Integer> boxNumList = boardp.iterate(entry);
         ArrayList<Ray> newRayPath = new ArrayList<>();
@@ -186,6 +200,10 @@ public class Game {
         rayPathList.add(newRayPath);
     }
 
+    /**
+     * Method to initialise the exitPoints list with all their respective coordinates
+     * @return An array list containing the coordinates of all the exit points
+     */
     private ArrayList<ExitPoint> loadExitPointCoords() {
         ArrayList<ExitPoint> exitPoints = new ArrayList<>();
 
@@ -264,6 +282,10 @@ public class Game {
         return exitPoints;
     }
 
+    /**
+     * Method to initialise all the game's atom positions (as in, which hexagonal box they occupy)
+     * @return An arraylist of the atoms
+     */
     private ArrayList<Atom> generateAtoms() {
         if (hexagonalBoxes == null) {
             JOptionPane.showMessageDialog(null, "Error: HexagonalBoxes arraylist is null.", null, JOptionPane.ERROR_MESSAGE);
@@ -291,11 +313,11 @@ public class Game {
         return atoms;
     }
 
+    /**
+     * Method to initialise the coordinates for all the hexagonal boxes on the board
+     * @return An array list of the constructed hexagonal boxes and their coordinates
+     */
     private ArrayList<HexagonalBox> loadHexagonalBoxes() {
-        /*
-        This method creates an arraylist of all the hexagonal boxes on the board,
-        constructed with their respective center point (in x,y coordinates).
-         */
         ArrayList<HexagonalBox> hexagonalBoxArrayList = new ArrayList<>();
 
         //row 1

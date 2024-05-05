@@ -13,13 +13,16 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Responsible for the window that the user plays Blackbox on
+ */
 public class GameWindow {
     // Application Variables
     private final JFrame gameWindow;
     private final GameScreen gameScreen;
     private final Game game;
 
-    private static final Image gameIcon = new ImageIcon(Objects.requireNonNull(GameWindow.class.getResource("/Icons/new_icon.png"))).getImage();
+    private static final Image gameIcon = new ImageIcon(Objects.requireNonNull(GameWindow.class.getResource("/Icons/new_icon.png"))).getImage(); // game icon
 
     // JLabels and JButton variables
     private JTextField arrowNumberInputField;
@@ -27,12 +30,17 @@ public class GameWindow {
     private JLabel rayStatusLabel;
     private JButton endGameButton;
 
-    private final ArrayList<Integer> visitedBoxes = new ArrayList<>();
+    private final ArrayList<Integer> visitedBoxes = new ArrayList<>(); // arraylist to store what hexagonal boxes have been visited
     private static final Random rand = new Random();
-    private int value = 1;
-    private static String name = "hello";
-    private String lastRayStatus = "normal/deflected";
+    private int value = 1; // used for the atom box number guessing
+    private static String name = "hello"; // used for username input window
+    private String lastRayStatus = "normal/deflected"; // string to indicate the status of the previous ray shot (default string given)
 
+    /**
+     * Constructor that links the game's window to the game's screen and the overall game logic
+     * @param gameScreen An instance of the GameScreen class
+     * @param game An instance of the Game class
+     */
     public GameWindow(GameScreen gameScreen, Game game) {
         // Window Construction
         this.game = game;
@@ -69,6 +77,10 @@ public class GameWindow {
         gameWindow.setVisible(true); // visibility option to actually see the window
     }
 
+    /**
+     * Method to create all the clickable JLabel components, such as Score, End Game, Ray Status etc.
+     * @param buttonPanel A JPanel instance used for the JLabel components to be added to
+     */
     private void createLabels(JPanel buttonPanel) {
         scoreLabel = new JLabel(" | Score: " + game.getScore() + " | ");
         scoreLabel.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
@@ -119,6 +131,9 @@ public class GameWindow {
         buttonPanel.add(howToPlayButton);
     }
 
+    /**
+     * Method that creates a window to allow the user to guess the atom locations
+     */
     private void guessAtomsWindow() {
         JFrame jFrame = new JFrame("Enter the box number you think the atom is located in");
         jFrame.setLayout(new FlowLayout());
@@ -178,6 +193,9 @@ public class GameWindow {
         jFrame.setVisible(true);
     }
 
+    /**
+     * Method that creates a window for the user to input their username
+     */
     public static void displayUsernameWindow() {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -195,6 +213,9 @@ public class GameWindow {
         frame.dispose(); // Close the frame after getting the name
     }
 
+    /**
+     * Method to create a window that indicates the end of the game when user clicks it
+     */
     private void endGameWindow() {
         JFrame jFrame = new JFrame("End Game");
         jFrame.setSize(640, 360);
@@ -219,6 +240,10 @@ public class GameWindow {
         LeaderBoardData.storeScore(name, game.getScore());
     }
 
+    /**
+     * Method to create a JTextArea instance for a user's Blackbox score
+     * @return A JTextArea window displaying the user's score
+     */
     private JTextArea getScoreTextArea() {
         JTextArea finalScore = new JTextArea();
         finalScore.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
@@ -233,6 +258,9 @@ public class GameWindow {
         return finalScore;
     }
 
+    /**
+     * Method to ensure valid inputs for inputting an exit point number for Blackbox
+     */
     private void validateInput() {
         try {
             value = Integer.parseInt(arrowNumberInputField.getText());
@@ -262,21 +290,36 @@ public class GameWindow {
         }
     }
 
-
+    /**
+     * Method to create a JColorChooser window, in which the user selects a colour to be used for the marker
+     * @return A colour chosen by the user, using JColorChooser
+     */
     public Color askMarkerColor() {
         return JColorChooser.showDialog(null, "Choose a colour for the Markers", Color.MAGENTA);
     }
 
-    public void addVisitedBox(int value) {
-        if (!visitedBoxes.contains(value)) {
-            visitedBoxes.add(value);
+    /**
+     * Method to add an exit point number to the visitedBoxes list, if visited.
+     * @param exitNumber The number represented by the arrow of the Blackbox board background
+     */
+    public void addVisitedBox(int exitNumber) {
+        if (!visitedBoxes.contains(exitNumber)) {
+            visitedBoxes.add(exitNumber);
         }
     }
 
+    /**
+     * Getter method for the status of the last ray that was shot
+     * @return A string containing the last ray's status
+     */
     public String getLastRayStatus() {
         return lastRayStatus;
     }
 
+    /**
+     * Setter method for the status of the last ray that was shot
+     * @param lastRayStatus A string that contains the last ray's status
+     */
     public void setLastRayStatus(String lastRayStatus) {
         this.lastRayStatus = lastRayStatus;
     }
