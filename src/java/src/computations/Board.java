@@ -3,21 +3,21 @@ package computations;
 import java.util.ArrayList;
 
 public class Board {
-    private Node[][] board=new Node[9][9];
-    private Node[] exit=new Node[54];
+    private Node[][] board=new Node[9][9];//the boxes in the hexagonal board
+    private Node[] exit=new Node[54];//the numbers through which we pass the ray
     public Node[][]getboard(){
         return board;
-    }
+    }//get method for the board
 
     public void setboard(Node[][] board) {
         this.board = board;
-    }
+    }//set method for board
     public void setBoardindex(int i, int j, Node k){
         board[i][j]=k;
-    }
+    }//sets node k in board index i and j
     public void setexit(Node[] a) {
         this.exit = a;
-    }
+    }//sets node a as exit
 
     public String toString(){//overriding the toString() method
         String c="";
@@ -38,11 +38,11 @@ public class Board {
             c = c + "\n";
         }
         return c;
-    }
+    }//to string method to print the whole board
     public Node getnode(int i, int j){
         return this.board[i][j];
-    }
-    public void linkboard(){
+    }//returns the node at index i and j
+    public void linkboard(){//links each node with all its surrounding 6 nodes or exit nodes
 
         int a=5;
         int t=0;
@@ -54,28 +54,28 @@ public class Board {
         int afi=20;
         for(int i=0;i<9;i++){
             for(int j=0;j<a;j++){
-                if(j!=0 && j!=a-1 &&i!=0 && i<4){
+                if(j!=0 && j!=a-1 &&i!=0 && i<4){//sets all sides for each hexagonal boxes that maches the condition
                     this.board[i][j].setSides(0,board[i-1][j-1]);
                     this.board[i][j].setSides(1,board[i-1][j]);
                     this.board[i][j].setSides(2,board[i][j+1]);
                     this.board[i][j].setSides(3,board[i+1][j+1]);
                     this.board[i][j].setSides(4,board[i+1][j]);
                     this.board[i][j].setSides(5,board[i][j-1]);
-                } else if (j!=0 && j!=a-1   && i==4 ) {
+                } else if (j!=0 && j!=a-1   && i==4 ) {//sets all sides for each hexagonal boxes that maches the condition
                     this.board[i][j].setSides(0,board[i-1][j-1]);
                     this.board[i][j].setSides(1,board[i-1][j]);
                     this.board[i][j].setSides(2,board[i][j+1]);
                     this.board[i][j].setSides(3,board[i+1][j]);
                     this.board[i][j].setSides(4,board[i+1][j-1]);
                     this.board[i][j].setSides(5,board[i][j-1]);
-                }else if (j!=0 && j!=a-1 && i!=8  && i>4 ) {
+                }else if (j!=0 && j!=a-1 && i!=8  && i>4 ) {//sets all sides for each hexagonal boxes that maches the condition
                     this.board[i][j].setSides(0,board[i-1][j]);
                     this.board[i][j].setSides(1,board[i-1][j+1]);
                     this.board[i][j].setSides(2,board[i][j+1]);
                     this.board[i][j].setSides(3,board[i+1][j]);
                     this.board[i][j].setSides(4,board[i+1][j-1]);
                     this.board[i][j].setSides(5,board[i][j-1]);
-                } else if (i==0 && j==0) {
+                } else if (i==0 && j==0) {//sets all sides for each hexagonal boxes that maches the condition
                     this.board[i][j].setSides(0,exit[0]);
                     exit[0].setnext(3);
                     exit[0].setSides(0,this.board[i][j]);
@@ -89,7 +89,7 @@ public class Board {
                     exit[1].setnext(2);
                     exit[1].setSides(0,this.board[i][j]);
 
-                }else if (i==4 && j==0) {
+                }else if (i==4 && j==0) {//sets all sides for each hexagonal boxes that maches the condition
                     this.board[i][j].setSides(0,exit[8]);
                     exit[8].setnext(3);
                     exit[8].setSides(0,this.board[i][j]);
@@ -103,7 +103,7 @@ public class Board {
                     exit[9].setnext(2);
                     exit[9].setSides(0,this.board[i][j]);
 
-                }else if (i==8 && j==0) {
+                }else if (i==8 && j==0) {//sets all sides for each hexagonal boxes that maches the condition
                     this.board[i][j].setSides(0,board[i-1][j]);
                     this.board[i][j].setSides(1,board[i-1][j+1]);
                     this.board[i][j].setSides(2,board[i][j+1]);
@@ -118,7 +118,7 @@ public class Board {
                     exit[17].setSides(0,this.board[i][j]);
 
                 }
-                else if (i==8 && j==a-1) {
+                else if (i==8 && j==a-1) {//sets all sides for each hexagonal boxes that maches the condition
                     this.board[i][j].setSides(0,board[i-1][j]);
                     this.board[i][j].setSides(1,board[i-1][j+1]);
                     this.board[i][j].setSides(2,exit[28]);
@@ -132,7 +132,7 @@ public class Board {
                     exit[26].setSides(0,this.board[i][j]);
                     this.board[i][j].setSides(5,board[i][j-1]);
 
-                }else if (i==4 && j==a-1) {
+                }else if (i==4 && j==a-1) {//sets all sides for each hexagonal boxes that maches the condition
                     this.board[i][j].setSides(0,board[i-1][j-1]);
                     this.board[i][j].setSides(1,exit[37]);
                     exit[37].setnext(4);
@@ -147,7 +147,7 @@ public class Board {
                     this.board[i][j].setSides(5,board[i][j-1]);
 
                 }
-                else if (i==0 && j==a-1) {
+                else if (i==0 && j==a-1) {//sets all sides for each hexagonal boxes that maches the condition
                     this.board[i][j].setSides(0,exit[46]);
                     exit[46].setnext(3);
                     exit[46].setSides(0,this.board[i][j]);
@@ -162,7 +162,7 @@ public class Board {
                     this.board[i][j].setSides(5,board[i][j-1]);
 
                 }
-                else if(i<4 && j==0){
+                else if(i<4 && j==0){//sets all sides for each hexagonal boxes that maches the condition
                     this.board[i][j].setSides(0,exit[ao]);
                     exit[ao].setnext(3);
                     exit[ao].setSides(0,this.board[i][j]);
@@ -176,7 +176,7 @@ public class Board {
                     exit[ao].setSides(0,this.board[i][j]);
                     ao=ao+1;
                 }
-                else if(i>4 && j==0){
+                else if(i>4 && j==0){//sets all sides for each hexagonal boxes that maches the condition
                     this.board[i][j].setSides(0,board[i-1][j]);
 
                     this.board[i][j].setSides(1,board[i-1][j+1]);
@@ -190,7 +190,7 @@ public class Board {
                     exit[aon].setnext(1);
                     exit[aon].setSides(0,this.board[i][j]);
                     aon++;
-                } else if (i==0) {
+                } else if (i==0) {//sets all sides for each hexagonal boxes that maches the condition
                     this.board[i][j].setSides(0,exit[atw]);
                     exit[atw].setnext(3);
                     exit[atw].setSides(0,this.board[i][j]);
@@ -204,7 +204,7 @@ public class Board {
                     this.board[i][j].setSides(4,board[i+1][j]);
                     this.board[i][j].setSides(5,board[i][j-1]);
                 }
-                else if(i<4 && j==a-1){
+                else if(i<4 && j==a-1){//sets all sides for each hexagonal boxes that maches the condition
                     this.board[i][j].setSides(0,board[i-1][j-1]);
 
                     this.board[i][j].setSides(1,exit[ath]);
@@ -219,7 +219,7 @@ public class Board {
                     this.board[i][j].setSides(4,board[i+1][j]);
                     this.board[i][j].setSides(5,board[i][j-1]);
                 }
-                else if(i>4 && j==a-1){
+                else if(i>4 && j==a-1){//sets all sides for each hexagonal boxes that maches the condition
                     this.board[i][j].setSides(0,board[i-1][j]);
 
                     this.board[i][j].setSides(2,exit[afo]);
@@ -235,7 +235,7 @@ public class Board {
                     this.board[i][j].setSides(4,board[i+1][j-1]);
                     this.board[i][j].setSides(5,board[i][j-1]);
                 }
-                else if(i==8){
+                else if(i==8){//sets all sides for each hexagonal boxes that maches the condition
 
                     this.board[i][j].setSides(0,board[i-1][j]);
 
