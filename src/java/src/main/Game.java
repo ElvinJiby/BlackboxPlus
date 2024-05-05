@@ -80,7 +80,7 @@ public class Game {
         if (enableNumberedBoard) g.drawImage(boardBoxNumber, 0, 0, 1280, 720, null);
         for (Marker marker : markersList) { // draw markers
             g2d.setColor(marker.getMarkerColour());
-            g2d.fillOval(marker.getX(), marker.getY(), 10, 10);
+            g2d.fillOval(marker.getX(), marker.getY(), 12, 12);
         }
     }
 
@@ -118,7 +118,6 @@ public class Game {
 
         // set final ray towards atom for absorption case
         if (isRayAbsorbed) {
-            System.out.println("-1 found");
             newRayPath.add(new Ray(
                     hexagonalBoxes.get(boxNumList.get(i) - 1).getX(),
                     hexagonalBoxes.get(boxNumList.get(i) - 1).getY(),
@@ -126,7 +125,6 @@ public class Game {
                     hexagonalBoxes.get(boxNumList.get(i) - 1).getY()));
             boxNumList.remove(boxNumList.getLast());
         } else { // in all other cases, set the final ray towards the exit point
-            System.out.println("no absorption");
             ExitPoint endPoint = exitPointsList.get(boxNumList.getLast() - 1);
             newRayPath.add(new Ray(
                     hexagonalBoxes.get(boxNumList.get(i) - 1).getX(),
@@ -154,7 +152,6 @@ public class Game {
             markersList.add(new Marker(endX, endY, colorChoice));
 
             numMarkersUsed += 2; // add 2 markers to the counter
-            System.out.println("Deflected");
             gameWindow.setLastRayStatus("normal/deflected");
         }
         // Absorbed case - Ray absorbed by atom
@@ -165,7 +162,6 @@ public class Game {
             markersList.add(new Marker(startX, startY, Color.GRAY));
 
             numMarkersUsed++; // increment marker counter
-            System.out.println("Absorbed!");
             gameWindow.setLastRayStatus("absorbed");
         }
         // Reflected case = Ray deflects and exits at the same point of entry
@@ -176,7 +172,6 @@ public class Game {
             markersList.add(new Marker(startX, startY, Color.WHITE));
 
             numMarkersUsed++; // increment marker counter
-            System.out.println("Reflected!");
             gameWindow.setLastRayStatus("reflected");
         }
 
@@ -300,7 +295,7 @@ public class Game {
      * Method to initialise the coordinates for all the hexagonal boxes on the board
      * @return An array list of the constructed hexagonal boxes and their coordinates
      */
-    private ArrayList<HexagonalBox> loadHexagonalBoxes() {
+    public static ArrayList<HexagonalBox> loadHexagonalBoxes() {
         ArrayList<HexagonalBox> hexagonalBoxArrayList = new ArrayList<>();
 
         //row 1
@@ -325,7 +320,7 @@ public class Game {
         return hexagonalBoxArrayList;
     }
 
-    private void constructBoxes_Row1and9(ArrayList<HexagonalBox> hexagonalBoxArrayList, int y) {
+    private static void constructBoxes_Row1and9(ArrayList<HexagonalBox> hexagonalBoxArrayList, int y) {
         hexagonalBoxArrayList.add(new HexagonalBox(493, y));
         hexagonalBoxArrayList.add(new HexagonalBox(568, y));
         hexagonalBoxArrayList.add(new HexagonalBox(641, y));
@@ -333,7 +328,7 @@ public class Game {
         hexagonalBoxArrayList.add(new HexagonalBox(790, y));
     }
 
-    private void constructBoxes_Row2and8(ArrayList<HexagonalBox> hexagonalBoxArrayList, int y) {
+    private static void constructBoxes_Row2and8(ArrayList<HexagonalBox> hexagonalBoxArrayList, int y) {
         hexagonalBoxArrayList.add(new HexagonalBox(454, y));
         hexagonalBoxArrayList.add(new HexagonalBox(529, y));
         hexagonalBoxArrayList.add(new HexagonalBox(604, y));
@@ -342,7 +337,7 @@ public class Game {
         hexagonalBoxArrayList.add(new HexagonalBox(826, y));
     }
 
-    private void constructBoxes_Row3and7(ArrayList<HexagonalBox> hexagonalBoxArrayList, int y) {
+    private static void constructBoxes_Row3and7(ArrayList<HexagonalBox> hexagonalBoxArrayList, int y) {
         hexagonalBoxArrayList.add(new HexagonalBox(417, y));
         hexagonalBoxArrayList.add(new HexagonalBox(490, y));
         hexagonalBoxArrayList.add(new HexagonalBox(564, y));
@@ -352,7 +347,7 @@ public class Game {
         hexagonalBoxArrayList.add(new HexagonalBox(863, y));
     }
 
-    private void constructBoxes_Row4and6(ArrayList<HexagonalBox> hexagonalBoxArrayList, int y) {
+    private static void constructBoxes_Row4and6(ArrayList<HexagonalBox> hexagonalBoxArrayList, int y) {
         hexagonalBoxArrayList.add(new HexagonalBox(380, y));
         hexagonalBoxArrayList.add(new HexagonalBox(457, y));
         hexagonalBoxArrayList.add(new HexagonalBox(529, y));
@@ -363,7 +358,7 @@ public class Game {
         hexagonalBoxArrayList.add(new HexagonalBox(900, y));
     }
 
-    private void constructBoxes_Row5(ArrayList<HexagonalBox> hexagonalBoxArrayList) {
+    private static void constructBoxes_Row5(ArrayList<HexagonalBox> hexagonalBoxArrayList) {
         hexagonalBoxArrayList.add(new HexagonalBox(344, 361));
         hexagonalBoxArrayList.add(new HexagonalBox(418, 361));
         hexagonalBoxArrayList.add(new HexagonalBox(492, 361));

@@ -4,6 +4,9 @@ import menus.StartScreen;
 
 import javax.swing.*;
 
+/**
+ * Used for starting the game
+ */
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -11,7 +14,7 @@ public class Main {
                 new StartScreen();
             } catch (Exception ex) {
                 ex.printStackTrace();
-                JOptionPane.showMessageDialog(null,"Failed to open the Start Screen.", "Start Screen Open Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,ex.getMessage(), "Start Screen Open Error", JOptionPane.ERROR_MESSAGE);
                 System.exit(-1);
             }
         });

@@ -1,8 +1,3 @@
-user12345,1
-s,2
-user52932,25
-user99068,26
-user12849,30
 user1,100
 user2,100
 user3,100
