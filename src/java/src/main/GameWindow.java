@@ -17,17 +17,13 @@ public class GameWindow {
     private final JFrame gameWindow;
     private final GameScreen gameScreen;
     private final Game game;
-    private final JPanel buttonPanel;
+
+    private static final Image gameIcon = new ImageIcon(GameWindow.class.getResource("/Icons/new_icon.png")).getImage();
 
     // JLabels and JButton variables
     private JTextField arrowNumberInputField;
-
-    private JLabel arrowNumberInputPrompt;
-    private JLabel playerNameLabel;
     private JLabel scoreLabel;
     private JLabel rayStatusLabel;
-
-    private JButton howToPlayButton;
     private JButton endGameButton;
 
     private final ArrayList<Integer> visitedBoxes = new ArrayList<>();
@@ -45,7 +41,7 @@ public class GameWindow {
         gameWindow.setLocationRelativeTo(null); // when opened, the window will open in the middle of the screen, instead of the top left
         gameWindow.setResizable(false); // disables the ability to resize the window
         gameWindow.setTitle("Blackbox+ - By Group 50"); // title of the window
-        gameWindow.setIconImage(new ImageIcon(getClass().getResource("/Icons/new_icon.png")).getImage());
+        gameWindow.setIconImage(gameIcon);
         gameWindow.setLayout(new BorderLayout());
 
         // Game Panel (manages the rendering of images/rays/assets/etc.)
@@ -58,7 +54,7 @@ public class GameWindow {
         }
 
         // Button Panel (manages all the button/text input guis)
-        buttonPanel = new JPanel();
+        JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.BLACK);
         createLabels(buttonPanel); // creates all the buttons/clickable elements and adds it to buttonPanel
         try {
@@ -91,15 +87,15 @@ public class GameWindow {
         rayStatusLabel.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
         rayStatusLabel.setForeground(Color.WHITE);
 
-        playerNameLabel = new JLabel("  | Player Name: " + name);
+        JLabel playerNameLabel = new JLabel("  | Player Name: " + name);
         playerNameLabel.setForeground(Color.WHITE);
         playerNameLabel.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
 
-        arrowNumberInputPrompt = new JLabel("| Enter an integer 1-54: ");
+        JLabel arrowNumberInputPrompt = new JLabel("| Enter an integer 1-54: ");
         arrowNumberInputPrompt.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
         arrowNumberInputPrompt.setForeground(Color.WHITE);
 
-        howToPlayButton = new JButton("How To Play");
+        JButton howToPlayButton = new JButton("How To Play");
         howToPlayButton.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
         howToPlayButton.setBounds(50, 50, 100, 30);
         howToPlayButton.setFocusable(false);
@@ -143,7 +139,8 @@ public class GameWindow {
                     int guess = Integer.parseInt(textField.getText());
                     if (guess < 1 || guess > 61) { // validation check
                         throw new IllegalArgumentException("Invalid guess. The boxes are numbered from 1-61");
-                    } if (guessList.contains(guess)) { // validation check 2
+                    }
+                    if (guessList.contains(guess)) { // validation check 2
                         throw new IllegalArgumentException("You have already guessed that box number.");
                     }
 
@@ -183,13 +180,12 @@ public class GameWindow {
     public static void displayUsernameWindow() {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        ImageIcon icon = new ImageIcon(new ImageIcon(Game.class.getResource("/Icons/new_icon.png")).getImage().getScaledInstance(125, 125, Image.SCALE_SMOOTH));
+        ImageIcon icon = new ImageIcon(gameIcon.getScaledInstance(125, 125, Image.SCALE_SMOOTH));
 
         while (true) {
             try {
                 name = (String) JOptionPane.showInputDialog(frame, "Please enter your name:", "Username", JOptionPane.PLAIN_MESSAGE, icon, null, ("user" + rand.nextInt(99999)));
                 if (name.length() > 30) throw new IllegalArgumentException("Name must be within 30 characters.");
-                if (name == null) new StartScreen();
                 break;
             } catch (IllegalArgumentException e) {
                 JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
@@ -227,7 +223,7 @@ public class GameWindow {
         finalScore.setText(name + " has scored: " + game.getScore() + " points!");
 
         String scoreMessage = "Number of Markers Used: " + game.getNumMarkersUsed() + " x 1 point = " + game.getNumMarkersUsed() + " points\n"
-                + "Number of Incorrect Guesses: " + game.getNumIncorrectGuesses() + " x 5 points = " + (game.getNumIncorrectGuesses()*5) + " points\n"
+                + "Number of Incorrect Guesses: " + game.getNumIncorrectGuesses() + " x 5 points = " + (game.getNumIncorrectGuesses() * 5) + " points\n"
                 + "----------------------------------------------------\n"
                 + game.getPlayerName() + " has scored a total of " + game.getScore() + " points!";
         finalScore.setText(scoreMessage);
